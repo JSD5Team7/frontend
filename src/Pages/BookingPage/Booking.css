@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;;
+}
+
+.page_body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.bodyHowTo{
+    width: 30%;
+    border-left: solid gray;
+}
+
+.bodyContent{
+    width: 100%;
+    border-left: solid gray;
+    border-right: solid gray;
+}
+
+.bodySummary{
+    width: 30%;
+    border-right: solid gray;
+}
