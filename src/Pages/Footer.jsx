@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
     return (
-       <footer className="footer fixed bottom-0 right-0 left-0 flex w-full justify-between p-5 border border-blue-800 bg-blue-700 text-white">
+       <footer className="footer flex w-full justify-between items-center p-5 text-white">
             <p>&copy; 2023 All right reserved | Sportclub.com </p>
-            <div className="footer-link w-1/5 flex justify-between">
-                <Link to={'/'} className='hover:text-emerald-400 hover:font-bold'>Terms of Service</Link>
-                <Link to={'/'} className='hover:text-emerald-400 hover:font-bold'>Privacy</Link>
+            <div className="footer-link flex justify-center items-center gap-10">
+                <Link to={'/terms-of-service'} className='hover:text-blue-900 hover:font-bold'>Terms of Service</Link>
+                <Link to={'/privacy'} className='hover:text-blue-900 hover:font-bold'>Privacy</Link>
             </div>
        </footer>
     )
