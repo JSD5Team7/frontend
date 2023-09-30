@@ -4,7 +4,7 @@ import Layout from '../Layout/Layout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faBuilding,faEnvelope,faPhone} from '@fortawesome/free-solid-svg-icons'
 
-const inputStyle = 'border border-gray-400 rounded-md p-2 focus:outline-none focus:border-emerald-400 caret-emerald-400 placeholder:italic placeholder:text-slate-300 ';
+const inputStyle = 'border-2 border-blue-500 rounded-md p-2 bg-transparent focus:outline-none focus:border-emerald-400 caret-emerald-400 placeholder:italic placeholder:text-slate-300 ';
 
 
 const ContactUs = () => {
@@ -32,7 +32,7 @@ const ContactUs = () => {
         <Layout>
             <div className="contact-container mt-16 p-10 w-full flex justify-center items-stretch">
                 <div className="contact-content flex bg-blue-100 bg-opacity-20 backdrop-blur-md m-0 p-0 rounded-md shadow-xl">
-            <div className="get-intouch w-3/4 rounded-md text-gray-900 m-0 p-10 flex flex-col justify-center items-start bg-center bg-no-repeat bg-cover " style={{backgroundImage : 'url(/src/assets/images/bg-contact.jpeg)'}}>
+            <div className="get-intouch w-3/4 rounded-l-md text-gray-900 m-0 p-10 flex flex-col justify-center items-start bg-center bg-no-repeat bg-cover" style={{backgroundImage : 'url(/src/assets/images/bg-contact.jpeg)'}}>
                 <div className="content-contact w-full h-full m-0 p-10 bg-blue-200 bg-opacity-70">
                 <h2 className='title font-san font-semibold text-4xl text-gray-900 '>Get in Touch with Us!</h2>
                 <h3 className='text-lg mt-6'>Hello,</h3>
