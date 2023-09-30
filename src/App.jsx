@@ -12,7 +12,13 @@ function App() {
     // <Slider/>
     <Layout>
       <h1>This is Landing Page</h1>
-      <Slider trainer= {trainers}/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+
+        <Slider trainer= {trainers}/>
+      
     </Layout>
   )
 }

@@ -1,9 +1,11 @@
 import React from 'react'
 import { useState } from 'react';
+import useAPI from '../Hook/useAPI';
+
 import Layout from '../Layout/Layout';
 import Trainerlist from '../Components/Trainerlist';
-import Slider from '../Layout/Slider';
-import useAPI from '../Hook/useAPI';
+
+
 
 
 const TrainerDetails = () => {
@@ -12,15 +14,15 @@ const TrainerDetails = () => {
 
         const [filterActivity, setFilterActivity] = useState('')
         const [sortName, setSortName] = useState('')
-        // const [showInfo, setShowInfo] = useState({});
 
-        // const toggleInfo = (id) => {
-        //     console.log(id)
-        //     setShowInfo((prevInfo) => ({
-        //       ...prevInfo,
-        //       [id]: !prevInfo[id], // เปลี่ยนสถานะการแสดงข้อมูลของ ID นี้
-        //     }));
-        //   };
+
+        const toggleInfo = (id) => {
+            console.log(id)
+            setShowInfo((prevInfo) => ({
+              ...prevInfo,
+              [id]: !prevInfo[id], // เปลี่ยนสถานะการแสดงข้อมูลของ ID นี้
+            }));
+          };
      
 
   return (
@@ -58,9 +60,7 @@ const TrainerDetails = () => {
                         <option value="nameZA">Z-A</option>
                 </select>
             </div>
-
-
-
+            
             <Trainerlist trainers={trainers} filterActivity={filterActivity} sortName={sortName}/>
 
         </div>

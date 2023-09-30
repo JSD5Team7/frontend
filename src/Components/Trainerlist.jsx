@@ -3,7 +3,7 @@ import TrainerCard from './TrainerCard';
 
 const Trainerlist = ({ trainers, filterActivity, sortName }) => {
   return (
-    <div className='trainers-list flex flex-wrap m-auto mt-3 gap-2 w-5/6 justify-normal '>
+    <div className='trainers-list flex flex-wrap gap-3 justify-center'>
 
                 {trainers
                     .filter((trainers) => filterActivity === '' || trainers.activity === filterActivity)
@@ -22,7 +22,6 @@ const Trainerlist = ({ trainers, filterActivity, sortName }) => {
                             key={trainer.id} 
                             name={trainer.name}
                             activity={trainer.activity}
-                            information={trainer.information}
                         />
                 ))}
 
