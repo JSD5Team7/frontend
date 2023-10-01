@@ -1,25 +1,25 @@
 import React from 'react'
 import './App.css'
 import Layout from './Layout/Layout.jsx'
-import Slider from './Layout/Slider'
-import useAPI from './Hook/useAPI'
+import SildeTrainer from './Components/SildeTrainer';
 
 
 
 function App() {
-  const { trainers } = useAPI();
   return (
-    // <Slider/>
     <Layout>
-      <h1>This is Landing Page</h1>
       <br/>
       <br/>
       <br/>
       <br/>
+      <br/>
+      <br/>
+      <SildeTrainer/>
 
-        <Slider trainer= {trainers}/>
-      
+     
+
     </Layout>
+    
   )
 }
 
