@@ -3,23 +3,8 @@ import courtTennislogo from './img/tennis-court.png'
 import courtBad from './img/badminton-court.png'
 import roomYoga from './img/yoga_room.png'
 import {CustomContext} from './Booking'
-const getTennis = [
-    {
-        id:1,
-        sportType:"tennis",
-        court:"1"
-    },
-    {
-        id:2,
-        sportType:"tennis",
-        court:"2"
-    },
-    {
-        id:3,
-        sportType:"tennis",
-        court:"3"
-    }
-]
+import axios from 'axios';
+
 const getBadminton = [
     {
         id:1,
@@ -180,17 +165,55 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     const [selectwho,setselectwho] = useState({id:"",name:"",des:""})
     const [dataCoach,setdataCoach] = useState([]); 
 
+    const TennisCourt = async () => {
+        const res = await axios.get("http://localhost:3000/tennisCourt");
+        if(res.status === 200 && res.data){
+            const getData = res.data;
+            console.log(getData);
+            setdata(getData);
+            return true;
+        }else{
+            console.log(`error get ${error}`);
+            return false;
+        }
+        
+    };
+    const TimeWithCourt = async (court)=>{
+        console.log("read: ",court);
+        const res = await axios.get(`http://localhost:3000/tennisCourt/${court}`);
+        if(res.status ===200 && res.data){
+            const time = res.data;
+            console.log(time);
+            setshowTime(time);
+            return true;
+        }else{
+            console.log(`error get ${error}`);
+            return false;
+        }
+    }
+
     useEffect(()=>{
         //init dataCoach for reload;
-        if(contextValue.bookdata.coach != ""){
+        console.log("useEffect work");
+
+        //load court
+        
+        // contextValue.bookdata.coach != ""
+        if(true){
             switch(sport){
                 case "tennis":
+                    TennisCourt();
+                    setlogo(courtTennislogo);
                     setdataCoach(AvableCoachsTennis);
                     break;
                 case "badminton":
+                    setdata(getBadminton);
+                    setlogo(courtBad);
                     setdataCoach(AvableCoachsBadminton);
                     break;
                 case "yoga":
+                    setdata(getYoga);
+                    setlogo(roomYoga);
                     setdataCoach(AvableCoachsYoga);
                     break;
             }
@@ -230,6 +253,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
 
     const handelcourt=(id,sport)=>{
         setselectCourt({court:id,});
+
         //update data context booking
         contextValue.setbookdata((previousState)=>{ 
             return {...previousState,sport:sport,location:id}
@@ -251,7 +275,10 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                 // setshowTime(<ObjShowtime propdata={date_today}/>);
                 const today_form = today.toLocaleString().split(',')[0];
                 //show time button
-                setshowTime(date_today);
+
+                // setshowTime(date_today);
+                TimeWithCourt(contextValue.bookdata.location);
+
                 //update date
                 contextValue.setbookdata((previousState)=>{
                     return {...previousState,date:today_form}
@@ -267,12 +294,12 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                 break;
         }
     }
-    const handleTime=(time)=>{
+    const handleTime=(eachTime)=>{
         // console.log(`select:${time.id} and ${time.time}`)
-        setselectTime({id:time.id,time:time.time});
+        setselectTime({time:eachTime.startTime});
         //update data context booking
         contextValue.setbookdata((previousState)=>{ 
-            return {...previousState,time:time.time}
+            return {...previousState,time:eachTime.startTime}
         });
     };
     const handleCoach=(status)=>{
@@ -336,26 +363,6 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
         changeContentS1();
     }
 
-    
-
-    useEffect(()=>{
-        switch(sport){
-            case "tennis":
-                setdata(getTennis);
-                setlogo(courtTennislogo);
-                break;
-            case "badminton":
-                setdata(getBadminton);
-                setlogo(courtBad);
-                break;
-            case "yoga":
-                setdata(getYoga);
-                setlogo(roomYoga);
-                break;
-        }
-
-    },[]);  
-
     return(
         <>
         <div>
@@ -365,9 +372,9 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             <div className='m-2 grid grid-cols-3 gap-3'>
                 {data.map((eachcourt)=>( 
                     <div>
-                        <button className={contextValue.bookdata.location==eachcourt.court? btn_select:btn_def} onClick={()=>handelcourt(eachcourt.id,eachcourt.sportType)}>
+                        <button className={contextValue.bookdata.location==eachcourt.courtNumber? btn_select:btn_def} onClick={()=>handelcourt(eachcourt.courtNumber,sport)}>
                             <img src={logo} alt="" />
-                            <span className='ms-2'>{eachcourt.court}</span>
+                            <span className='ms-2'>{eachcourt.courtNumber}</span>
                         </button>
                     </div>
                 ))}
@@ -389,8 +396,8 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                         <div className='m-2 grid grid-cols-4 gap-3'>
                             {showTime.map((eachTime)=>(
                             <div >
-                                <button className={eachTime.status == "available"? (contextValue.bookdata.time==eachTime.time?btn_dateSelect:btn_dateAva):btn_dateNotAva} onClick={()=>handleTime(eachTime)}>
-                                    <span>{eachTime.time}</span>
+                                <button className={eachTime.isBooked === false? (contextValue.bookdata.time==eachTime.startTime?btn_dateSelect:btn_dateAva):btn_dateNotAva} onClick={()=>handleTime(eachTime)}>
+                                    <span>{eachTime.startTime}-{eachTime.endTime} </span>
                                 </button>
                             </div>
                             ))}
