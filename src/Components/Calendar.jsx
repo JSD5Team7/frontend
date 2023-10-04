@@ -11,7 +11,7 @@ const data = [
     {date: '2023-10-19', time: '13:00 - 14:00', status: false },
     {date: '2023-10-19', time: '14:00 - 15:00', status: true },
     {date: '2023-10-19', time: '15:00 - 16:00', status: false },
-    //2023-10-07
+    
     {date: '2023-10-20', time: '06:00 - 07:00', status: false },
     {date: '2023-10-20', time: '07:00 - 08:00', status: false },
     {date: '2023-10-20', time: '08:00 - 09:00', status: false },

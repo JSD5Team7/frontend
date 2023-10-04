@@ -43,7 +43,7 @@ function App() {
       <SildeTrainer/>
 
       {/* <Calendar/> */}
-      <TennisBookingApp/>
+      {/* <TennisBookingApp/> */}
     </Layout>
     
   )
