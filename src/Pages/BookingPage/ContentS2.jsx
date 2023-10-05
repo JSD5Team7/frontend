@@ -1,24 +1,10 @@
-import { useState,useEffect} from 'react'
+import { useContext,useState,useEffect} from 'react'
 import courtTennislogo from './img/tennis-court.png'
 import courtBad from './img/badminton-court.png'
 import roomYoga from './img/yoga_room.png'
-const getTennis = [
-    {
-        id:1,
-        sportType:"tennis",
-        court:"1"
-    },
-    {
-        id:2,
-        sportType:"tennis",
-        court:"2"
-    },
-    {
-        id:3,
-        sportType:"tennis",
-        court:"3"
-    }
-]
+import {CustomContext} from './Booking'
+import axios from 'axios';
+
 const getBadminton = [
     {
         id:1,
@@ -166,7 +152,9 @@ const AvableCoachsYoga = [
 ];
 
 
-function ContentS2({sport,changeTostep3,changeContentS3}) {
+function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeContentS1}) {
+    const contextValue = useContext(CustomContext);
+
     const [data,setdata] = useState([]);
     const [logo,setlogo] = useState();
     const [selectCourt,setselectCourt] = useState({court:"",sportype:sport});
@@ -176,6 +164,77 @@ function ContentS2({sport,changeTostep3,changeContentS3}) {
     const [selectcoach,setselectcoach] = useState({status:"btn_Nocoach"});
     const [selectwho,setselectwho] = useState({id:"",name:"",des:""})
     const [dataCoach,setdataCoach] = useState([]); 
+
+    const TennisCourt = async () => {
+        const res = await axios.get("http://localhost:3000/tennisCourt");
+        if(res.status === 200 && res.data){
+            const getData = res.data;
+            console.log(getData);
+            setdata(getData);
+            return true;
+        }else{
+            console.log(`error get ${error}`);
+            return false;
+        }
+        
+    };
+    const TimeWithCourt = async (court)=>{
+        console.log("read: ",court);
+        const res = await axios.get(`http://localhost:3000/tennisCourt/${court}`);
+        if(res.status ===200 && res.data){
+            const time = res.data;
+            console.log(time);
+            setshowTime(time);
+            return true;
+        }else{
+            console.log(`error get ${error}`);
+            return false;
+        }
+    }
+
+    useEffect(()=>{
+        //init dataCoach for reload;
+        console.log("useEffect work");
+
+        //load court
+        
+        // contextValue.bookdata.coach != ""
+        if(true){
+            switch(sport){
+                case "tennis":
+                    TennisCourt();
+                    setlogo(courtTennislogo);
+                    setdataCoach(AvableCoachsTennis);
+                    break;
+                case "badminton":
+                    setdata(getBadminton);
+                    setlogo(courtBad);
+                    setdataCoach(AvableCoachsBadminton);
+                    break;
+                case "yoga":
+                    setdata(getYoga);
+                    setlogo(roomYoga);
+                    setdataCoach(AvableCoachsYoga);
+                    break;
+            }
+        }
+        //init display time
+        if(contextValue.bookdata.time != ""){
+            switch(contextValue.bookdata.day){
+                case "btn_day":
+                    setshowTime(date_today);
+                    break;
+                case "btn_tow":
+                    setshowTime(date_tomorrow);
+                    break;
+                default:
+                    setshowTime(date_today);
+                    break;
+            }
+        }else{
+            setshowTime(date_init);
+        }
+    },[]);
 
     //State Stytle
     const btn_def = "flex items-center justify-left w-45 h-25 inline-flex bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
@@ -193,26 +252,55 @@ function ContentS2({sport,changeTostep3,changeContentS3}) {
     const card_selected = "flex flex-row block max-w-sm p-6 bg-purple-300 border border-gray-200 rounded-lg shadow hover:bg-purple-100"
 
     const handelcourt=(id,sport)=>{
-        setselectCourt({court:id,})
+        setselectCourt({court:id,});
+
+        //update data context booking
+        contextValue.setbookdata((previousState)=>{ 
+            return {...previousState,sport:sport,location:id}
+        });
     }
     const handleDay=(e,day)=>{
-        setselectday({day:day})
-        // const btn = e.target.id;
-        // console.log(btn)
+        const today = new Date(Date.now());
+        const tomorrow = new Date(Date.now());
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        setselectday({day:day});
+
+        contextValue.setbookdata((previousState)=>{ 
+            return {...previousState,day:day}
+        });
+
         switch(day){
             case "btn_day":
                 // setshowTime(<ObjShowtime propdata={date_today}/>);
-                setshowTime(date_today);
+                const today_form = today.toLocaleString().split(',')[0];
+                //show time button
+
+                // setshowTime(date_today);
+                TimeWithCourt(contextValue.bookdata.location);
+
+                //update date
+                contextValue.setbookdata((previousState)=>{
+                    return {...previousState,date:today_form}
+                });
                 break;
             case "btn_tow":
                 // setshowTime(<ObjShowtime propdata={date_tomorrow}/>);
+                const tmw_form = tomorrow.toLocaleString().split(',')[0];
                 setshowTime(date_tomorrow);
+                contextValue.setbookdata((previousState)=>{
+                    return {...previousState,date:tmw_form}
+                });
                 break;
         }
     }
-    const handleTime=(time)=>{
+    const handleTime=(eachTime)=>{
         // console.log(`select:${time.id} and ${time.time}`)
-        setselectTime({id:time.id,time:time.time});
+        setselectTime({time:eachTime.startTime});
+        //update data context booking
+        contextValue.setbookdata((previousState)=>{ 
+            return {...previousState,time:eachTime.startTime}
+        });
     };
     const handleCoach=(status)=>{
         switch(status){
@@ -221,60 +309,59 @@ function ContentS2({sport,changeTostep3,changeContentS3}) {
                 switch(sport){
                     case "tennis":
                         setdataCoach(AvableCoachsTennis);
+                        //update data context booking
+                        contextValue.setbookdata((previousState)=>{ 
+                            return {...previousState,coach:status}
+                        });
                         break;
                     case "badminton":
                         setdataCoach(AvableCoachsBadminton);
+                        contextValue.setbookdata((previousState)=>{ 
+                            return {...previousState,coach:status}
+                        });
                         break;
                     case "yoga":
                         setdataCoach(AvableCoachsYoga);
+                        contextValue.setbookdata((previousState)=>{ 
+                            return {...previousState,coach:status}
+                        });
                         break;
                 }
-                
                 break;
             case "btn_Nocoach":
                 setselectcoach({status:"btn_Nocoach"});
                 setdataCoach([]);
                 setselectwho({});
+
+                contextValue.setbookdata((previousState)=>{ 
+                    return {...previousState,coach:status}
+                });
+                contextValue.setbookdata((previousState)=>{ 
+                    return {...previousState,who:{id:"",name:"",des:"",image:""}}
+                });
                 break;
         }
     }
     const handleWho=(coach)=>{
         // console.log(`coach:  ${coach.name} ${coach.id}`);
         setselectwho({id:coach.id,name:coach.name,des:coach.des})
+        contextValue.setbookdata((previousState)=>{ 
+            return {...previousState,who:{id:coach.id,name:coach.name,des:coach.des,image:coach.image}}
+        });
     }
     const handleNext=()=>{
-        const getDataPage2 = {
-            getSport:sport,
-            getCourt:selectCourt.court,
-            getDay:selectday.day,
-            getTime:selectTime,
-            getCoach:selectcoach.status,
-            getWho:selectwho
-        };
         //console.log(getDataPage2);
         console.log("Next")
         changeTostep3();
-        changeContentS3(getDataPage2);
+        changeContentS3();
         
     }
 
-    useEffect(()=>{
-        switch(sport){
-            case "tennis":
-                setdata(getTennis);
-                setlogo(courtTennislogo);
-                break;
-            case "badminton":
-                setdata(getBadminton);
-                setlogo(courtBad);
-                break;
-            case "yoga":
-                setdata(getYoga);
-                setlogo(roomYoga);
-                break;
-        }
-
-    },[]);  
+    const handleBack =()=>{
+        console.log("Back");
+        changeHowtoS1();
+        changeContentS1();
+    }
 
     return(
         <>
@@ -282,13 +369,12 @@ function ContentS2({sport,changeTostep3,changeContentS3}) {
             <div>
                 <h1>SPORT: {sport}</h1>
             </div>
-
             <div className='m-2 grid grid-cols-3 gap-3'>
                 {data.map((eachcourt)=>( 
                     <div>
-                        <button className={selectCourt.court==eachcourt.court? btn_select:btn_def} onClick={()=>handelcourt(eachcourt.id,eachcourt.sportType)}>
+                        <button className={contextValue.bookdata.location==eachcourt.courtNumber? btn_select:btn_def} onClick={()=>handelcourt(eachcourt.courtNumber,sport)}>
                             <img src={logo} alt="" />
-                            <span className='ms-2'>{eachcourt.court}</span>
+                            <span className='ms-2'>{eachcourt.courtNumber}</span>
                         </button>
                     </div>
                 ))}
@@ -297,20 +383,21 @@ function ContentS2({sport,changeTostep3,changeContentS3}) {
             <div >
                 <div >
                     <div className="inline-flex">
-                        <button id='btn_day' className={selectCourt.court!=""?((selectday.day=="btn_day")? btn_day:btn_defDayL):btn_NotAva} onClick={(e)=>handleDay(e,"btn_day")}>
+                        <button id='btn_day' className={contextValue.bookdata.location!=""?((contextValue.bookdata.day=="btn_day")? btn_day:btn_defDayL):btn_NotAva} onClick={(e)=>handleDay(e,"btn_day")}>
                             To day
                         </button>
-                        <button id='btn_tow' className={selectCourt.court!=""?((selectday.day=="btn_tow")? btn_day:btn_defDayR):btn_NotAva} onClick={(e)=>handleDay(e,"btn_tow")}>
+                        <button id='btn_tow' className={contextValue.bookdata.location!=""?((contextValue.bookdata.day=="btn_tow")? btn_day:btn_defDayR):btn_NotAva} onClick={(e)=>handleDay(e,"btn_tow")}>
                             Tomorrow
                         </button>
                         </div>
                     </div>
+
                     <div>
                         <div className='m-2 grid grid-cols-4 gap-3'>
                             {showTime.map((eachTime)=>(
                             <div >
-                                <button className={eachTime.status == "available"? (selectTime.id==eachTime.id?btn_dateSelect:btn_dateAva):btn_dateNotAva} onClick={()=>handleTime(eachTime)}>
-                                    <span>{eachTime.time}</span>
+                                <button className={eachTime.isBooked === false? (contextValue.bookdata.time==eachTime.startTime?btn_dateSelect:btn_dateAva):btn_dateNotAva} onClick={()=>handleTime(eachTime)}>
+                                    <span>{eachTime.startTime}-{eachTime.endTime} </span>
                                 </button>
                             </div>
                             ))}
@@ -321,11 +408,11 @@ function ContentS2({sport,changeTostep3,changeContentS3}) {
 
             <div>
                 <div className="inline-flex">
-                    <button className={selectTime.time!=""?((selectcoach.status=="btn_coach")? btn_day:btn_defDayL):btn_NotAva} 
+                    <button className={contextValue.bookdata.time!=""?((contextValue.bookdata.coach=="btn_coach")? btn_day:btn_defDayL):btn_NotAva} 
                     onClick={()=>handleCoach("btn_coach")}> 
                         <span>Coach</span> 
                     </button>
-                    <button className={selectTime.time!=""?((selectcoach.status=="btn_Nocoach")? btn_day:btn_defDayL):btn_NotAva}
+                    <button className={contextValue.bookdata.time!=""?((contextValue.bookdata.coach=="btn_Nocoach")? btn_day:btn_defDayL):btn_NotAva}
                     onClick={()=>handleCoach("btn_Nocoach")}>
                         <span>No Coach</span>
                     </button>
@@ -334,7 +421,7 @@ function ContentS2({sport,changeTostep3,changeContentS3}) {
                 <div className="flex justify-center m-3">
                     <div className="h-80 w-96 overflow-auto border-solid border-2 border-gray-500 rounded-md">
                         {dataCoach.map((eachcoach)=>(
-                            <a href="#" className={selectwho.id==eachcoach.id?card_selected:card_Ava} onClick={()=>handleWho(eachcoach)}>
+                            <a href="#" className={contextValue.bookdata.who.id==eachcoach.id?card_selected:card_Ava} onClick={()=>handleWho(eachcoach)}>
                                 <img src={eachcoach.image} alt="" className='h-16 w-16 rounded-full'/>
                                 <div className='flex flex-col justify-center'>
                                     <h2 className="mb-2 text-2xl font-bold tracking-tight :text-black"><span>{eachcoach.name}</span></h2>
@@ -344,10 +431,10 @@ function ContentS2({sport,changeTostep3,changeContentS3}) {
                         ))}
                     </div>
                 </div>
-                
             </div>
 
-            <div className="m-10 flex justify-end">
+            <div className="m-10 flex justify-between">
+                <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleBack()}>Back</button>
                 <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleNext()}>Next</button>
             </div>
             
