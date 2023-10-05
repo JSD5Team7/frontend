@@ -1,4 +1,5 @@
 import React from 'react'
+import { SwiperSlide } from 'swiper/react';
 import Slider from '../Layout/Slider'
 import useAPI from '../Hook/useAPI'
 import TrainerCard from './TrainerCard'
@@ -9,15 +10,18 @@ function SildeTrainer() {
   return (
     <>
         <Slider>
+
         {trainers
         .map((trainer) => (
+          <SwiperSlide>
             <TrainerCard 
             key={trainer.id} 
             name={trainer.name}
             activity={trainer.activity}
             information={trainer.information}
             />
-        ))}
+        </SwiperSlide>))}
+        
         </Slider>
         <div className='flex justify-end mr-10'>
             <Link to={'/coach'}><button className='rounded-xl border-2 border-emerald-400 hover:bg-emerald-400 p-2'>See more</button></Link>
