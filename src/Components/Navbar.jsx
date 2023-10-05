@@ -4,10 +4,6 @@ import {faImage,faCircleUser} from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom' 
 import '../Pages/style.css'
 
-
-
-
-
 const Navbar = () => {
     return (
        <div className="navigation top-0 left-0 right-0 flex p-3 w-full text-white justify-between items-center ">

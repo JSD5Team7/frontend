@@ -1,17 +1,21 @@
 import React from 'react'
+import BackgroundLayout from './BackgroundLayout'
 import Navbar from '../Components/Navbar'
-import Footer from '../Components/Footer'
+
+import Footer from '../Pages/Footer'
+
+
 
 
 const Layout = ({children}) => {
     return (
-        <>
-        <Navbar/>
-        <div className='box-border flex flex-col justify-center items-center'>
-        {children}
-        </div>
-        <Footer/>
-        </>
+
+        <BackgroundLayout>
+            <Navbar/>
+                {children}
+            <Footer/>
+        </BackgroundLayout>
+        
     )
 }
 
