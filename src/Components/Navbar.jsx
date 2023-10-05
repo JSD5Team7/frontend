@@ -3,10 +3,6 @@ import React from 'react'
 import { Link } from 'react-router-dom' //use <a></a> instead of <Link></Link> because don't use router now
 import '../Pages/style.css'
 
-
-
-
-
 const Navbar = () => {
     return (
        <div className="navigation fixed top-0 left-0 right-0 bg-blue-700 flex p-3 w-full text-white justify-between items-center">
