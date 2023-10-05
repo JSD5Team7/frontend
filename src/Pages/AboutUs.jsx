@@ -1,6 +1,6 @@
 import SlideImage from '../Components/SlideImage'
 import Layout from '../Layout/Layout'
-import Map from '../Components/Map'
+
 
 const AboutUs = () => {
     return(
@@ -54,7 +54,7 @@ const AboutUs = () => {
                 </div>
             </div>
                 <SlideImage/>
-                <Map/>
+               
             </>
         </Layout>
 
