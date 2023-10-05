@@ -2,7 +2,7 @@ import React from 'react'
 import BackgroundLayout from './BackgroundLayout'
 import Navbar from '../Components/Navbar'
 
-import Footer from '../Pages/Footer'
+import Footer from '../Components/Footer'
 
 
 

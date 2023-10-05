@@ -9,7 +9,7 @@ const Login = () => {
     <Layout>
 
         <div className='login-container flex-col flex items-center justify-center h-screen'>
-            <h1 className='text-7xl m-12'>Sign in</h1>
+            <h1 className='text-7xl mb-12'>Sign in</h1>
 
             <img src="" alt="" />
 

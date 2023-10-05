@@ -1,12 +1,12 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faImage,faCircleUser} from '@fortawesome/free-solid-svg-icons'
+import { faImage,faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom' 
 import '../Pages/style.css'
 
 const Navbar = () => {
     return (
-       <div className="navigation top-0 left-0 right-0 flex p-3 w-full text-white justify-between items-center ">
+       <div className="navigation top-0 left-0 right-0 flex p-3 w-full text-white justify-between items-center">
             <div className="nav-logo flex justify-center gap-2 items-center">
             <FontAwesomeIcon icon={faImage} size='2xl' className='hidden'/>
             <img src="/public/dev.png" alt="logo image" className='w-12' />
