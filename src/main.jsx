@@ -9,9 +9,12 @@ import TrainerDetails from './Pages/TrainerDetails.jsx'
 import Booking from './Pages/BookingPage/Booking.jsx'
 import ContactUs from './Pages/Contact.jsx'
 import Login from './Pages/Login.jsx'
-
+import TermsOfService from './Pages/TermsOfService.jsx'
+import Privacy from './Pages/Privacy.jsx'
+import Registration from './Pages/Registration.jsx'
 
 import './index.css'
+
 
 const router = createBrowserRouter([
   {path:'/', element:<App/>},
@@ -21,7 +24,10 @@ const router = createBrowserRouter([
   {path:'/profile', element:<ProfileComponent/>},
   {path:'/contact-us', element: <ContactUs/>},
   {path:'/coach', element:<TrainerDetails/>},
-  {path:'/login', element:<Login/>}
+  {path:'/login', element:<Login/>},
+  {path:'/terms-of-service', element:<TermsOfService/>},
+  {path:'/privacy', element:<Privacy/>},
+  {path:'/signup', element:<Registration/>}
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -1,16 +1,21 @@
 import React from 'react'
+import BackgroundLayout from './BackgroundLayout'
 import Navbar from '../Components/Navbar'
 
-import Footer from '../Pages/Footer'
+import Footer from '../Components/Footer'
+
+
 
 
 const Layout = ({children}) => {
     return (
-        <>
-        <Navbar/>
-        {children}
 
-        </>
+        <BackgroundLayout>
+            <Navbar/>
+                {children}
+            <Footer/>
+        </BackgroundLayout>
+        
     )
 }
 
