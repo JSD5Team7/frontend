@@ -169,32 +169,32 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
         const res = await axios.get("http://localhost:3000/tennisCourt");
         if(res.status === 200 && res.data){
             const getData = res.data;
-            console.log(getData);
+            // console.log(getData);
             setdata(getData);
             return true;
         }else{
-            console.log(`error get ${error}`);
+            console.log(`error get`);
             return false;
         }
         
     };
-    const TimeWithCourt = async (court)=>{
+    const TimeWithCourt = async (court,day)=>{
         console.log("read: ",court);
-        const res = await axios.get(`http://localhost:3000/tennisCourt/${court}`);
+        const res = await axios.get(`http://localhost:3000/tennisCourt/${court}/${day}`);
         if(res.status ===200 && res.data){
             const time = res.data;
-            console.log(time);
+            // console.log(time);
             setshowTime(time);
             return true;
         }else{
-            console.log(`error get ${error}`);
+            console.log(`error get`);
             return false;
         }
     }
 
     useEffect(()=>{
         //init dataCoach for reload;
-        console.log("useEffect work");
+        // console.log("useEffect work");
 
         //load court
         
@@ -277,7 +277,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                 //show time button
 
                 // setshowTime(date_today);
-                TimeWithCourt(contextValue.bookdata.location);
+                TimeWithCourt(contextValue.bookdata.location,"today");
 
                 //update date
                 contextValue.setbookdata((previousState)=>{
@@ -287,7 +287,9 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             case "btn_tow":
                 // setshowTime(<ObjShowtime propdata={date_tomorrow}/>);
                 const tmw_form = tomorrow.toLocaleString().split(',')[0];
-                setshowTime(date_tomorrow);
+
+                TimeWithCourt(contextValue.bookdata.location,"tomr");
+
                 contextValue.setbookdata((previousState)=>{
                     return {...previousState,date:tmw_form}
                 });
