@@ -22,6 +22,7 @@ const Trainerlist = ({ trainers, filterActivity, sortName }) => {
                             key={trainer.id} 
                             name={trainer.name}
                             activity={trainer.activity}
+                            information={trainer.information}
                         />
                 ))}
 
