@@ -5,9 +5,11 @@ import SildeTrainer from './Components/SildeTrainer';
 
 
 
+
 function App() {
   return (
     <Layout>
+      
       <br/>
       <br/>
       <br/>

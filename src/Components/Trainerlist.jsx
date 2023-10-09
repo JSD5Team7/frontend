@@ -6,7 +6,7 @@ const Trainerlist = ({ trainers, filterActivity, sortName }) => {
     <div className='trainers-list flex flex-wrap gap-3 justify-center'>
 
                 {trainers
-                    .filter((trainers) => filterActivity === '' || trainers.activity === filterActivity)
+                    .filter((trainers) => filterActivity === '' || trainers.type === filterActivity)
                     .sort((a, b) => {
                         if (sortName === 'nameAZ') {
                         return a.name.localeCompare(b.name);
@@ -21,8 +21,8 @@ const Trainerlist = ({ trainers, filterActivity, sortName }) => {
                         <TrainerCard 
                             key={trainer.id} 
                             name={trainer.name}
-                            activity={trainer.activity}
-                            information={trainer.information}
+                            activity={trainer.type}
+                            information={trainer.des}
                         />
                 ))}
 

@@ -13,8 +13,8 @@ const Slider = ({children}) => {
     <>
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
-        spaceBetween={10}
-        slidesPerView={5}
+        spaceBetween={15}
+        slidesPerView= 'auto'
         navigation
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}

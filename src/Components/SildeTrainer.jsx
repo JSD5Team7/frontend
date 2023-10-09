@@ -13,17 +13,17 @@ function SildeTrainer() {
 
         {trainers
         .map((trainer) => (
-          <SwiperSlide>
+          <SwiperSlide className='w-80 h-[32rem] mb-5'>
             <TrainerCard 
             key={trainer.id} 
             name={trainer.name}
-            activity={trainer.activity}
-            information={trainer.information}
+            activity={trainer.type}
+            information={trainer.des}
             />
         </SwiperSlide>))}
         
         </Slider>
-        <div className='flex justify-end mr-10'>
+        <div className='flex justify-end mr-10 my-3'>
             <Link to={'/coach'}><button className='rounded-xl border-2 border-emerald-400 hover:bg-emerald-400 p-2'>See more</button></Link>
         </div>
   </>
