@@ -19,7 +19,7 @@ function ContentS1({changeTostep2,changeContentS2}){
 
     useEffect(()=>{
         //reset data
-        const getUserName = "PP"
+        const getUserName = 1;
 
         contextValue.setbookdata((previousState)=>{
             return  {...previousState,

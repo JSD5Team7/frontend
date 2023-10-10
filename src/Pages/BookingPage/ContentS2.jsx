@@ -100,32 +100,32 @@ const date_tomorrow = [
     { id:17,time: '22.00-23.00', status: 'available' }
 ];
 
-const AvableCoachsTennis = [
-    {
-        id:1,
-        name:"kru pp",
-        image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
-        des:"fast"
-    },
-    {
-        id:2,
-        name:"kru jame",
-        image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
-        des:"smart"
-    },
-    {
-        id:3,
-        name:"kru nont",
-        image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
-        des:"friend"
-    },
-    {
-        id:4,
-        name:"kru nana",
-        image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
-        des:"big think"
-    },
-];
+// const AvableCoachsTennis = [
+//     {
+//         id:1,
+//         name:"kru pp",
+//         image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
+//         des:"fast"
+//     },
+//     {
+//         id:2,
+//         name:"kru jame",
+//         image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
+//         des:"smart"
+//     },
+//     {
+//         id:3,
+//         name:"kru nont",
+//         image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
+//         des:"friend"
+//     },
+//     {
+//         id:4,
+//         name:"kru nana",
+//         image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
+//         des:"big think"
+//     },
+// ];
 
 const AvableCoachsBadminton = [
     {
@@ -154,7 +154,8 @@ const AvableCoachsYoga = [
 
 function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeContentS1}) {
     const contextValue = useContext(CustomContext);
-
+    const baseApi = "http://localhost:3000";
+    // https://sportclubbackend.onrender.com
     const [data,setdata] = useState([]);
     const [logo,setlogo] = useState();
     const [selectCourt,setselectCourt] = useState({court:"",sportype:sport});
@@ -166,10 +167,10 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     const [dataCoach,setdataCoach] = useState([]); 
 
     const TennisCourt = async () => {
-        const res = await axios.get("http://localhost:3000/tennisCourt");
+        const res = await axios.get(`${baseApi}/tennisCourt`);
         if(res.status === 200 && res.data){
             const getData = res.data;
-            // console.log(getData);
+            console.log(getData);
             setdata(getData);
             return true;
         }else{
@@ -178,9 +179,9 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
         }
         
     };
-    const TimeWithCourt = async (court,day)=>{
-        console.log("read: ",court);
-        const res = await axios.get(`http://localhost:3000/tennisCourt/${court}/${day}`);
+    const TimeWithCourt = async (court,date)=>{
+        // console.log("read: ",court);
+        const res = await axios.get(`${baseApi}/tennisCourt/${court}/${date}`);
         if(res.status ===200 && res.data){
             const time = res.data;
             // console.log(time);
@@ -192,19 +193,30 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
         }
     }
 
-    useEffect(()=>{
-        //init dataCoach for reload;
-        // console.log("useEffect work");
-
-        //load court
+    const CoachList = async (type,Stime,)=>{
+        //get coach is avalible only,then isBooking = false.
+        try {
+            console.log(type,Stime);
+            const res = await axios.get(`${baseApi}/coachList/${type}/${Stime}`);
+            
+            const coach = res.data;
+            // console.log(coach);
+            setdataCoach(coach);
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
         
-        // contextValue.bookdata.coach != ""
+    }
+
+    useEffect(()=>{
         if(true){
             switch(sport){
                 case "tennis":
                     TennisCourt();
                     setlogo(courtTennislogo);
-                    setdataCoach(AvableCoachsTennis);
+                    // setdataCoach(AvableCoachsTennis);
                     break;
                 case "badminton":
                     setdata(getBadminton);
@@ -251,6 +263,32 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     const card_Ava = "flex flex-row block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100"
     const card_selected = "flex flex-row block max-w-sm p-6 bg-purple-300 border border-gray-200 rounded-lg shadow hover:bg-purple-100"
 
+    const getDate =(day)=>{
+        if(day == "btn_tow"){
+            // tomorow
+            const today = new Date(Date.now());
+            const tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 1);
+
+            const year = tomorrow.getFullYear();
+            const month = (tomorrow.getMonth() + 1).toString().padStart(2, '0');
+            const day = tomorrow.getDate().toString().padStart(2, '0');
+
+            const formattedDate = `${year}-${month}-${day}`;
+            return formattedDate;
+
+        }else{
+            //today
+            const now = new Date(Date.now());
+            const year = now.getFullYear();
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const day = now.getDate().toString().padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day}`;
+            return formattedDate;
+        }
+    }
+
+
     const handelcourt=(id,sport)=>{
         setselectCourt({court:id,});
 
@@ -260,9 +298,6 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
         });
     }
     const handleDay=(e,day)=>{
-        const today = new Date(Date.now());
-        const tomorrow = new Date(Date.now());
-        tomorrow.setDate(tomorrow.getDate() + 1);
 
         setselectday({day:day});
 
@@ -272,26 +307,23 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
 
         switch(day){
             case "btn_day":
-                // setshowTime(<ObjShowtime propdata={date_today}/>);
-                const today_form = today.toLocaleString().split(',')[0];
+                const date_today = getDate("btn_day");
                 //show time button
-
-                // setshowTime(date_today);
-                TimeWithCourt(contextValue.bookdata.location,"today");
+                TimeWithCourt(contextValue.bookdata.location,date_today);
 
                 //update date
                 contextValue.setbookdata((previousState)=>{
-                    return {...previousState,date:today_form}
+                    return {...previousState,date:date_today}
                 });
                 break;
             case "btn_tow":
-                // setshowTime(<ObjShowtime propdata={date_tomorrow}/>);
-                const tmw_form = tomorrow.toLocaleString().split(',')[0];
-
-                TimeWithCourt(contextValue.bookdata.location,"tomr");
-
+                const date_tomr = getDate("btn_tow");
+                //show time button
+                TimeWithCourt(contextValue.bookdata.location,date_tomr);
+                
+                //update date
                 contextValue.setbookdata((previousState)=>{
-                    return {...previousState,date:tmw_form}
+                    return {...previousState,date:date_tomr}
                 });
                 break;
         }
@@ -306,11 +338,11 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     };
     const handleCoach=(status)=>{
         switch(status){
-            case "btn_coach":
+            case true:
                 setselectcoach({status:"btn_coach"});
                 switch(sport){
                     case "tennis":
-                        setdataCoach(AvableCoachsTennis);
+                        CoachList(sport,contextValue.bookdata.time);
                         //update data context booking
                         contextValue.setbookdata((previousState)=>{ 
                             return {...previousState,coach:status}
@@ -330,7 +362,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                         break;
                 }
                 break;
-            case "btn_Nocoach":
+            case false:
                 setselectcoach({status:"btn_Nocoach"});
                 setdataCoach([]);
                 setselectwho({});
@@ -366,7 +398,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     }
 
     return(
-        <>
+        
         <div>
             <div>
                 <h1>SPORT: {sport}</h1>
@@ -411,37 +443,37 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             <div>
                 <div className="inline-flex">
                     <button className={contextValue.bookdata.time!=""?((contextValue.bookdata.coach=="btn_coach")? btn_day:btn_defDayL):btn_NotAva} 
-                    onClick={()=>handleCoach("btn_coach")}> 
+                    onClick={()=>handleCoach(true)}> 
                         <span>Coach</span> 
                     </button>
                     <button className={contextValue.bookdata.time!=""?((contextValue.bookdata.coach=="btn_Nocoach")? btn_day:btn_defDayL):btn_NotAva}
-                    onClick={()=>handleCoach("btn_Nocoach")}>
+                    onClick={()=>handleCoach(false)}>
                         <span>No Coach</span>
                     </button>
                 </div>
-
-                <div className="flex justify-center m-3">
-                    <div className="h-80 w-96 overflow-auto border-solid border-2 border-gray-500 rounded-md">
-                        {dataCoach.map((eachcoach)=>(
-                            <a href="#" className={contextValue.bookdata.who.id==eachcoach.id?card_selected:card_Ava} onClick={()=>handleWho(eachcoach)}>
-                                <img src={eachcoach.image} alt="" className='h-16 w-16 rounded-full'/>
-                                <div className='flex flex-col justify-center'>
-                                    <h2 className="mb-2 text-2xl font-bold tracking-tight :text-black"><span>{eachcoach.name}</span></h2>
-                                    <p className="font-normal text-gray-700 dark:text-gray-400"><span>{eachcoach.des}</span></p>
-                                </div>
-                            </a>
-                        ))}
+                <div className='h-60 overflow-auto'>
+                    <div className="flex justify-center m-3">
+                        <div className="grid grid-cols-3 gap-3">
+                        {/* overflow-auto border-solid border-2 border-gray-500 rounded-md */}
+                            {dataCoach.map((eachcoach)=>(
+                                <a className={contextValue.bookdata.who.id==eachcoach.id?card_selected:card_Ava} onClick={()=>handleWho(eachcoach)}>
+                                    <img src={eachcoach.image} alt="" className='h-14 w-14 rounded-full'/>
+                                    <div className='flex flex-col justify-center '>
+                                        <h2 className="mb-2 text-2xl font-bold tracking-tight :text-black"><span>{eachcoach.name}</span></h2>
+                                        <p className="font-normal text-gray-700 dark:text-gray-400"><span>{eachcoach.des}</span></p>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className="m-10 flex justify-between">
-                <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleBack()}>Back</button>
-                <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleNext()}>Next</button>
+            <div className="mb-10 flex justify-between">
+                    <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleBack()}>Back</button>
+                    <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleNext()}>Next</button>
             </div>
-            
         </div>
-    </>
     );
 }
 

@@ -1,16 +1,69 @@
 import { useContext,useState,useEffect} from 'react'
 import {CustomContext} from './Booking'
+import axios from 'axios';
 
 function ContentS4({changeHowtoS1,changeContentS1,changeHowtoS3,changeContentS3}){
     const contextValue = useContext(CustomContext);
-
+    const baseApi = "https://localhost:3000";
+    // https://sportclubbackend.onrender.com
     function handleBack(){
         changeHowtoS3();
         changeContentS3();
     }
     function handleSumit(){
-        changeHowtoS1();
-        changeContentS1();
+        try {
+            const createTx = async ()=>{
+                await axios.post(`${baseApi}/activity`,{
+                "tx_id":999,
+                "type":contextValue.bookdata.sport,
+                "location":contextValue.bookdata.location,
+                "date":contextValue.bookdata.date,
+                "time":contextValue.bookdata.time,
+                "iscoach":contextValue.bookdata.coach,
+                "coachName":contextValue.bookdata.who.name,
+                "activity":contextValue.bookdata.activity,
+                "information":{
+                    "user_id":contextValue.bookdata.user,
+                    "fname":contextValue.bookdata.fname,
+                    "lname":contextValue.bookdata.lname,
+                    "phone":contextValue.bookdata.phone,
+                    "desc":contextValue.bookdata.desc
+                }
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }); 
+            }
+            // const data = JSON.stringify({
+            //     "tx_id":1,
+            //     "type":contextValue.bookdata.sport,
+            //     "location":contextValue.bookdata.location,
+            //     "date":contextValue.bookdata.date,
+            //     "time":contextValue.bookdata.time,
+            //     "iscoach":contextValue.bookdata.coach,
+            //     "coachName":contextValue.bookdata.who.name,
+            //     "activity":contextValue.bookdata.activity,
+            //     "information":{
+            //         "user_id":contextValue.bookdata.user,
+            //         "fname":contextValue.bookdata.fname,
+            //         "lname":contextValue.bookdata.lname,
+            //         "phone":contextValue.bookdata.phone,
+            //         "desc":contextValue.bookdata.desc
+            //     }
+            // })
+            // console.log(data);
+        
+            createTx(); 
+        } catch (error) {
+            console.log(error.response.data);
+            return false;
+        }
+
+
+        
+
     }
 
     return (
