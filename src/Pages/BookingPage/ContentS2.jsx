@@ -388,7 +388,6 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
         console.log("Next")
         changeTostep3();
         changeContentS3();
-        
     }
 
     const handleBack =()=>{
@@ -398,7 +397,6 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     }
 
     return(
-        
         <div>
             <div>
                 <h1>SPORT: {sport}</h1>
