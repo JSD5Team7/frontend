@@ -1,6 +1,8 @@
 import { useContext,useState,useEffect} from 'react'
 import {CustomContext} from './Booking'
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ContentS4({changeHowtoS1,changeContentS1,changeHowtoS3,changeContentS3}){
     const contextValue = useContext(CustomContext);
@@ -18,8 +20,10 @@ function ContentS4({changeHowtoS1,changeContentS1,changeHowtoS3,changeContentS3}
                 "type":contextValue.bookdata.sport,
                 "location":contextValue.bookdata.location,
                 "date":contextValue.bookdata.date,
+                "day":contextValue.bookdata.day,
                 "time":contextValue.bookdata.time,
                 "iscoach":contextValue.bookdata.coach,
+                "coachId":contextValue.bookdata.who.id,
                 "coachName":contextValue.bookdata.who.name,
                 "activity":contextValue.bookdata.activity,
                 "information":{
@@ -35,39 +39,42 @@ function ContentS4({changeHowtoS1,changeContentS1,changeHowtoS3,changeContentS3}
                         'Content-Type': 'application/json'
                     }
                 }); 
+            return true;
             }
-            // const data = JSON.stringify({
-            //     "tx_id":1,
-            //     "type":contextValue.bookdata.sport,
-            //     "location":contextValue.bookdata.location,
-            //     "date":contextValue.bookdata.date,
-            //     "time":contextValue.bookdata.time,
-            //     "iscoach":contextValue.bookdata.coach,
-            //     "coachName":contextValue.bookdata.who.name,
-            //     "activity":contextValue.bookdata.activity,
-            //     "information":{
-            //         "user_id":contextValue.bookdata.user,
-            //         "fname":contextValue.bookdata.fname,
-            //         "lname":contextValue.bookdata.lname,
-            //         "phone":contextValue.bookdata.phone,
-            //         "desc":contextValue.bookdata.desc
-            //     }
-            // })
-            // console.log(data);
-        
-            createTx(); 
+            //
+            createTx();
+            //summit commplete
+            toast.success('Booking is complete.', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+
         } catch (error) {
             console.log(error.response.data);
+            toast.error('Sorry! failed Booking, I will check form you.', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+
             return false;
         }
-
-
-        
-
     }
 
     return (
         <div>
+            <ToastContainer />
             <div>
                 <h1>Summary Booking</h1>
             </div>

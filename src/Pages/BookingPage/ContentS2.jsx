@@ -5,33 +5,33 @@ import roomYoga from './img/yoga_room.png'
 import {CustomContext} from './Booking'
 import axios from 'axios';
 
-const getBadminton = [
-    {
-        id:1,
-        sportType:"badminton",
-        court:"1"
-    },
-    {
-        id:2,
-        sportType:"badminton",
-        court:"2"
-    },
-    {
-        id:3,
-        sportType:"badminton",
-        court:"3"
-    },
-    {
-        id:4,
-        sportType:"badminton",
-        court:"4"
-    },
-    {
-        id:5,
-        sportType:"badminton",
-        court:"5"
-    },
-]
+// const getBadminton = [
+//     {
+//         id:1,
+//         sportType:"badminton",
+//         court:"1"
+//     },
+//     {
+//         id:2,
+//         sportType:"badminton",
+//         court:"2"
+//     },
+//     {
+//         id:3,
+//         sportType:"badminton",
+//         court:"3"
+//     },
+//     {
+//         id:4,
+//         sportType:"badminton",
+//         court:"4"
+//     },
+//     {
+//         id:5,
+//         sportType:"badminton",
+//         court:"5"
+//     },
+// ]
 
 const getYoga = [
     {
@@ -100,32 +100,7 @@ const date_tomorrow = [
     { id:17,time: '22.00-23.00', status: 'available' }
 ];
 
-// const AvableCoachsTennis = [
-//     {
-//         id:1,
-//         name:"kru pp",
-//         image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
-//         des:"fast"
-//     },
-//     {
-//         id:2,
-//         name:"kru jame",
-//         image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
-//         des:"smart"
-//     },
-//     {
-//         id:3,
-//         name:"kru nont",
-//         image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
-//         des:"friend"
-//     },
-//     {
-//         id:4,
-//         name:"kru nana",
-//         image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
-//         des:"big think"
-//     },
-// ];
+
 
 const AvableCoachsBadminton = [
     {
@@ -170,7 +145,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
         const res = await axios.get(`${baseApi}/tennisCourt`);
         if(res.status === 200 && res.data){
             const getData = res.data;
-            console.log(getData);
+            // console.log(getData);
             setdata(getData);
             return true;
         }else{
@@ -192,13 +167,22 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             return false;
         }
     }
-
+    const badminton = async() =>{
+        try {
+            const res = await axios.get(`${baseApi}/badmintonCourt`);
+            const data = res.data;
+            setdata(data);
+            return;
+        } catch (error) {
+            console.log({measage:error.measage});
+            return;
+        }
+    }
     const CoachList = async (type,Stime,)=>{
         //get coach is avalible only,then isBooking = false.
         try {
             console.log(type,Stime);
             const res = await axios.get(`${baseApi}/coachList/${type}/${Stime}`);
-            
             const coach = res.data;
             // console.log(coach);
             setdataCoach(coach);
@@ -207,7 +191,6 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             console.log(error);
             return false;
         }
-        
     }
 
     useEffect(()=>{
@@ -216,10 +199,9 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                 case "tennis":
                     TennisCourt();
                     setlogo(courtTennislogo);
-                    // setdataCoach(AvableCoachsTennis);
                     break;
                 case "badminton":
-                    setdata(getBadminton);
+                    badminton();
                     setlogo(courtBad);
                     setdataCoach(AvableCoachsBadminton);
                     break;
