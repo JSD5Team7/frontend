@@ -44,10 +44,112 @@ function Booking(){
             phone:"",
             desc:""
         });
+        const statusInit = true;
+        const date_init = [
+                {
+                "startTime": "06:00",
+                "endTime": "07:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "07:00",
+                "endTime": "08:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "08:00",
+                "endTime": "09:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "09:00",
+                "endTime": "10:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "10:00",
+                "endTime": "11:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "11:00",
+                "endTime": "12:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "12:00",
+                "endTime": "13:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "13:00",
+                "endTime": "14:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "14:00",
+                "endTime": "15:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "15:00",
+                "endTime": "16:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "16:00",
+                "endTime": "17:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "17:00",
+                "endTime": "18:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "18:00",
+                "endTime": "19:00",
+                "isBooked": statusInit
+              },
+              {
+                "startTime": "19:00",
+                "endTime": "20:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "20:00",
+                "endTime": "21:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "21:00",
+                "endTime": "22:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              },
+              {
+                "startTime": "22:00",
+                "endTime": "23:00",
+                "isBooked": statusInit,
+                "Booker": ""
+              }
+        ];
 
-    useEffect(()=>{
-
-    },[])
+    
 
     function handleNext(){
         setHowto(<HowtoS1 />)
@@ -111,7 +213,8 @@ function Booking(){
             <CustomContext.Provider
             value={{
                 bookdata:bookdata,
-                setbookdata:setbookdata
+                setbookdata:setbookdata,
+                date_init_time:date_init
             }}
                 >
             <div className='mt-20'>

@@ -2,129 +2,13 @@ import { useContext,useState,useEffect} from 'react'
 import courtTennislogo from './img/tennis-court.png'
 import courtBad from './img/badminton-court.png'
 import roomYoga from './img/yoga_room.png'
+import table from './img/Ping_pong.png'
+import location from './img/location.png'
 import {CustomContext} from './Booking'
+
 import axios from 'axios';
 
-// const getBadminton = [
-//     {
-//         id:1,
-//         sportType:"badminton",
-//         court:"1"
-//     },
-//     {
-//         id:2,
-//         sportType:"badminton",
-//         court:"2"
-//     },
-//     {
-//         id:3,
-//         sportType:"badminton",
-//         court:"3"
-//     },
-//     {
-//         id:4,
-//         sportType:"badminton",
-//         court:"4"
-//     },
-//     {
-//         id:5,
-//         sportType:"badminton",
-//         court:"5"
-//     },
-// ]
 
-const getYoga = [
-    {
-        id:1,
-        sportType:"yoga",
-        court:"1"
-    }
-]
-const date_init = [
-    { id:1,time: '06.00-07.00', status: '' },
-    { id:2,time: '07.00-08.00', status: '' },
-    { id:3,time: '08.00-09.00', status: '' },
-    { id:4,time: '09.00-10.00', status: '' },
-    { id:5,time: '10.00-11.00', status: '' },
-    { id:6,time: '11.00-12.00', status: '' },
-    { id:7,time: '12.00-13.00', status: '' },
-    { id:8,time: '13.00-14.00', status: '' },
-    { id:9,time: '14.00-15.00', status: '' },
-    { id:10,time: '15.00-16.00', status: '' },
-    { id:11,time: '16.00-17.00', status: '' },
-    { id:12,time: '17.00-18.00', status: '' },
-    { id:13,time: '18.00-19.00', status: '' },
-    { id:14,time: '19.00-20.00', status: '' },
-    { id:15,time: '20.00-21.00', status: '' },
-    { id:16,time: '21.00-22.00', status: '' },
-    { id:17,time: '22.00-23.00', status: '' }
-];
-
-const date_today = [
-    { id:1,time: '06.00-07.00', status: 'none' },
-    { id:2,time: '07.00-08.00', status: 'none' },
-    { id:3,time: '08.00-09.00', status: 'available' },
-    { id:4,time: '09.00-10.00', status: 'available' },
-    { id:5,time: '10.00-11.00', status: 'available' },
-    { id:6,time: '11.00-12.00', status: 'available' },
-    { id:7,time: '12.00-13.00', status: 'available' },
-    { id:8,time: '13.00-14.00', status: 'available' },
-    { id:9,time: '14.00-15.00', status: 'available' },
-    { id:10,time: '15.00-16.00', status: 'available' },
-    { id:11,time: '16.00-17.00', status: 'available' },
-    { id:12,time: '17.00-18.00', status: 'none' },
-    { id:13,time: '18.00-19.00', status: '' },
-    { id:14,time: '19.00-20.00', status: '' },
-    { id:15,time: '20.00-21.00', status: 'available' },
-    { id:16,time: '21.00-22.00', status: 'available' },
-    { id:17,time: '22.00-23.00', status: 'available' }
-];
-
-const date_tomorrow = [
-    { id:1,time: '06.00-07.00', status: 'available' },
-    { id:2,time: '07.00-08.00', status: 'available' },
-    { id:3,time: '08.00-09.00', status: 'available' },
-    { id:4,time: '09.00-10.00', status: 'available' },
-    { id:5,time: '10.00-11.00', status: 'available' },
-    { id:6,time: '11.00-12.00', status: 'available' },
-    { id:7,time: '12.00-13.00', status: 'available' },
-    { id:8,time: '13.00-14.00', status: 'available' },
-    { id:9,time: '14.00-15.00', status: 'available' },
-    { id:10,time: '15.00-16.00', status: 'available' },
-    { id:11,time: '16.00-17.00', status: 'available' },
-    { id:12,time: '17.00-18.00', status: 'available' },
-    { id:13,time: '18.00-19.00', status: 'available' },
-    { id:14,time: '19.00-20.00', status: 'available' },
-    { id:15,time: '20.00-21.00', status: '' },
-    { id:16,time: '21.00-22.00', status: 'available' },
-    { id:17,time: '22.00-23.00', status: 'available' }
-];
-
-
-
-const AvableCoachsBadminton = [
-    {
-        id:1,
-        name:"kru pp_badminton",
-        image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
-        des:"fast"
-    },
-    {
-        id:2,
-        name:"kru jame_badminton",
-        image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuNkPErNoNsBARXtXC6xwgpybAhySfGUPUg&usqp=CAU",
-        des:"smart"
-    },
-];
-
-const AvableCoachsYoga = [
-    {
-        id:1,
-        name:"kru Goland_yoga",
-        image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi-YZtDIDmOGsFAsQCXIqc0wA-8jNIUuWInQ&usqp=CAU",
-        des:"fast"
-    }
-];
 
 
 function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeContentS1}) {
@@ -136,27 +20,45 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     const [selectCourt,setselectCourt] = useState({court:"",sportype:sport});
     const [selectday,setselectday] = useState({day:""});
     const [selectTime,setselectTime] = useState({id:"",time:""});
-    const [showTime,setshowTime] = useState(date_init);
+    const [showTime,setshowTime] = useState(contextValue.date_init_time);
     const [selectcoach,setselectcoach] = useState({status:"btn_Nocoach"});
     const [selectwho,setselectwho] = useState({id:"",name:"",des:""})
     const [dataCoach,setdataCoach] = useState([]); 
+    const [loading,setloading] = useState(false);
 
-    const TennisCourt = async () => {
-        const res = await axios.get(`${baseApi}/tennisCourt`);
-        if(res.status === 200 && res.data){
-            const getData = res.data;
-            // console.log(getData);
-            setdata(getData);
-            return true;
-        }else{
-            console.log(`error get`);
-            return false;
+    const getCourt = async(path) =>{
+        try {
+            const res = await axios.get(`${baseApi}/${path}/${getDate("today")}`);
+            const data = res.data;
+            setdata(data);
+            return;
+        } catch (error) {
+            console.log({measage:error.measage});
+            return;
         }
-        
-    };
-    const TimeWithCourt = async (court,date)=>{
+    }
+    const TimeWithCourt = async (sport,court,date)=>{
         // console.log("read: ",court);
-        const res = await axios.get(`${baseApi}/tennisCourt/${court}/${date}`);
+        let path = "";
+        switch(sport){
+            case "tennis":
+                path = "tennisCourt"
+                break;
+            case "badminton":
+                path = "badmintonCourt"
+                break;
+            case "yoga":
+                path = "yogaCourt"
+                break;
+            case "tabletennis":
+                path = "tabletennisCourt"
+                break;
+            case "aerobic":
+                path = "aerobicCourt"
+                break;
+        }
+        console.log(sport , path)
+        const res = await axios.get(`${baseApi}/${path}/${court}/${date}`);
         if(res.status ===200 && res.data){
             const time = res.data;
             // console.log(time);
@@ -167,17 +69,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             return false;
         }
     }
-    const badminton = async() =>{
-        try {
-            const res = await axios.get(`${baseApi}/badmintonCourt`);
-            const data = res.data;
-            setdata(data);
-            return;
-        } catch (error) {
-            console.log({measage:error.measage});
-            return;
-        }
-    }
+    
     const CoachList = async (type,Stime,)=>{
         //get coach is avalible only,then isBooking = false.
         try {
@@ -194,39 +86,41 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     }
 
     useEffect(()=>{
-        if(true){
-            switch(sport){
-                case "tennis":
-                    TennisCourt();
-                    setlogo(courtTennislogo);
-                    break;
-                case "badminton":
-                    badminton();
-                    setlogo(courtBad);
-                    setdataCoach(AvableCoachsBadminton);
-                    break;
-                case "yoga":
-                    setdata(getYoga);
-                    setlogo(roomYoga);
-                    setdataCoach(AvableCoachsYoga);
-                    break;
-            }
+        console.log(contextValue.date_init_time);
+        setloading(true);
+        setTimeout(()=>{
+            setloading(false);
+        },3000);
+
+        console.log(sport);
+        switch(sport){
+            case "tennis":
+                getCourt("tennisCourt")
+                setlogo(courtTennislogo);
+                break;
+            case "badminton":
+                getCourt("badmintonCourt")
+                setlogo(courtBad);
+                break;
+            case "tabletennis":
+                getCourt("tabletennisCourt");
+                setlogo(table);
+                break;
+            case "yoga":
+                getCourt("yogaCourt");
+                setlogo(roomYoga);
+                break;
+            case "aerobic":
+                getCourt("aerobicCourt");
+                setlogo(location);
+                break;
         }
         //init display time
-        if(contextValue.bookdata.time != ""){
-            switch(contextValue.bookdata.day){
-                case "btn_day":
-                    setshowTime(date_today);
-                    break;
-                case "btn_tow":
-                    setshowTime(date_tomorrow);
-                    break;
-                default:
-                    setshowTime(date_today);
-                    break;
-            }
+        console.log(contextValue.bookdata.time)
+        if(contextValue.bookdata.time !== ""){
+            TimeWithCourt(sport,contextValue.bookdata.location,contextValue.bookdata.date);
         }else{
-            setshowTime(date_init);
+            setshowTime(contextValue.date_init_time);
         }
     },[]);
 
@@ -291,7 +185,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             case "btn_day":
                 const date_today = getDate("btn_day");
                 //show time button
-                TimeWithCourt(contextValue.bookdata.location,date_today);
+                TimeWithCourt(sport,contextValue.bookdata.location,date_today);
 
                 //update date
                 contextValue.setbookdata((previousState)=>{
@@ -301,7 +195,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             case "btn_tow":
                 const date_tomr = getDate("btn_tow");
                 //show time button
-                TimeWithCourt(contextValue.bookdata.location,date_tomr);
+                TimeWithCourt(sport,contextValue.bookdata.location,date_tomr);
                 
                 //update date
                 contextValue.setbookdata((previousState)=>{
@@ -331,13 +225,13 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                         });
                         break;
                     case "badminton":
-                        setdataCoach(AvableCoachsBadminton);
+                        CoachList(sport,contextValue.bookdata.time);
                         contextValue.setbookdata((previousState)=>{ 
                             return {...previousState,coach:status}
                         });
                         break;
                     case "yoga":
-                        setdataCoach(AvableCoachsYoga);
+                        CoachList(sport,contextValue.bookdata.time);
                         contextValue.setbookdata((previousState)=>{ 
                             return {...previousState,coach:status}
                         });
@@ -445,7 +339,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                                 </a>
                             ))}
                         </div>
-                    </div>
+                    </div>  
                 </div>
             </div>
 
