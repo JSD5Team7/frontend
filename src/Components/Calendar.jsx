@@ -23,6 +23,9 @@ const data = [
     {date: '2023-10-07', time: '15:00 - 16:00', status: false },
   ];
 
+// Style Type Sport
+const typeStyle = 'p-1 border border-red-400 rounded-lg bg-red-400 hover:bg-red-700 hover:border-red-700 hover:text-white cursor-pointer'
+
 const Calendar = () => {
 
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -42,8 +45,18 @@ const Calendar = () => {
     };
   
     return (
-      <div>
-        <h1>Checking an available time for booking</h1>
+      <div className='w-full bg-white mt-10 p-5 flex flex-col justify-center gap-3'>
+        <h1 className='text-2xl mb-5'>Checking an available time for booking</h1>
+        <div className="choose-type flex gap-3 items-center">
+          <h2>Select Type:</h2>
+          <ul className='flex list-none gap-3 items-center'>
+            <li className={typeStyle}>Aerobic</li>
+            <li className={typeStyle}>Badminton</li>
+            <li className={typeStyle}>Table Tennis</li>
+            <li className={typeStyle}>Tennis</li>
+            <li className={typeStyle}>Yoga</li>
+          </ul>
+        </div>
         <div>
           <label>Select Date:</label>
           <input
