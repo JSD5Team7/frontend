@@ -8,9 +8,6 @@ import {CustomContext} from './Booking'
 
 import axios from 'axios';
 
-
-
-
 function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeContentS1}) {
     const contextValue = useContext(CustomContext);
     const baseApi = "http://localhost:3000";

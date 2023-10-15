@@ -4,7 +4,7 @@ import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 
 import App from './App.jsx'
 import AboutUs from './Pages/AboutUs.jsx'
-import ProfileComponent from './Pages/Profile.jsx'
+import ProfileComponent from './Pages/ProfilePage/Profile.jsx'
 import TrainerDetails from './Pages/TrainerDetails.jsx'
 import Booking from './Pages/BookingPage/Booking.jsx'
 import ContactUs from './Pages/Contact.jsx'
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   {path:'/contact-us', element:<ContactUs/>},
   {path:'/about-us', element:<AboutUs/>},
   {path:'/booking', element:<Booking/>},
-  {path:'/profile', element:<ProfileComponent/>},
+  {path:'/profile', element:<ProfileComponent user_id={1}/>},
   {path:'/contact-us', element: <ContactUs/>},
   {path:'/coach', element:<TrainerDetails/>},
   {path:'/login', element:<Login/>},
