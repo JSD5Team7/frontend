@@ -12,7 +12,7 @@ function history({user_id,handleEdit}){
             const getHistory = async (user_id)=>{
                 const res = await axios.get(`${baseApi}/user/history/${user_id}`);
                 const data = res.data;
-                console.log(data);
+                // console.log(data);
                 setUsers(data);
                 return;
             }
@@ -22,17 +22,9 @@ function history({user_id,handleEdit}){
             return;
         }
     },[]);
-      const BTNhandleEdit = (user_id,_id) => {
-        console.log(`Edit:${user_id},${_id}`);
-        handleEdit();
-        // const updatedData = userList.map((user) => {
-        //   if (user.id === id) {
-        //     return { ...user, name: "Alia", description: "Clay", time: "99:99 AM" };
-        //   }
-        //   return user;
-        // });
-        // console.log(updatedData);
-        // setUsers(updatedData);
+      const BTNhandleEdit = (user_id,_id,type) => {
+        // console.log(`Edit:${user_id},${_id}`);
+        handleEdit(_id,type);
       };
     
       const handleDelete = (id) => {
@@ -79,7 +71,7 @@ function history({user_id,handleEdit}){
                 <div className="flex gap-5 p-3">
                     <button
                     className="drop-shadow-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-6 rounded-full"
-                    onClick={() => BTNhandleEdit(user.id,user._id)}
+                    onClick={() => BTNhandleEdit(user.id,user._id,user.type)}
                     >
                     Edit
                     </button>

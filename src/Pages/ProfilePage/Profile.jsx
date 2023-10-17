@@ -4,11 +4,21 @@ import History from "./history";
 import EditPage from "./editPage.jsx";
 function Profile({user_id}) {
 
-  const [edit,setEdit] = useState();
+  const [edit,setEdit] = useState(false);
+  const [sty,setSty] = useState("")
+  const [page,setPage] = useState();
 
-  function handleEdit(){
-    setEdit(<EditPage />);
+  function handleEdit(tx_id,type){
+    setEdit(true);
+    setPage(<EditPage tx_id={tx_id}
+                      handleEndEdit={handleEndEdit} 
+                      type={type}
+            />);
   }
+  function handleEndEdit(){
+    setEdit(false);
+  }
+
   return (
     <Layout>
       <div>
@@ -19,21 +29,24 @@ function Profile({user_id}) {
               <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas exercitationem libero asperiores. Hic optio eius porro exercitationem sunt rem excepturi possimus quia? Quae omnis corrupti deleniti accusantium dicta, molestias error.</p>
             </div>
           </div>
-
       </div>
-      <div className='flex flex-row'>
+
+
+      {edit ? 
         <div>
-          <History user_id={user_id}
-                      handleEdit={handleEdit}/>
+          {page}
         </div>
-
+      :
+        <div className='justify-center'>
         <div>
-          {edit}
-      </div>
-
-      </div>
-
-     
+          <div>
+            <History user_id={user_id}
+                        handleEdit={handleEdit}/>
+          </div>
+        </div>
+        </div>
+      
+      }
     </Layout>
   );
 }

@@ -21,7 +21,6 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     const [selectcoach,setselectcoach] = useState({status:"btn_Nocoach"});
     const [selectwho,setselectwho] = useState({id:"",name:"",des:""})
     const [dataCoach,setdataCoach] = useState([]); 
-    const [loading,setloading] = useState(false);
 
     const getCourt = async(path) =>{
         try {
@@ -84,11 +83,6 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
 
     useEffect(()=>{
         console.log(contextValue.date_init_time);
-        setloading(true);
-        setTimeout(()=>{
-            setloading(false);
-        },3000);
-
         console.log(sport);
         switch(sport){
             case "tennis":
@@ -294,21 +288,22 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                         <button id='btn_tow' className={contextValue.bookdata.location!=""?((contextValue.bookdata.day=="btn_tow")? btn_day:btn_defDayR):btn_NotAva} onClick={(e)=>handleDay(e,"btn_tow")}>
                             Tomorrow
                         </button>
-                        </div>
                     </div>
 
-                    <div>
-                        <div className='m-2 grid grid-cols-4 gap-3'>
-                            {showTime.map((eachTime)=>(
-                            <div >
-                                <button className={eachTime.isBooked === false? (contextValue.bookdata.time==eachTime.startTime?btn_dateSelect:btn_dateAva):btn_dateNotAva} onClick={()=>handleTime(eachTime)}>
-                                    <span>{eachTime.startTime}-{eachTime.endTime} </span>
-                                </button>
-                            </div>
-                            ))}
+                </div>
+
+                <div>
+                    <div className='m-2 grid grid-cols-4 gap-3'>
+                        {showTime.map((eachTime)=>(
+                        <div >
+                            <button className={eachTime.isBooked === false? (contextValue.bookdata.time==eachTime.startTime?btn_dateSelect:btn_dateAva):btn_dateNotAva} onClick={()=>handleTime(eachTime)}>
+                                <span>{eachTime.startTime}-{eachTime.endTime} </span>
+                            </button>
                         </div>
+                        ))}
                     </div>
                 </div>
+            </div>
             <div/>
 
             <div>
