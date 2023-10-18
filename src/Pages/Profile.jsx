@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Layout from '../Layout/Layout';
 
 function Profile() {
+
   return (
     <Layout>
       <div>
@@ -16,5 +17,5 @@ function Profile() {
     </Layout>
   );
 }
-
 export default Profile;
+
