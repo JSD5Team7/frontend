@@ -2,6 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 
+//Redux
+import { Provider } from 'react-redux';
+import { createStore } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import rootReducer from './Hook/Reducers/store.jsx';
+
+
 import App from './App.jsx'
 import AboutUs from './Pages/AboutUs.jsx'
 import ProfileComponent from './Pages/Profile.jsx'
@@ -32,8 +39,12 @@ const router = createBrowserRouter([
   {path:'/dashboard',element:<DashBoard user_id={1}/>}
 ])
 
+const store = createStore(rootReducer, composeWithDevTools());
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <Provider store={store}>
+      <RouterProvider router={router}/>
+    </Provider>
   </React.StrictMode>,
 )

@@ -10,8 +10,10 @@ import ContentS3 from './ContentS3';
 import Layout from '../../Layout/Layout';
 import HowtoS4 from './HowtoS4';
 import ContentS4 from './ContentS4';
+import { useNavigate } from 'react-router-dom';
 
 const CustomContext = createContext({});
+
 
 function Booking({user_id}){
     
