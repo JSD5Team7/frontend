@@ -57,7 +57,7 @@ function ContentS4({changeHowtoS1,changeContentS1,changeHowtoS3,changeContentS3}
 
         } catch (error) {
             console.log(error.response.data);
-            toast.error('Sorry! failed Booking, I will check form you.', {
+            toast.error('Sorry! failed Booking, I will check for you.', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -125,8 +125,6 @@ function ContentS4({changeHowtoS1,changeContentS1,changeHowtoS3,changeContentS3}
                 </div>
 
             </div>
-            
-
             <div className="m-10 flex justify-between">
                 <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleBack()}>Back</button>
                 <button type="submit" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleSumit()}>Submit</button>

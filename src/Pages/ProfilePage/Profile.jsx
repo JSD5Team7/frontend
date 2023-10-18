@@ -12,7 +12,7 @@ function Profile({user_id}) {
     setEdit(true);
     setPage(<EditPage tx_id={tx_id}
                       handleEndEdit={handleEndEdit} 
-                      type={type}
+                      sport={type}
             />);
   }
   function handleEndEdit(){
@@ -33,16 +33,16 @@ function Profile({user_id}) {
 
 
       {edit ? 
-        <div>
+        <div className='my-3'>
           {page}
         </div>
       :
         <div className='justify-center'>
         <div>
-          <div>
-            <History user_id={user_id}
-                        handleEdit={handleEdit}/>
-          </div>
+            <div>
+              <History user_id={user_id}
+                          handleEdit={handleEdit}/>
+            </div>
         </div>
         </div>
       

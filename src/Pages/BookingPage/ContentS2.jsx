@@ -165,9 +165,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
         });
     }
     const handleDay=(e,day)=>{
-
         setselectday({day:day});
-
         contextValue.setbookdata((previousState)=>{ 
             return {...previousState,day:day}
         });
@@ -308,11 +306,11 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
 
             <div>
                 <div className="inline-flex">
-                    <button className={contextValue.bookdata.time!=""?((contextValue.bookdata.coach=="btn_coach")? btn_day:btn_defDayL):btn_NotAva} 
+                    <button className={contextValue.bookdata.time!=""?((contextValue.bookdata.coach===true)? btn_day:btn_defDayL):btn_NotAva} 
                     onClick={()=>handleCoach(true)}> 
                         <span>Coach</span> 
                     </button>
-                    <button className={contextValue.bookdata.time!=""?((contextValue.bookdata.coach=="btn_Nocoach")? btn_day:btn_defDayL):btn_NotAva}
+                    <button className={contextValue.bookdata.time!=""?((contextValue.bookdata.coach===false)? btn_day:btn_defDayL):btn_NotAva}
                     onClick={()=>handleCoach(false)}>
                         <span>No Coach</span>
                     </button>

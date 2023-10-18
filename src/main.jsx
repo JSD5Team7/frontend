@@ -20,7 +20,7 @@ const router = createBrowserRouter([
   {path:'/', element:<App/>},
   {path:'/contact-us', element:<ContactUs/>},
   {path:'/about-us', element:<AboutUs/>},
-  {path:'/booking', element:<Booking/>},
+  {path:'/booking', element:<Booking user_id={1}/>},
   {path:'/profile', element:<ProfileComponent user_id={1}/>},
   {path:'/contact-us', element: <ContactUs/>},
   {path:'/coach', element:<TrainerDetails/>},

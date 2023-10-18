@@ -10,7 +10,7 @@ const btn_sty = "flex items-center justify-left w-80 h-14 inline-flex bg-white h
 
 
 // http://www.w3.org/2000/svg
-function ContentS1({changeTostep2,changeContentS2}){
+function ContentS1({changeTostep2,changeContentS2,user_id}){
     const contextValue = useContext(CustomContext);
     const handleSport=(sport)=>{
         changeTostep2();
@@ -19,14 +19,12 @@ function ContentS1({changeTostep2,changeContentS2}){
 
     useEffect(()=>{
         //reset data
-        const getUserName = 1;
-
         contextValue.setbookdata((previousState)=>{
             return  {...previousState,
-                user:getUserName,
+                user:user_id,
                 sport:"",
                 location:"",
-                day:"",     //[today,tomoror] //this point is dupication object for init value
+                day:"",     //[today,tomoror] //this point is dupication object for init booking
                 date:"",
                 time:"",    //[time]
                 coach:"",

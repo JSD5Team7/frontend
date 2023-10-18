@@ -13,12 +13,13 @@ import ContentS4 from './ContentS4';
 
 const CustomContext = createContext({});
 
-function Booking(){
+function Booking({user_id}){
     
     const [Howto,setHowto] = useState(<HowtoS1 />);
     const [Content,setContent] = useState(<ContentS1 
                                             changeTostep2={changeHowtoS2}
                                             changeContentS2={changeContentS2}
+                                            user_id = {user_id}
                                             />);
     const [Summary,setSummary] = useState(<SummaryS1 />);
     //state นี้เป็นชุดข้อมูลใหญ่ที่ทำการเก็บข้อมูลการจองทั้งหมดไว้ ใช้ในการ booking ทั้งหมด
