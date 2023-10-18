@@ -1,7 +1,21 @@
 import React, { useState } from 'react';
 import Layout from '../Layout/Layout';
 
-function Profile() {
+  const [edit,setEdit] = useState(false);
+  const [sty,setSty] = useState("")
+  const [page,setPage] = useState();
+
+  function handleEdit(tx_id,type){
+    setEdit(true);
+    setPage(<EditPage tx_id={tx_id}
+                      handleEndEdit={handleEndEdit} 
+                      type={type}
+            />);
+  }
+  function handleEndEdit(){
+    setEdit(false);
+  }
+
   return (
     <Layout>
       <div>
@@ -13,8 +27,24 @@ function Profile() {
             </div>
           </div>
       </div>
+
+
+      {edit ? 
+        <div>
+          {page}
+        </div>
+      :
+        <div className='justify-center'>
+        <div>
+          <div>
+            <History user_id={user_id}
+                        handleEdit={handleEdit}/>
+          </div>
+        </div>
+        </div>
+      
+      }
     </Layout>
   );
-}
 
 export default Profile;
