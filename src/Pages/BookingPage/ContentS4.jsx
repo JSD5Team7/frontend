@@ -1,20 +1,80 @@
 import { useContext,useState,useEffect} from 'react'
 import {CustomContext} from './Booking'
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ContentS4({changeHowtoS1,changeContentS1,changeHowtoS3,changeContentS3}){
     const contextValue = useContext(CustomContext);
-
+    const baseApi = "http://localhost:3000";
+    // https://sportclubbackend.onrender.com
     function handleBack(){
         changeHowtoS3();
         changeContentS3();
     }
     function handleSumit(){
-        changeHowtoS1();
-        changeContentS1();
+        try {
+            const createTx = async ()=>{
+                await axios.post(`${baseApi}/activity`,{
+                "tx_id":999,
+                "type":contextValue.bookdata.sport,
+                "location":contextValue.bookdata.location,
+                "date":contextValue.bookdata.date,
+                "day":contextValue.bookdata.day,
+                "time":contextValue.bookdata.time,
+                "iscoach":contextValue.bookdata.coach,
+                "coachId":contextValue.bookdata.who.id,
+                "coachName":contextValue.bookdata.who.name,
+                "activity":contextValue.bookdata.activity,
+                "information":{
+                    "user_id":contextValue.bookdata.user,
+                    "fname":contextValue.bookdata.fname,
+                    "lname":contextValue.bookdata.lname,
+                    "phone":contextValue.bookdata.phone,
+                    "desc":contextValue.bookdata.desc
+                }
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }); 
+            return true;
+            }
+            //
+            createTx();
+            //summit commplete
+            toast.success('Booking is complete.', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+
+        } catch (error) {
+            console.log(error.response.data);
+            toast.error('Sorry! failed Booking, I will check for you.', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+
+            return false;
+        }
     }
 
     return (
         <div>
+            <ToastContainer />
             <div>
                 <h1>Summary Booking</h1>
             </div>
@@ -65,8 +125,6 @@ function ContentS4({changeHowtoS1,changeContentS1,changeHowtoS3,changeContentS3}
                 </div>
 
             </div>
-            
-
             <div className="m-10 flex justify-between">
                 <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleBack()}>Back</button>
                 <button type="submit" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleSumit()}>Submit</button>
