@@ -20,6 +20,8 @@ const Navbar = () => {
                 <li><NavLink to={'/contact-us'} activeClassName='active' className='hover:text-blue-900 hover:font-bold'>Contact Us</NavLink></li>
                 <li ><NavLink to={'/login'} activeClassName='active'  className='hover:text-white hover:font-bold'><button className='w-20 rounded-full bg-white  hover:bg-gray-100  text-blue-900  hover:text-blue-950 text-base'>Log in</button></NavLink></li>
                 <li><NavLink to={'/profile'}><FontAwesomeIcon icon={faCircleUser} size='xl' className='hover:text-blue-900' /></NavLink></li>
+                <li><NavLink to={'/dashboard'} activeClassName='active' className='hover:text-blue-900 hover:font-bold'>Dash Board</NavLink></li>
+
             </ul>
        </div>
     )
