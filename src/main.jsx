@@ -4,7 +4,7 @@ import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 
 import App from './App.jsx'
 import AboutUs from './Pages/AboutUs.jsx'
-import ProfileComponent from './Pages/ProfilePage/Profile.jsx'
+import ProfileComponent from './Pages/Profile.jsx'
 import TrainerDetails from './Pages/TrainerDetails.jsx'
 import Booking from './Pages/BookingPage/Booking.jsx'
 import ContactUs from './Pages/Contact.jsx'
@@ -12,6 +12,7 @@ import Login from './Pages/Login.jsx'
 import TermsOfService from './Pages/TermsOfService.jsx'
 import Privacy from './Pages/Privacy.jsx'
 import Registration from './Pages/Registration.jsx'
+import DashBoard from './Pages/ProfilePage/Dashboard.jsx'
 
 import './index.css'
 
@@ -21,13 +22,14 @@ const router = createBrowserRouter([
   {path:'/contact-us', element:<ContactUs/>},
   {path:'/about-us', element:<AboutUs/>},
   {path:'/booking', element:<Booking user_id={1}/>},
-  {path:'/profile', element:<ProfileComponent user_id={1}/>},
+  {path:'/profile', element:<ProfileComponent />},
   {path:'/contact-us', element: <ContactUs/>},
   {path:'/coach', element:<TrainerDetails/>},
   {path:'/login', element:<Login/>},
   {path:'/terms-of-service', element:<TermsOfService/>},
   {path:'/privacy', element:<Privacy/>},
-  {path:'/signup', element:<Registration/>}
+  {path:'/signup', element:<Registration/>},
+  {path:'/dashboard',element:<DashBoard user_id={1}/>}
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
