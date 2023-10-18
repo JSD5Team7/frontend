@@ -19,7 +19,7 @@ import Login from './Pages/Login.jsx'
 import TermsOfService from './Pages/TermsOfService.jsx'
 import Privacy from './Pages/Privacy.jsx'
 import Registration from './Pages/Registration.jsx'
-import DashBoard from './Pages/ProfilePage/Dashboard.jsx'
+import DashBoard from './Pages/DashboardPage/Dashboard.jsx'
 
 import './index.css'
 
