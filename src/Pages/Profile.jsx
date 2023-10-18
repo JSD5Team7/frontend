@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../Layout/Layout';
 
+function Profile() {
   return (
     <Layout>
       <div>
@@ -14,5 +15,6 @@ import Layout from '../Layout/Layout';
       </div>
     </Layout>
   );
+}
 
 export default Profile;
