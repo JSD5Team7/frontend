@@ -16,11 +16,11 @@ const useAPI = () => {
     },[])
     
     const register = async(value) => {
-    return await axios.post(`${baseURL}/api/register`, value)
+    return await axios.post(`${baseURL}/users/register`, value)
     }
 
     const login = async(value) => {
-       return await axios.post(`${baseURL}/api/login`, value)
+       return await axios.post(`${baseURL}/users/login`, value)
     }
 
   return { trainers , register , login };

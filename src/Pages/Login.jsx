@@ -1,5 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom' 
+
+
 import Layout from '../Layout/Layout'
 import useAPI from '../Hook/useAPI'
 
@@ -9,6 +14,10 @@ const Login = () => {
         username: '',
         password: ''
     });
+
+    const dispatch = useDispatch()
+
+    const navigete = useNavigate()
 
     const handleChange = (e) => {
         setValueLogin({
@@ -21,8 +30,33 @@ const Login = () => {
         e.preventDefault()
 
         try {
-            await login(valueLogin)
+            const response = await login(valueLogin)
             alert("Login Success")
+
+            dispatch({
+                type: 'LOGIN',
+                payload: {
+                    token: response.data.token,
+                    userId: response.data.payload.user.userId,
+                    username : response.data.payload.user.username,
+                    role: response.data.payload.user.role
+                }
+            });
+            localStorage.setItem('token',response.data.token)
+            localStorage.setItem('userId',response.data.payload.user.userId)
+
+            const idtoken = localStorage.token
+            const userid = localStorage.userId
+            console.log(idtoken)
+            console.log(userid)
+            if (idtoken) {
+                navigete('/')
+            } else {
+                navigete('/login')
+            }
+
+            
+
         } catch(err) {
             console.error(err)
             alert(err.response.data)
@@ -56,7 +90,12 @@ const Login = () => {
                     <p className='px-3'>Forget password?</p>
                 </div>
                 <button className='border-solid border-2 border-sky-500 rounded-xl py-2' >Login</button>
+                
             </form>
+            <div className='w-3/12 mt-5'>
+                <NavLink to={'/signup'} activeClassName='active'><button className='border-solid border-2 border-sky-500 rounded-xl py-2' >Sign Up</button></NavLink>
+            </div >
+            
         </div>
     </Layout>
     
