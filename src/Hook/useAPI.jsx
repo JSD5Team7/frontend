@@ -22,8 +22,17 @@ const useAPI = () => {
     const login = async(value) => {
        return await axios.post(`${baseURL}/users/login`, value)
     }
+    
+    const currentUser = async(authtoken) => {
+        await axios.post(`${baseURL}/users/current-user`, {},
+        {
+            headers: {
+                authtoken
+            }
+        })
+     }
 
-  return { trainers , register , login };
+  return { trainers , register , login, currentUser };
 }
 
 export default useAPI

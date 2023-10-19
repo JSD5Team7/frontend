@@ -11,7 +11,6 @@ import Trainerlist from '../Components/Trainerlist';
 const TrainerDetails = () => {
 
     const { trainers } = useAPI();
-    console.log(trainers)
 
         const [filterActivity, setFilterActivity] = useState('')
         const [sortName, setSortName] = useState('')
