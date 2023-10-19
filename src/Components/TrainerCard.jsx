@@ -5,6 +5,7 @@ import { UilAngleDown } from '@iconscout/react-unicons'
 
 
 const TrainerCard = ({ key, name, activity, information }) => {
+
   const [isOverflowVisible, setOverflowVisible] = useState(false);
   const [rotate , setRotate] = useState(false);
 

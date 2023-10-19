@@ -7,6 +7,8 @@ const useAPI = () => {
 
     const [trainers, setTrainers] = useState([]);
 
+    const [user, setUser] = useState(null)
+
     useEffect(() => {
         const getDataTrainer = async() => {
             const response = await axios.get(`${baseURL}/coachList/all`);
@@ -14,6 +16,21 @@ const useAPI = () => {
         } 
         getDataTrainer();
     },[])
+
+    useEffect(() => {
+        const getUser = async(value) => {
+            const userId = value;
+            if (userId) {
+                const response = await axios.get(`${baseURL}/users/${userId}`)
+                if (response.status === 200) {
+                    setUser(response.data)
+                }
+            }
+        }
+        const localUserId = window.localStorage.userId
+        getUser(localUserId);
+    },[])
+
     
     const register = async(value) => {
     return await axios.post(`${baseURL}/users/register`, value)
@@ -32,7 +49,7 @@ const useAPI = () => {
         })
      }
 
-  return { trainers , register , login, currentUser };
+  return { trainers, user, register, login, currentUser };
 }
 
 export default useAPI
