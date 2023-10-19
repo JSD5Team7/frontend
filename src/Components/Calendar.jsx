@@ -2,25 +2,25 @@ import React, { useState } from 'react';
 
 // Example data in the new format
 const data = [
-    {date: '2023-10-06', time: '06:00 - 07:00', status: true },
-    {date: '2023-10-06', time: '07:00 - 08:00', status: false },
-    {date: '2023-10-06', time: '08:00 - 09:00', status: true },
-    {date: '2023-10-06', time: '10:00 - 11:00', status: false },
-    {date: '2023-10-06', time: '11:00 - 12:00', status: true },
-    {date: '2023-10-06', time: '12:00 - 13:00', status: true },
-    {date: '2023-10-06', time: '13:00 - 14:00', status: false },
-    {date: '2023-10-06', time: '14:00 - 15:00', status: true },
-    {date: '2023-10-06', time: '15:00 - 16:00', status: false },
+    {date: '2023-10-19', time: '06:00 - 07:00', status: true },
+    {date: '2023-10-19', time: '07:00 - 08:00', status: false },
+    {date: '2023-10-19', time: '08:00 - 09:00', status: true },
+    {date: '2023-10-19', time: '10:00 - 11:00', status: false },
+    {date: '2023-10-19', time: '11:00 - 12:00', status: true },
+    {date: '2023-10-19', time: '12:00 - 13:00', status: true },
+    {date: '2023-10-19', time: '13:00 - 14:00', status: false },
+    {date: '2023-10-19', time: '14:00 - 15:00', status: true },
+    {date: '2023-10-19', time: '15:00 - 16:00', status: false },
     //2023-10-07
-    {date: '2023-10-07', time: '06:00 - 07:00', status: false },
-    {date: '2023-10-07', time: '07:00 - 08:00', status: false },
-    {date: '2023-10-07', time: '08:00 - 09:00', status: false },
-    {date: '2023-10-07', time: '10:00 - 11:00', status: false },
-    {date: '2023-10-07', time: '11:00 - 12:00', status: true },
-    {date: '2023-10-07', time: '12:00 - 13:00', status: true },
-    {date: '2023-10-07', time: '13:00 - 14:00', status: false },
-    {date: '2023-10-07', time: '14:00 - 15:00', status: true },
-    {date: '2023-10-07', time: '15:00 - 16:00', status: false },
+    {date: '2023-10-20', time: '06:00 - 07:00', status: false },
+    {date: '2023-10-20', time: '07:00 - 08:00', status: false },
+    {date: '2023-10-20', time: '08:00 - 09:00', status: false },
+    {date: '2023-10-20', time: '10:00 - 11:00', status: false },
+    {date: '2023-10-20', time: '11:00 - 12:00', status: true },
+    {date: '2023-10-20', time: '12:00 - 13:00', status: true },
+    {date: '2023-10-20', time: '13:00 - 14:00', status: false },
+    {date: '2023-10-20', time: '14:00 - 15:00', status: true },
+    {date: '2023-10-20', time: '15:00 - 16:00', status: false },
   ];
 
 // Style Type Sport
@@ -69,20 +69,20 @@ const Calendar = () => {
         </div>
         <div>
           <h2>Available Time:</h2>
-          <table>
+          <table className='table-auto border-collapse border border-slate-500'>
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Time Slot</th>
-                <th>Status</th>
+                <th className='border border-slate-500 w-24' >Date</th>
+                <th className='border border-slate-500'>Time Slot</th>
+                <th className='border border-slate-500'>Status</th>
               </tr>
             </thead>
             <tbody>
               {availableTimeSlots.map((timeSlot, index) => (
                 <tr key={index}>
-                  <td>{timeSlot.date}</td>
-                  <td>{timeSlot.time}</td>
-                  <td className={timeSlot.status ? 'green' : 'red'}>{timeSlot.status ? 'Available' : 'Unavailable'}</td>
+                  <td className='border border-slate-500'>{timeSlot.date}</td>
+                  <td className='border border-slate-500'>{timeSlot.time}</td>
+                  <td className='border border-slate-500'>{timeSlot.status ? 'Available' : 'Unavailable'}</td>
                 </tr>
               ))}
             </tbody>

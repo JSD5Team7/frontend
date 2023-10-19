@@ -8,6 +8,7 @@ import './App.css'
 import Layout from './Layout/Layout.jsx'
 import SildeTrainer from './Components/SildeTrainer';
 import Calendar from './Components/Calendar';
+import TennisBookingApp from './Components/Table';
 
 
 
@@ -41,8 +42,8 @@ function App() {
 
       <SildeTrainer/>
 
-      <Calendar/>
-
+      {/* <Calendar/> */}
+      <TennisBookingApp/>
     </Layout>
     
   )
