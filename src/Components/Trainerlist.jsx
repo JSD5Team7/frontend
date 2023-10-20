@@ -19,7 +19,7 @@ const Trainerlist = ({ trainers, filterActivity, sortName }) => {
                     .slice(0, 10)
                     .map((trainer) => (
                         <TrainerCard 
-                            key={trainer.id} 
+                            key={trainer._id} 
                             name={trainer.name}
                             activity={trainer.type}
                             information={trainer.des}

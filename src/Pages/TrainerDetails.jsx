@@ -11,7 +11,6 @@ import Trainerlist from '../Components/Trainerlist';
 const TrainerDetails = () => {
 
     const { trainers } = useAPI();
-    console.log(trainers)
 
         const [filterActivity, setFilterActivity] = useState('')
         const [sortName, setSortName] = useState('')
@@ -22,7 +21,7 @@ const TrainerDetails = () => {
     <Layout>
 
 
-        <div className='trainers-container text-center my-12 flex-col justify-center'>
+        <div className='trainers-container text-center flex-col pb-40 justify-center'>
 
             <h1 className='text-7xl my-5 pt-10'>Trainer</h1>
 

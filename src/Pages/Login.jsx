@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { NavLink } from 'react-router-dom' 
-
+// import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Layout from '../Layout/Layout'
 import useAPI from '../Hook/useAPI'
@@ -14,6 +15,7 @@ const Login = () => {
         username: '',
         password: ''
     });
+
 
     const dispatch = useDispatch()
 
@@ -28,11 +30,10 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
         try {
             const response = await login(valueLogin)
             alert("Login Success")
-
+            
             dispatch({
                 type: 'LOGIN',
                 payload: {
@@ -46,16 +47,10 @@ const Login = () => {
             localStorage.setItem('userId',response.data.payload.user.userId)
 
             const idtoken = localStorage.token
-            const userid = localStorage.userId
-            console.log(idtoken)
-            console.log(userid)
+
             if (idtoken) {
                 navigete('/')
-            } else {
-                navigete('/login')
-            }
-
-            
+            } 
 
         } catch(err) {
             console.error(err)
@@ -66,11 +61,13 @@ const Login = () => {
     <Layout>
 
         <div className='login-container flex-col flex items-center justify-center h-screen'>
-            <h1 className='text-7xl mb-12'>Sign in</h1>
+            
+            <h1 className='text-7xl mb-12'>LOG IN</h1>
 
             <img src="" alt="" />
 
-            <form className='login flex flex-col w-3/12 gap-3' onSubmit={handleSubmit}>
+            <form className='login flex flex-col w-[300px] gap-3' onSubmit={handleSubmit}>
+
                 <input 
                     className='border-solid border-2 border-sky-500 rounded-xl p-2'
                     type="text" 
@@ -89,13 +86,20 @@ const Login = () => {
                     <p className='px-3'>Remember me</p>
                     <p className='px-3'>Forget password?</p>
                 </div>
-                <button className='border-solid border-2 border-sky-500 rounded-xl py-2' >Login</button>
-                
+                <button 
+                    className='border-solid border-2 border-sky-500 rounded-xl py-2' >Login
+                </button>
+
             </form>
-            <div className='w-3/12 mt-5'>
-                <NavLink to={'/signup'} activeClassName='active'><button className='border-solid border-2 border-sky-500 rounded-xl py-2' >Sign Up</button></NavLink>
-            </div >
-            
+            <div className='w-[300px] mt-5'>
+                <NavLink 
+                    to={'/register'} 
+                    activeClassName='active'>
+                        <button 
+                            className='border-solid border-2 w-full border-sky-500 rounded-xl py-2'>Sign Up
+                        </button>
+                </NavLink>
+            </div >            
         </div>
     </Layout>
     
