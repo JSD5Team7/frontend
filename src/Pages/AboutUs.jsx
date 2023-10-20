@@ -11,9 +11,9 @@ const AboutUs = () => {
                 <img src="/src/assets/images/hero-image.jpeg" alt="sport club" className='rounded-2xl shadow-black shadow-md contrast-125'/>
                 <h2 className='absolute text-brown-800 text-7xl italic font-extrabold opacity-70'>Good vibes, Good health</h2>
             </div>
-            <div className="about-us w-full mt-6 mb-10 p-10 text-lg text-gray-800 bg-black/20">
-                <h2 className='text-3xl text-center text-gray-800 mb-6'>Who are We?</h2>
-                <p className='text-center text-xl mb-3'><em>We are who bring happiness to you. <span className='text-white '>" Where Passion Meets Fun and Healthy ".</span></em></p>
+            <div className="about-us w-full mt-6 mb-10 p-10 text-lg text-gray-800 bg-slate-700 rounded-lg shadow-black shadow-md">
+                <h2 className='text-5xl text-center font-bold drop-shadow-md text-lime-300  mb-6'>Who are We?</h2>
+                <p className='text-center text-xl mb-3'><em>We are who bring happiness to you. <span className='text-lime-300'>" Where Passion Meets Fun and Healthy ".</span></em></p>
                 <p className='mb-10 indent-10'>At our sport club, we are more than just a club; we are a community of like-minded individuals brought together by our shared passion for sports, fitness, and a healthy lifestyle. Here's a glimpse into what we do, what we serve, and what you can expect from this extraordinary place.</p>
                 <div className="first-section w-full flex gap-3 items-center justify-center">
                 <ol className='w-3/4'>
