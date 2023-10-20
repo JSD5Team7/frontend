@@ -33,6 +33,7 @@ const useAPI = () => {
 
     
     const register = async(value) => {
+        console.log(value)
     return await axios.post(`${baseURL}/users/register`, value)
     }
 
