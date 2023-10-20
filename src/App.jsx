@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import './App.css'
 import Layout from './Layout/Layout.jsx'
 import SildeTrainer from './Components/SildeTrainer';
+import BookingTable from './Components/TimeTable';
 
 
 
@@ -36,12 +37,11 @@ function App() {
   
   return (
     <Layout>
-
-
+      
+      <BookingTable/>
       <SildeTrainer/>
 
-     
-
+      
     </Layout>
     
   )

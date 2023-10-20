@@ -8,8 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FormContact } from "../Components/FormContact";
 
-const inputStyle =
-  "border border-gray-400 rounded-md p-2 focus:outline-none focus:border-emerald-400 caret-emerald-400 placeholder:italic placeholder:text-slate-300 ";
 
 const ContactUs = () => {
   return (
@@ -27,26 +25,26 @@ const ContactUs = () => {
                 Get in Touch with Us!
               </h2>
               <h3 className="text-lg mt-6">Hello,</h3>
-              <p className="font-sans text-light text-lg">
+              <p className="text-light text-lg">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We appreciate your interest in our
                 website and are excited to hear from you. Whether you have
                 questions, suggestions, or just want to connect, we encourage
                 you to reach out. Your input and engagement are essential to us.
               </p>
-              <p className="font-sans text-light text-lg">
+              <p className="text-light text-lg">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please feel free to send us a
                 message through this platform or reach out via email at
                 sportclub@example.com.{" "}
               </p>
-              <p className="font-sans text-light text-lg">
+              <p className="text-light text-lg">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We're looking forward to hearing
                 from you and engaging in meaningful discussions. Your
                 involvement is highly valued.
               </p>
               <br />
-              <p className="font-sans text-light text-lg">Best regards,</p>
+              <p className="text-light text-lg">Best regards,</p>
               <br />
-              <p className="font-sans text-light text-lg">
+              <p className="text-light text-lg">
                 Sportclub Adminstration Team
               </p>
               <div className="address flex mt-5 items-center ">
