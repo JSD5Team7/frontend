@@ -8,8 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FormContact } from "../Components/FormContact";
 
-const inputStyle =
-  "border border-gray-400 rounded-md p-2 focus:outline-none focus:border-emerald-400 caret-emerald-400 placeholder:italic placeholder:text-slate-300 ";
 
 const ContactUs = () => {
   return (

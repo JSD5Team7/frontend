@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import './App.css'
 import Layout from './Layout/Layout.jsx'
 import SildeTrainer from './Components/SildeTrainer';
+import Calendar from './Components/Calendar';
 
 
 
@@ -40,7 +41,7 @@ function App() {
 
       <SildeTrainer/>
 
-     
+      <Calendar/>
 
     </Layout>
     
