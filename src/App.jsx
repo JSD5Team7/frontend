@@ -1,7 +1,3 @@
-import React from 'react'
-
-
-
 import './App.css'
 import Layout from './Layout/Layout.jsx'
 import SildeTrainer from './Components/SildeTrainer';
