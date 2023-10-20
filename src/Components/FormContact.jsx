@@ -1,31 +1,28 @@
-import { useState } from 'react';
-
-const inputStyle = ' border-b-2 border-lime-300 p-2 bg-transparent focus:outline-none focus:border-emerald-300 caret-emerald-400 placeholder:italic placeholder:text-slate-30 ';
+import { useRef } from 'react';
+import emailjs from '@emailjs/browser';
+const inputStyle = 'text-white border-b-2 border-white p-2 bg-transparent focus:outline-none focus:border-emerald-400 caret-emerald-400 placeholder:italic placeholder:text-slate-500 ';
 
 export const FormContact = () => {
-    const [firstName,setFirstName] = useState('');
-    const [lastName,setLastName] = useState('');
-    const [email,setEmail] = useState('');
-    const [phoneNumber,setPhoneNumber] = useState('');
-    const [message,setMessage] = useState('');
-    // const [displayValue,setDisplayValue] = useState('');
+   
+    const form = useRef();
 
-    const handleSubmit = (e) => {
-        alert('send this message ?');
-        e.preventDefault();
-        const info = {firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, message: message};
-        setDisplayValue(info)
-        setFirstName('')
-        setLastName('')
-        setEmail('')
-        setPhoneNumber('')
-        setMessage('')
-        return info
-    }
+    const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_kr47zrv', 'template_c1etpq3', form.current, 'SaZ-Z93sbl8o83lLC')
+      .then((result) => {
+          console.log(result.text);
+          console.log("message sent")
+          alert('message sent')
+          e.target.reset();
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
 
     return (
         <div className="form-contact w-2/4 text-slate-800 mt-0 ml-8 pt-8 pr-6 text-lg grid place-items-center border-solid border-4 border-lime-400 rounded-xl " >
-                <form onSubmit={handleSubmit} className='flex flex-col gap-6 pb-24' >
+                <form onSubmit={sendEmail} className='flex flex-col gap-6 pb-24' >
                     <h2 className='font-bold text-4xl text-slate-800 text-center pb-6 drop-shadow-md'>Contact Us</h2>
                     <div className="first-name flex flex-col">
                         <label htmlFor="firstname" className='font-semibold text-slate-800'>First name</label>
@@ -51,14 +48,8 @@ export const FormContact = () => {
                         <button type='submit' className='font-bold w-40 rounded-full bg-blue-700 p-2 text-lg  shadow-md  drop-shadow-md text-slate-800 hover:text-slate-900 border-solid border-2 bg-lime-400 hover:bg-lime-500 ' >Send Message</button>
                     </div>
                 </form>
-                {/* test send data */}
-                {/* <div className="show-data m-10 mb-24">
-                <p>First name : {displayValue.firstName} </p>
-                <p>Last name : {displayValue.lastName}</p>
-                <p>Email : {displayValue.email} </p>
-                <p>Phone number : {displayValue.phoneNumber} </p>
-                <p>Message : <span className='text-red-600'>{displayValue.message}</span></p>
-                </div> */}
             </div>
     )
 }
+
+

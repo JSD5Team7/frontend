@@ -2,26 +2,127 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImage,faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom' 
-import '../Pages/style.css'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import useAPI from '../Hook/useAPI'
 
 const Navbar = () => {
+
+    const { user } = useAPI();
+
+    
+
+    const dispatch = useDispatch();
+    const navigete = useNavigate();
+    const idtoken = window.localStorage.token;
+
+    const logout = () => {
+        dispatch({
+            type: 'LOGOUT',
+            payload: null
+        })
+        navigete('/')
+    }
     return (
-       <div className="navigation top-0 left-0 right-0 flex p-3 w-full text-slate-700 font-semibold justify-between items-center">
-            <div className="nav-logo flex justify-center gap-2 items-center">
-            <FontAwesomeIcon icon={faImage} size='2xl' className='hidden'/>
-            <img src="/public/dev.png" alt="logo image" className='w-12' />
-                <h1 className='text-3xl pl-3 text-slate-800 font-bold drop-shadow-lg'>Sport Club</h1>
+       <div className="h-20 flex justify-between items-center">
+            <div className="w-[250px]">
+                <NavLink to='/'>
+                    <img src="/public/dev.png" alt="logo image" className='w-12'/>
+                </NavLink>
             </div>
-            <ul className="nav-link  flex justify-center gap-5 text-lg">
-                <li><NavLink to={'/'} activeClassName='active'   className='hover:text-slate-900  ' >Home</NavLink></li>    {/* NavLink is use for Navbar link to style an active link */}   
-                <li><NavLink to={'/booking'} activeClassName='active' className='hover:text-slate-900 '>Booking</NavLink></li>
-                <li><NavLink to={'/coach'} activeClassName='active' className='hover:text-slate-900 '>Coach</NavLink></li>
-                <li><NavLink to={'/about-us'} activeClassName='active' className='hover:text-slate-900'>About Us</NavLink></li>
-                <li><NavLink to={'/contact-us'} activeClassName='active' className='hover:text-slate-900 '>Contact Us</NavLink></li>
-                <li ><NavLink to={'/login'} activeClassName='active'  className='hover:text-slate-900'><button className='w-20 rounded-full bg-lime-300 hover:bg-lime-400  text-slate-800  hover:text-slate-900 text-base'>Log in</button></NavLink></li>
-                <li><NavLink to={'/profile'}><FontAwesomeIcon icon={faCircleUser} size='xl' className='hover:text-late-900 ' /></NavLink></li>
-                <li><NavLink to={'/dashboard'} activeClassName='active' className='hover:text-blue-900 hover:font-bold'>Dash Board</NavLink></li>
+
+            <ul className="flex justify-center gap-3">
+                <li>
+                    <NavLink 
+                        to={'/'} 
+                        activeClassName='active' 
+                        className=''>Home
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink 
+                        to={'/booking'} 
+                        activeClassName='active' 
+                        className=''>Booking
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink 
+                        to={'/coach'} 
+                        activeClassName='active' 
+                        className=''>Coach
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink 
+                        to={'/about-us'} 
+                        activeClassName='active' 
+                        className=''>About Us
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink 
+                        to={'/contact-us'} 
+                        activeClassName='active' 
+                        className=''>Contact Us
+                    </NavLink>
+                </li>
             </ul>
+            
+            {!idtoken ? 
+            (
+            <ul className='flex justify-end gap-3 w-[250px]'>
+                <li>
+                    <NavLink 
+                        to={'/login'} 
+                        activeClassName='active' 
+                        className=''>
+                            <button 
+                                className='w-20 rounded-full bg-white'>
+                                Log in
+                            </button>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink 
+                        to={'/register'} 
+                        activeClassName='active' 
+                        className=''>
+                            <button 
+                                className='w-20 rounded-full bg-white'>
+                                Sign up
+                            </button>
+                    </NavLink>
+                </li>
+            </ul>
+            ) : (
+            <ul className='flex justify-end gap-3 w-[250px]'>
+                <li>
+                    <NavLink 
+                        to={'/profile'}>
+                            <FontAwesomeIcon 
+                                icon={faCircleUser} 
+                                size='xl' className=''/>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink 
+                        to={'/dashboard'} 
+                        activeClassName='active' 
+                        className=''>Dash Board
+                    </NavLink>
+                </li>
+                <li>
+                    <button 
+                        onClick={logout} 
+                        className='w-20 rounded-full bg-white'>
+                            Log out
+                    </button>
+                </li>
+            </ul>
+            )}
+        
+            
        </div>
     )
 }

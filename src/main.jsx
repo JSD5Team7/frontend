@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter,RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate ,RouterProvider } from 'react-router-dom'
 
 //Redux
 import { Provider } from 'react-redux';
@@ -19,24 +19,115 @@ import Login from './Pages/Login.jsx'
 import TermsOfService from './Pages/TermsOfService.jsx'
 import Privacy from './Pages/Privacy.jsx'
 import Registration from './Pages/Registration.jsx'
-import DashBoard from './Pages/ProfilePage/Dashboard.jsx'
-
+import DashBoard from './Pages/DashboardPage/Dashboard.jsx'
+import EditDashboard from './Pages/DashboardPage/editPage.jsx'
 import './index.css'
 
 
+
+const AuthProtectedRoute = ({ children }) => {
+  const idtoken = window.localStorage.token;
+  if (!idtoken) {
+    return <Navigate to= '/login' replace/>
+  } else {
+    return children
+  }
+}
+
+const AuthProtectedLoginRoute = ({ children }) => {
+  const idtoken = window.localStorage.token;
+  if (idtoken) {
+    return <Navigate to= '/' replace/>
+  } else {
+    return children
+  }
+}
+
+
 const router = createBrowserRouter([
-  {path:'/', element:<App/>},
-  {path:'/contact-us', element:<ContactUs/>},
-  {path:'/about-us', element:<AboutUs/>},
-  {path:'/booking', element:<Booking user_id={1}/>},
-  {path:'/profile', element:<ProfileComponent />},
-  {path:'/contact-us', element: <ContactUs/>},
-  {path:'/coach', element:<TrainerDetails/>},
-  {path:'/login', element:<Login/>},
-  {path:'/terms-of-service', element:<TermsOfService/>},
-  {path:'/privacy', element:<Privacy/>},
-  {path:'/signup', element:<Registration/>},
-  {path:'/dashboard',element:<DashBoard user_id={1}/>}
+  {
+    path:'/', 
+    element:
+      <App/>
+  },
+  {
+    path:'/contact-us', 
+    element:
+      <ContactUs/>
+  },
+  {
+    path:'/about-us', 
+    element:
+      <AboutUs/>
+  },
+  {
+    path:'/booking', 
+    element: 
+      <AuthProtectedRoute>
+        <Booking/>
+      </AuthProtectedRoute>
+  },
+  {
+    path:'/profile', 
+    element:
+      <ProfileComponent/>
+    },
+  {
+    path:'/contact-us', 
+    element: 
+      <ContactUs/>
+  },
+  {
+    path:'/coach', 
+    element:
+      <TrainerDetails/>
+  },
+  {
+    path:'/login', 
+    element: (
+      <AuthProtectedLoginRoute>
+        <Login/>
+      </AuthProtectedLoginRoute>
+      
+    )
+  },
+  {
+    path:'/terms-of-service', 
+    element:
+      <TermsOfService/>
+  },
+  {
+    path:'/privacy', 
+    element:
+      <Privacy/>
+  },
+  {
+    path:'/register', 
+    element:
+      <AuthProtectedLoginRoute>
+        <Registration/>
+      </AuthProtectedLoginRoute>
+  },
+  {
+    path:'/dashboard',
+    element:
+    <AuthProtectedRoute>
+      <DashBoard />
+    </AuthProtectedRoute>
+      
+  },
+  {path:'/editdashboard',element:
+    <AuthProtectedRoute>
+      <EditDashboard />
+    </AuthProtectedRoute>,
+    children: [
+      {
+        path:":tx_id/:type",
+        element: <EditDashboard />
+      }
+    ]
+
+  }
 ])
 
 const store = createStore(rootReducer, composeWithDevTools());

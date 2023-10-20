@@ -1,30 +1,35 @@
 import { useState,useEffect} from 'react'
 import axios from 'axios';
-
-function history({user_id,handleEdit}){
+import { useNavigate, useParams } from "react-router-dom";
+function history({user_id}){
     const [userList, setUsers] = useState([]);
+    const navigate = useNavigate();
     
     const baseApi = "http://localhost:3000";
     // https://sportclubbackend.onrender.com
     useEffect(  ()=>{
         //get history with user_id find to tx_activity
         try {
-            const getHistory = async (user_id)=>{
-                const res = await axios.get(`${baseApi}/user/history/${user_id}`);
+            const getHistory = async ()=>{
+                const userid = localStorage.userId
+                console.log(userid)
+                const res = await axios.get(`${baseApi}/user/history/${userid}`);
                 const data = res.data;
                 // console.log(data);
                 setUsers(data);
                 return;
             }
-            getHistory(user_id);
+            getHistory();
         } catch (error) {
             console.log({measage:error.measage});
             return;
         }
     },[]);
-      const BTNhandleEdit = (user_id,_id,type) => {
-        // console.log(`Edit:${user_id},${_id}`);
-        handleEdit(_id,type);
+      const BTNhandleEdit = (_id,type) => {
+        //tx_id
+        console.log(`Edit:${_id} ${type}`);
+        navigate(`/editdashboard/${_id}/${type}`);
+        return;
       };
     
       const handleDelete = (id) => {
@@ -71,7 +76,7 @@ function history({user_id,handleEdit}){
                 <div className="flex gap-5 p-3">
                     <button
                     className="drop-shadow-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-6 rounded-full"
-                    onClick={() => BTNhandleEdit(user.id,user._id,user.type)}
+                    onClick={() => BTNhandleEdit(user._id,user.type)}
                     >
                     Edit
                     </button>

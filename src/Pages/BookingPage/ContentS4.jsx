@@ -15,8 +15,7 @@ function ContentS4({changeHowtoS1,changeContentS1,changeHowtoS3,changeContentS3}
     function handleSumit(){
         try {
             const createTx = async ()=>{
-                await axios.post(`${baseApi}/activity`,{
-                "tx_id":999,
+                await axios.post(`${baseApi}/activity/${contextValue.bookdata.sport}`,{
                 "type":contextValue.bookdata.sport,
                 "location":contextValue.bookdata.location,
                 "date":contextValue.bookdata.date,
