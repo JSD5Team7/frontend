@@ -10,7 +10,7 @@ const btn_sty = "flex items-center justify-left w-80 h-14 inline-flex bg-white h
 
 
 // http://www.w3.org/2000/svg
-function ContentS1({changeTostep2,changeContentS2,user_id}){
+function ContentS1({changeTostep2,changeContentS2}){
     const contextValue = useContext(CustomContext);
     const handleSport=(sport)=>{
         changeTostep2();
@@ -19,9 +19,10 @@ function ContentS1({changeTostep2,changeContentS2,user_id}){
 
     useEffect(()=>{
         //reset data
+        const userid = localStorage.userId
         contextValue.setbookdata((previousState)=>{
             return  {...previousState,
-                user:user_id,
+                user:userid,
                 sport:"",
                 location:"",
                 day:"",     //[today,tomoror] //this point is dupication object for init booking

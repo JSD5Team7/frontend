@@ -21,7 +21,7 @@ function SummaryS1(){
     return (
         
         <div>
-            <h1>Customer--------<span>{contextValue.bookdata.user}</span> </h1>
+            <h1>Customer:<span>{contextValue.bookdata.user}</span> </h1>
             <h1>{contextValue.bookdata.sport}</h1>
             <h1>Location: {contextValue.bookdata.location}</h1>
             <h1>{contextValue.bookdata.day}</h1>

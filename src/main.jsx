@@ -20,7 +20,7 @@ import TermsOfService from './Pages/TermsOfService.jsx'
 import Privacy from './Pages/Privacy.jsx'
 import Registration from './Pages/Registration.jsx'
 import DashBoard from './Pages/DashboardPage/Dashboard.jsx'
-
+import EditDashboard from './Pages/DashboardPage/editPage.jsx'
 import './index.css'
 
 
@@ -111,7 +111,22 @@ const router = createBrowserRouter([
   {
     path:'/dashboard',
     element:
-      <DashBoard user_id={1}/>
+    <AuthProtectedRoute>
+      <DashBoard />
+    </AuthProtectedRoute>
+      
+  },
+  {path:'/editdashboard',element:
+    <AuthProtectedRoute>
+      <EditDashboard />
+    </AuthProtectedRoute>,
+    children: [
+      {
+        path:":tx_id/:type",
+        element: <EditDashboard />
+      }
+    ]
+
   }
 ])
 
