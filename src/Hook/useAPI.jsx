@@ -50,6 +50,10 @@ const useAPI = () => {
         })
      }
 
+     const editTxActivity = async()=>{
+        
+     }
+
   return { trainers, user, register, login, currentUser };
 }
 

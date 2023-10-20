@@ -17,7 +17,7 @@ const btn_dateSelect = "w-30 bg-green-900 text-back font-bold py-2 px-4 border b
 const btn_NotAva = "w-30 bg-gray-500 text-white font-bold py-2 px-4 rounded opacity-50 pointer-events-none"
 
 const card_Ava = "flex flex-row block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100"
-const card_selected = "flex flex-row block max-w-sm p-6 bg-purple-300 border border-gray-200 rounded-lg shadow hover:bg-purple-100"
+const card_selected = "flex flex-row block max-w-sm p-6 bg-green-300 border border-gray-200 rounded-lg shadow"
 
 const inputStyle = "mb-2 shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 const inputStyleDis = "mb-2 shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 bg-gray-300 leading-tight focus:outline-none focus:shadow-outline";
@@ -140,23 +140,19 @@ function editPage(){
                 user:userid,
                 sport:type,
                 location:"",
-                day:"",     //[today,tomoror] //this point is dupication object for init booking
                 date:"",
                 time:"",    //[time]
                 coachId:"",
                 iscoach:"",
                 coachName:"",
-                who:{
-                    id:"",
-                    name:"",
-                    image:"",
-                    des:""
-                },
                 activity:"",
-                fname:"",
-                lname:"",
-                phone:"",
-                desc:""
+                information:{
+                    user_id:"",
+                    fname:"",
+                    lname:"",
+                    phone:"",
+                    desc:""
+                }
     });
     const [datacourt,setDataCourt] = useState([]);
     const [showTime,setshowTime] = useState(date_init);
@@ -308,35 +304,42 @@ function editPage(){
                         CoachList(type,bookdata.time,bookdata.coachId);
                         //update data context booking
                         setbookdata((previousState)=>{ 
-                            return {...previousState,coach:status}
+                            return {...previousState,iscoach:status}
                         });
                         break;
                     case "badminton":
                         CoachList(type,bookdata.time,bookdata.coachId);
                         setbookdata((previousState)=>{ 
-                            return {...previousState,coach:status}
+                            return {...previousState,iscoach:status}
                         });
                         break;
                     case "yoga":
                         CoachList(type,bookdata.time,bookdata.coachId);
                         setbookdata((previousState)=>{ 
-                            return {...previousState,coach:status}
+                            return {...previousState,iscoach:status}
                         });
                         break;
                 }
                 break;
             case false:
                 setdataCoach([]);
-                setselectwho({});
-
                 setbookdata((previousState)=>{ 
-                    return {...previousState,coach:status}
-                });
-                setbookdata((previousState)=>{ 
-                    return {...previousState,who:{id:"",name:"",des:"",image:""}}
+                    return {...previousState,iscoach:status}
                 });
                 break;
         }
+    }
+    const handleWho=(coach)=>{
+        //console.log(`coach:  ${coach.name} ${coach.id}`);
+        setbookdata((previousState)=>{ 
+            return {...previousState,coachId:coach.id,coachName:coach.name}
+        });
+    }
+    function handleNext(){
+        console.log("you data edit ");
+        event.preventDefault();
+        console.log(bookdata);
+        
     }
 
     useEffect(()=>{
@@ -385,10 +388,11 @@ function editPage(){
     return(
         <Layout>
         <div>
+        <form onSubmit={handleNext}>
             <div className='flex flex-row justify-around'>
                 <div>
                     <div>
-                        <h1>Type:{type} #_id: {tx_id} :{getDate(bookdata.date)}</h1>
+                        <h1>Type:{type} #_id: {tx_id} :{bookdata.coachId}</h1>
                     </div>
                     <div className='flex'>
                         {datacourt.map((eachcourt)=>( 
@@ -440,7 +444,7 @@ function editPage(){
                             <div className="grid grid-cols-3 gap-3">
                             {/* overflow-auto border-solid border-2 border-gray-500 rounded-md */}
                                 {dataCoach.map((eachcoach)=>(
-                                    <a className={card_Ava} onClick={()=>handleWho(eachcoach)}>
+                                    <a className={bookdata.coachId==eachcoach.id?card_selected:card_Ava} onClick={()=>handleWho(eachcoach)}>
                                         {/* <img src={eachcoach.image} alt="" className='h-14 w-14 rounded-full'/> */}
                                         <div className='flex flex-col justify-center bg-green'>
                                             <h2 className="mb-2 text-2xl font-bold tracking-tight :text-black"><span>{eachcoach.name}</span></h2>
@@ -454,63 +458,61 @@ function editPage(){
                 </div>
                 </div>
 
-                <div className=''>
-                  <h1>Information</h1>
+                <div >
+                    <h1>Information</h1>
                     <div>
                         <label class={label}>Activity name</label>
-                        <input type="text" id="activity" className={inputStyle} placeholder="Activity" value={""} onChange={
-                            (e)=>contextValue.setbookdata((previousState)=>{ 
+                        <input type="text" id="activity" className={inputStyle} placeholder="Activity" value={bookdata.activity} onChange={
+                            (e)=>setbookdata((previousState)=>{ 
                                 return {...previousState,activity:e.target.value}
                             })}/>
                     </div>
-
                     <div class="grid gap-1 md:grid-cols-3">
                         <div>
                             <label for="first_name" class={label}>First name</label>
-                            <input type="text" id="first_name" class={inputStyle} placeholder="John" value={""} 
-                            // onChange={
-                            //     (e)=>contextValue.setbookdata((previousState)=>{ 
-                            //         return {...previousState,fname:e.target.value}
-                            //     })}
+                            <input type="text" id="first_name" class={inputStyle} placeholder="John" value={bookdata.information.fname} 
+                            onChange={
+                                (e)=>setbookdata((previousState)=>{ 
+                                    return {...previousState,information:{...previousState.information,fname:e.target.value}}
+                                })}
                             required/>
                         </div>
                         <div>
                             <label for="last_name" class={label}>Last name</label>
-                            <input type="text" id="last_name" class={inputStyle} placeholder="Doe" value={""} 
-                            // onChange={
-                            //     (e)=>contextValue.setbookdata((previousState)=>{ 
-                            //         return {...previousState,lname:e.target.value}
-                            //     })}
+                            <input type="text" id="last_name" class={inputStyle} placeholder="Doe" value={bookdata.information.lname} 
+                            onChange={
+                                (e)=>setbookdata((previousState)=>{ 
+                                    return {...previousState,information:{...previousState.information,lname:e.target.value}}
+                                })}
                                 required/>
                         </div>
                         <div>
                             <label for="phone" class={label}>Phone number</label>
-                            <input type="tel" id="phone" class={inputStyle} placeholder="098xxxx123" pattern="[0-9]{10}" value={""} 
-                            // onChange={
-                            //     (e)=>contextValue.setbookdata((previousState)=>{ 
-                            //         return {...previousState,phone:e.target.value}
-                            //     })} 
+                            <input type="tel" id="phone" class={inputStyle} placeholder="098xxxx123" pattern="[0-9]{10}" value={bookdata.information.phone} 
+                            onChange={
+                                (e)=>setbookdata((previousState)=>{ 
+                                    return {...previousState,information:{...previousState.information,phone:e.target.value}}
+                                })} 
                                 required/>
                         </div>
-                        
                     </div>
                     <div className="h-32"> 
                         <label class={label}>Description</label>
-                        <textarea type="message" id="message" placeholder="description How can we help you?" className={inputDesc} value={""} 
-                        // onChange={
-                        //     (e)=>contextValue.setbookdata((previousState)=>{ 
-                        //         return {...previousState,desc:e.target.value}
-                        //     })}
+                        <textarea type="message" id="message" placeholder="description How can we help you?" className={inputDesc} value={bookdata.information.desc} 
+                        onChange={
+                            (e)=>setbookdata((previousState)=>{ 
+                                return {...previousState,information:{...previousState.information,desc:e.target.value}}
+                            })}
                             />
-
                     </div>
+                    
             </div>
         </div>
-            
             <div className="mb-10 flex justify-between">
                     <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleBack()}>Back</button>
-                    <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleSave()}>Save</button>
+                    <button type="submit" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform">Submin</button>
             </div>
+        </form>
         </div>
         </Layout>
     );
