@@ -3,22 +3,7 @@ import Layout from '../../Layout/Layout';
 import History from "./history";
 import EditPage from "./editPage.jsx";
 function Profile({user_id}) {
-
-  const [edit,setEdit] = useState(false);
-  const [sty,setSty] = useState("")
-  const [page,setPage] = useState();
-
-  function handleEdit(tx_id,type){
-    setEdit(true);
-    setPage(<EditPage tx_id={tx_id}
-                      handleEndEdit={handleEndEdit} 
-                      sport={type}
-            />);
-  }
-  function handleEndEdit(){
-    setEdit(false);
-  }
-
+  
   return (
     <Layout>
       <div>
@@ -29,23 +14,13 @@ function Profile({user_id}) {
             </div>
           </div>
       </div>
-
-
-      {edit ? 
-        <div className='my-3'>
-          {page}
-        </div>
-      :
         <div className='justify-center'>
         <div>
             <div>
-              <History user_id={user_id}
-                          handleEdit={handleEdit}/>
+              <History />
             </div>
         </div>
         </div>
-      
-      }
     </Layout>
   );
 }

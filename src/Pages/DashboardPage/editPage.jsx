@@ -1,19 +1,23 @@
 import { useState,useEffect} from 'react'
 import axios from 'axios';
+import { useParams, useNavigate } from "react-router-dom";
+import Layout from '../../Layout/Layout';
+import useAPI from '../../Hook/useAPI.jsx';
+
 
 const btn_def = "flex items-center justify-left w-45 h-25 inline-flex bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
-const btn_select = "flex items-center justify-left w-45 h-25 inline-flex bg-purple-300  text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none transform active:scale-75 transition-transform hover:bg-purple-100"
+const btn_select = "flex items-center justify-left w-45 h-25 inline-flex bg-green-500  text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none transform active:scale-75 transition-transform"
 const btn_defDayL = "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
 const btn_defDayR = "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
 const btn_day = "bg-green-300 text-gray-800 font-bold py-2 px-4 rounded"
 const btn_dateAva = "w-30 bg-green-300 hover:bg-green-500 text-back font-bold py-2 px-4 border border-green-700 rounded"
 const btn_dateNotAva = "w-30 bg-gray-500 text-white font-bold py-2 px-4 rounded opacity-50 pointer-events-none"
-const btn_dateSelect = "w-30 bg-purple-300 hover:bg-purple-100 text-back font-bold py-2 px-4 border border-green-700 rounded"
+const btn_dateSelect = "w-30 bg-green-900 text-back font-bold py-2 px-4 border border-green-700 rounded"
 
 const btn_NotAva = "w-30 bg-gray-500 text-white font-bold py-2 px-4 rounded opacity-50 pointer-events-none"
 
 const card_Ava = "flex flex-row block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100"
-const card_selected = "flex flex-row block max-w-sm p-6 bg-purple-300 border border-gray-200 rounded-lg shadow hover:bg-purple-100"
+const card_selected = "flex flex-row block max-w-sm p-6 bg-green-300 border border-gray-200 rounded-lg shadow"
 
 const inputStyle = "mb-2 shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 const inputStyleDis = "mb-2 shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 bg-gray-300 leading-tight focus:outline-none focus:shadow-outline";
@@ -124,12 +128,36 @@ const statusInit = true;
               }
         ];
 
-function editPage({tx_id,handleEndEdit,type}){
+function editPage(){
+    const { tx_activity } = useAPI();
+    const navigate = useNavigate();
+    const userid = localStorage.userId
+    const { tx_id } = useParams();
+    const { type } = useParams();
     const baseApi = "http://localhost:3000";
     // https://sportclubbackend.onrender.com
+    const [bookdata,setbookdata] = useState({
+                user:userid,
+                sport:type,
+                location:"",
+                date:"",
+                time:"",    //[time]
+                coachId:"",
+                iscoach:"",
+                coachName:"",
+                activity:"",
+                information:{
+                    user_id:"",
+                    fname:"",
+                    lname:"",
+                    phone:"",
+                    desc:""
+                }
+    });
     const [datacourt,setDataCourt] = useState([]);
     const [showTime,setshowTime] = useState(date_init);
     const [dataCoach,setdataCoach] = useState([]);
+
     const getCourt = async(path) =>{
         try {
             const res = await axios.get(`${baseApi}/${path}/${getDate("today")}`);
@@ -166,6 +194,154 @@ function editPage({tx_id,handleEndEdit,type}){
         }
     };
 
+    const getTxAct = async (tx_id)=>{
+        try {
+            const res =  await axios.get(`${baseApi}/activity/${tx_id}`);
+            const data = res.data;
+            console.log(data);
+            setbookdata(data);
+            return;
+        } catch (error) {
+            console.log({measage:error.measage});
+            return;
+        }
+    }
+    const handelcourt=(id)=>{
+        setbookdata((previousState)=>{ 
+            return {...previousState,location:id}
+        });
+    }
+    const TimeWithCourt = async (sport,court,date)=>{
+        // console.log("read: ",court);
+        let path = "";
+        switch(sport){
+            case "tennis":
+                path = "tennisCourt"
+                break;
+            case "badminton":
+                path = "badmintonCourt"
+                break;
+            case "yoga":
+                path = "yogaCourt"
+                break;
+            case "tabletennis":
+                path = "tabletennisCourt"
+                break;
+            case "aerobic":
+                path = "aerobicCourt"
+                break;
+        }
+        console.log(sport , path)
+        const res = await axios.get(`${baseApi}/${path}/${court}/${date}`);
+        if(res.status ===200 && res.data){
+            const time = res.data;
+            // console.log(time);
+            setshowTime(time);
+            return true;
+        }else{
+            console.log(`error get`);
+            return false;
+        }
+    }
+    const handleDay=(e,day)=>{
+        setbookdata((previousState)=>{ 
+            return {...previousState,day:day}
+        });
+        switch(day){
+            case "btn_day":
+                const date_today = getDate("btn_day");
+                //show time button
+                TimeWithCourt(type,bookdata.location,date_today);
+
+                //update date
+                setbookdata((previousState)=>{
+                    return {...previousState,date:date_today}
+                });
+                break;
+            case "btn_tow":
+                const date_tomr = getDate("btn_tow");
+                console.log(date_tomr);
+                //show time button
+                TimeWithCourt(type,bookdata.location,date_tomr);
+                
+                //update date
+                setbookdata((previousState)=>{
+                    return {...previousState,date:date_tomr}
+                });
+                break;
+        }
+    }
+    const ISODate = (fdate)=>{
+        return fdate.split('T')[0];
+    }
+    const handleTime=(eachTime)=>{
+        // console.log(`select:${time.id} and ${time.time}`)
+        //update data context booking
+        setbookdata((previousState)=>{ 
+            return {...previousState,time:eachTime.startTime}
+        });
+    };
+    const CoachList = async (type,Stime,whoid)=>{
+        //get coach is avalible only,then isBooking = false.
+        try {
+            console.log(type,Stime);
+            //for api find who avaible and old who booked
+            const res = await axios.get(`${baseApi}/coachList/${type}/${Stime}/${whoid}`);
+            const coach = res.data;
+            // console.log(coach);
+            setdataCoach(coach);
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    };
+    const handleCoach=(status)=>{
+        switch(status){
+            case true:
+                switch(type){
+                    case "tennis":
+                        CoachList(type,bookdata.time,bookdata.coachId);
+                        //update data context booking
+                        setbookdata((previousState)=>{ 
+                            return {...previousState,iscoach:status}
+                        });
+                        break;
+                    case "badminton":
+                        CoachList(type,bookdata.time,bookdata.coachId);
+                        setbookdata((previousState)=>{ 
+                            return {...previousState,iscoach:status}
+                        });
+                        break;
+                    case "yoga":
+                        CoachList(type,bookdata.time,bookdata.coachId);
+                        setbookdata((previousState)=>{ 
+                            return {...previousState,iscoach:status}
+                        });
+                        break;
+                }
+                break;
+            case false:
+                setdataCoach([]);
+                setbookdata((previousState)=>{ 
+                    return {...previousState,iscoach:status}
+                });
+                break;
+        }
+    }
+    const handleWho=(coach)=>{
+        //console.log(`coach:  ${coach.name} ${coach.id}`);
+        setbookdata((previousState)=>{ 
+            return {...previousState,coachId:coach.id,coachName:coach.name}
+        });
+    }
+    function handleNext(){
+        console.log("you data edit ");
+        event.preventDefault();
+        console.log(bookdata);
+        
+    }
+
     useEffect(()=>{
         console.log(tx_id);
         console.log(type);
@@ -192,11 +368,17 @@ function editPage({tx_id,handleEndEdit,type}){
                 break;
         }
 
+        try {
+            getTxAct(tx_id);
+        } catch (error) {
+            console.log("tx_data: " + error)
+        }
+        
 
     },[]);
 
     function handleBack(){
-        handleEndEdit();
+        navigate("/dashboard");
     }
     function handleSave(){
         console.log("save")
@@ -204,16 +386,18 @@ function editPage({tx_id,handleEndEdit,type}){
     }
 
     return(
+        <Layout>
         <div>
+        <form onSubmit={handleNext}>
             <div className='flex flex-row justify-around'>
                 <div>
                     <div>
-                        <h1>Type:{type} #_id: {tx_id}</h1>
+                        <h1>Type:{type} #_id: {tx_id} :{bookdata.coachId}</h1>
                     </div>
                     <div className='flex'>
                         {datacourt.map((eachcourt)=>( 
                             <div>
-                                <button className={btn_def} onClick={()=>handelcourt(eachcourt.courtNumber,sport)}>
+                                <button className={bookdata.location==eachcourt.courtNumber? btn_select:btn_def} onClick={()=>handelcourt(eachcourt.courtNumber)}>
                                     {/* <img src={logo} alt="" /> */}
                                     <span className='ms-2'>{eachcourt.courtNumber}</span>
                                 </button>
@@ -223,21 +407,20 @@ function editPage({tx_id,handleEndEdit,type}){
                     <div>
                         <div className='my-4' >
                             <div className="inline-flex">
-                                <button id='btn_day' className={btn_select} onClick={(e)=>handleDay(e,"btn_day")}>
+                                <button id='btn_day' className={bookdata.location!=""?((ISODate(bookdata.date) == getDate("btn_day"))? btn_day:btn_defDayL):btn_NotAva} onClick={(e)=>handleDay(e,"btn_day")}>
                                     {getDate("btn_day")}
                                 </button>
-                                <button id='btn_tow' className={btn_NotAva} onClick={(e)=>handleDay(e,"btn_tow")}>
+                                <button id='btn_tow' className={bookdata.location!=""?((ISODate(bookdata.date)==getDate("btn_tow"))? btn_day:btn_defDayR):btn_NotAva} onClick={(e)=>handleDay(e,"btn_tow")}>
                                     {getDate("btn_tow")}
                                 </button>
                             </div>
-
                         </div>
 
                         <div>
                             <div className='grid grid-cols-4 gap-4'>
                                 {showTime.map((eachTime)=>(
                                 <div >
-                                    <button className={eachTime.isBooked === false? (contextValue.bookdata.time==eachTime.startTime?btn_dateSelect:btn_dateAva):btn_dateNotAva} onClick={()=>handleTime(eachTime)}>
+                                    <button className={eachTime.isBooked === false? (bookdata.time==eachTime.startTime?btn_dateSelect:btn_dateAva):btn_dateNotAva} onClick={()=>handleTime(eachTime)}>
                                         <span>{eachTime.startTime}-{eachTime.endTime} </span>
                                     </button>
                                 </div>
@@ -246,12 +429,12 @@ function editPage({tx_id,handleEndEdit,type}){
                         </div>
                 </div>
                 <div>
-                    <div className="inline-flex">
-                        <button className={btn_defDayL} 
+                    <div className="inline-flex my-5">
+                        <button className={bookdata.time!=""?((bookdata.iscoach===true)? btn_day:btn_defDayL):btn_NotAva} 
                         onClick={()=>handleCoach(true)}> 
                             <span>Coach</span> 
                         </button>
-                        <button className={btn_defDayR}
+                        <button className={bookdata.time!=""?((bookdata.iscoach===false)? btn_day:btn_defDayL):btn_NotAva}
                         onClick={()=>handleCoach(false)}>
                             <span>No Coach</span>
                         </button>
@@ -261,7 +444,7 @@ function editPage({tx_id,handleEndEdit,type}){
                             <div className="grid grid-cols-3 gap-3">
                             {/* overflow-auto border-solid border-2 border-gray-500 rounded-md */}
                                 {dataCoach.map((eachcoach)=>(
-                                    <a className={card_Ava} onClick={()=>handleWho(eachcoach)}>
+                                    <a className={bookdata.coachId==eachcoach.id?card_selected:card_Ava} onClick={()=>handleWho(eachcoach)}>
                                         {/* <img src={eachcoach.image} alt="" className='h-14 w-14 rounded-full'/> */}
                                         <div className='flex flex-col justify-center bg-green'>
                                             <h2 className="mb-2 text-2xl font-bold tracking-tight :text-black"><span>{eachcoach.name}</span></h2>
@@ -275,64 +458,63 @@ function editPage({tx_id,handleEndEdit,type}){
                 </div>
                 </div>
 
-                <div className=''>
-                  <h1>Information</h1>
+                <div >
+                    <h1>Information</h1>
                     <div>
                         <label class={label}>Activity name</label>
-                        <input type="text" id="activity" className={inputStyle} placeholder="Activity" value={""} onChange={
-                            (e)=>contextValue.setbookdata((previousState)=>{ 
+                        <input type="text" id="activity" className={inputStyle} placeholder="Activity" value={bookdata.activity} onChange={
+                            (e)=>setbookdata((previousState)=>{ 
                                 return {...previousState,activity:e.target.value}
                             })}/>
                     </div>
-
                     <div class="grid gap-1 md:grid-cols-3">
                         <div>
                             <label for="first_name" class={label}>First name</label>
-                            <input type="text" id="first_name" class={inputStyle} placeholder="John" value={""} 
-                            // onChange={
-                            //     (e)=>contextValue.setbookdata((previousState)=>{ 
-                            //         return {...previousState,fname:e.target.value}
-                            //     })}
+                            <input type="text" id="first_name" class={inputStyle} placeholder="John" value={bookdata.information.fname} 
+                            onChange={
+                                (e)=>setbookdata((previousState)=>{ 
+                                    return {...previousState,information:{...previousState.information,fname:e.target.value}}
+                                })}
                             required/>
                         </div>
                         <div>
                             <label for="last_name" class={label}>Last name</label>
-                            <input type="text" id="last_name" class={inputStyle} placeholder="Doe" value={""} 
-                            // onChange={
-                            //     (e)=>contextValue.setbookdata((previousState)=>{ 
-                            //         return {...previousState,lname:e.target.value}
-                            //     })}
+                            <input type="text" id="last_name" class={inputStyle} placeholder="Doe" value={bookdata.information.lname} 
+                            onChange={
+                                (e)=>setbookdata((previousState)=>{ 
+                                    return {...previousState,information:{...previousState.information,lname:e.target.value}}
+                                })}
                                 required/>
                         </div>
                         <div>
                             <label for="phone" class={label}>Phone number</label>
-                            <input type="tel" id="phone" class={inputStyle} placeholder="098xxxx123" pattern="[0-9]{10}" value={""} 
-                            // onChange={
-                            //     (e)=>contextValue.setbookdata((previousState)=>{ 
-                            //         return {...previousState,phone:e.target.value}
-                            //     })} 
+                            <input type="tel" id="phone" class={inputStyle} placeholder="098xxxx123" pattern="[0-9]{10}" value={bookdata.information.phone} 
+                            onChange={
+                                (e)=>setbookdata((previousState)=>{ 
+                                    return {...previousState,information:{...previousState.information,phone:e.target.value}}
+                                })} 
                                 required/>
                         </div>
-                        
                     </div>
                     <div className="h-32"> 
                         <label class={label}>Description</label>
-                        <textarea type="message" id="message" placeholder="description How can we help you?" className={inputDesc} value={""} 
-                        // onChange={
-                        //     (e)=>contextValue.setbookdata((previousState)=>{ 
-                        //         return {...previousState,desc:e.target.value}
-                        //     })}
+                        <textarea type="message" id="message" placeholder="description How can we help you?" className={inputDesc} value={bookdata.information.desc} 
+                        onChange={
+                            (e)=>setbookdata((previousState)=>{ 
+                                return {...previousState,information:{...previousState.information,desc:e.target.value}}
+                            })}
                             />
-
                     </div>
+                    
             </div>
         </div>
-            
             <div className="mb-10 flex justify-between">
                     <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleBack()}>Back</button>
-                    <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleSave()}>Save</button>
+                    <button type="submit" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform">Submin</button>
             </div>
+        </form>
         </div>
+        </Layout>
     );
 }
 
