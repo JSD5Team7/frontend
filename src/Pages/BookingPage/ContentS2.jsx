@@ -66,11 +66,11 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
         }
     }
     
-    const CoachList = async (type,Stime,)=>{
+    const CoachList = async (type,date,Stime)=>{
         //get coach is avalible only,then isBooking = false.
         try {
-            console.log(type,Stime);
-            const res = await axios.get(`${baseApi}/coachList/${type}/${Stime}`);
+            console.log(type,date,Stime);
+            const res = await axios.get(`${baseApi}/coachList/coachAva/${type}/${date}/${Stime}`);
             const coach = res.data;
             // console.log(coach);
             setdataCoach(coach);
@@ -207,20 +207,32 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                 setselectcoach({status:"btn_coach"});
                 switch(sport){
                     case "tennis":
-                        CoachList(sport,contextValue.bookdata.time);
+                        CoachList(sport,contextValue.bookdata.date,contextValue.bookdata.time);
                         //update data context booking
                         contextValue.setbookdata((previousState)=>{ 
                             return {...previousState,coach:status}
                         });
                         break;
                     case "badminton":
-                        CoachList(sport,contextValue.bookdata.time);
+                        CoachList(sport,contextValue.bookdata.date,contextValue.bookdata.time);
+                        contextValue.setbookdata((previousState)=>{ 
+                            return {...previousState,coach:status}
+                        });
+                        break;
+                    case "tabletennis":
+                        CoachList(sport,contextValue.bookdata.date,contextValue.bookdata.time);
                         contextValue.setbookdata((previousState)=>{ 
                             return {...previousState,coach:status}
                         });
                         break;
                     case "yoga":
-                        CoachList(sport,contextValue.bookdata.time);
+                        CoachList(sport,contextValue.bookdata.date,contextValue.bookdata.time);
+                        contextValue.setbookdata((previousState)=>{ 
+                            return {...previousState,coach:status}
+                        });
+                        break;
+                    case "aerobic":
+                        CoachList(sport,contextValue.bookdata.date,contextValue.bookdata.time);
                         contextValue.setbookdata((previousState)=>{ 
                             return {...previousState,coach:status}
                         });
@@ -287,7 +299,6 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                             Tomorrow
                         </button>
                     </div>
-
                 </div>
 
                 <div>
