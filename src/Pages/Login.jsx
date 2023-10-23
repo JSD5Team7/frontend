@@ -92,7 +92,7 @@ const Login = () => {
           </div>
           <div className="login-container p-20 flex-col flex items-center justify-center">
           <h3 className="text-center text-2xl font-bold pb-5">
-          Welcome to Sport Club!
+          Welcome to Groot Club!
         </h3>
             <h1 className="text-6xl font-bold mb-12">LOG IN</h1>
 
@@ -141,18 +141,7 @@ const Login = () => {
               <button className="rounded-full font-bold py-2 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900">
                 Login
               </button>
-              <ToastContainer
-                position="top-center"
-                autoClose={1000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-              />
+             
             </form>
             <div className="w-[300px]">
               <NavLink to={"/register"} activeClassName="active">
@@ -164,6 +153,18 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+                position="top-center"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              />
     </Layout>
   );
 };

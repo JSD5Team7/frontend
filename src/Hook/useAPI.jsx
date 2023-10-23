@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import axios from "axios";
 
 
-const backendURL = process.env.VITE_BACKEND_URL;
+const baseURL = import.meta.env.VITE_BACKEND_URL;
 
 const useAPI = () => {
     
@@ -14,7 +14,7 @@ const useAPI = () => {
 
     useEffect(() => {
         const getDataTrainer = async() => {
-            const response = await axios.get(`${backendURL}/coachList/all`);
+            const response = await axios.get(`${baseURL}/coachList/all`);
             setTrainers(response.data)
         } 
         getDataTrainer();

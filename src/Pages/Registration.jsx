@@ -8,7 +8,7 @@ const Registration = () => {
     <Layout>
       <div className="w-full h-full m-auto">
         <h1 className="text-center text-6xl font-bold p-5">
-          Welcome to Sport Club!
+          Welcome to Groot Club!
         </h1>
           <div className="form-signup w-full flex items-center gap-3 mt-5 bg-emerald-200 bg-opacity-10 shadow-md shadow-black rounded-lg">
             <div className="signup-image w-2/4 order-1">
