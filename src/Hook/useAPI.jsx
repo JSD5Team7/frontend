@@ -54,6 +54,8 @@ const useAPI = () => {
         
      }
 
+     
+
   return { trainers, user, register, login, currentUser };
 }
 

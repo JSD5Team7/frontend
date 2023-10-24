@@ -8,6 +8,9 @@ import './App.css'
 import Layout from './Layout/Layout.jsx'
 import SildeTrainer from './Components/SildeTrainer';
 import BookingTable from './Components/TimeTable';
+import { Rules } from './Components/Rules.jsx';
+import { OpenTime } from './Components/OpenTime.jsx';
+import SlideImage from './Components/SlideImage.jsx'
 
 
 
@@ -38,8 +41,11 @@ function App() {
   return (
     <Layout>
       
+      <OpenTime/>
       <BookingTable/>
+      <SlideImage/>
       <SildeTrainer/>
+      <Rules/>
 
       
     </Layout>

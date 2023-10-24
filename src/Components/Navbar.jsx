@@ -21,7 +21,7 @@ const Navbar = () => {
        <div className="h-20 flex justify-between items-center">
             <div className="w-[250px]">
                 <NavLink to='/'>
-                    <img src="/public/dev.png" alt="logo image" className='w-12'/>
+                    <img src="/src/assets/icons/groot-logo.PNG" alt="logo image" className='w-12'/>
                 </NavLink>
             </div>
             <ul className="flex justify-center gap-7 font-semibold text-xl text-slate-800 dropshadow-lg">
