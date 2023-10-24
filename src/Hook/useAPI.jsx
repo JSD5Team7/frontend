@@ -50,18 +50,9 @@ const useAPI = () => {
         })
      }
 
-     const editTxActivity = async(value)=>{
-        return await axios.put(`${baseURL}/activity/edit`,value,
-        {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-     }
-
      
 
-  return { trainers, user, register, login, currentUser };
+  return { trainers, user, register, login, currentUser};
 }
 
 export default useAPI

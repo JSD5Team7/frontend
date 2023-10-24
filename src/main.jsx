@@ -126,8 +126,7 @@ const router = createBrowserRouter([
         element: <EditDashboard />
       }
     ]
-
-  }
+  },
 ])
 
 const store = createStore(rootReducer, composeWithDevTools());

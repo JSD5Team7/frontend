@@ -2,7 +2,7 @@ import { useState,useEffect} from 'react'
 import axios from 'axios';
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from '../../Layout/Layout';
-import useAPI from '../../Hook/useAPI.jsx';
+import useAPI_2 from '../../Hook/useAPI_2.jsx';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -130,7 +130,7 @@ const statusInit = true;
         ];
 
 function editPage(){
-    const { editTxActivity } = useAPI();
+    const { editTxActivity } = useAPI_2();
     const navigate = useNavigate();
     const userid = localStorage.userId
     const { tx_id } = useParams();
@@ -290,12 +290,12 @@ function editPage(){
             return {...previousState,time:eachTime.startTime}
         });
     };
-    const CoachList = async (type,Stime,whoid)=>{
+    const CoachList = async (type,date,Stime,whoid)=>{
         //get coach is avalible only,then isBooking = false.
         try {
-            console.log(type,Stime);
+            console.log(type,date,Stime,whoid);
             //for api find who avaible and old who booked
-            const res = await axios.get(`${baseApi}/coachList/${type}/${Stime}/${whoid}`);
+            const res = await axios.get(`${baseApi}/coachList/${type}/${date}/${Stime}/${whoid}`);
             const coach = res.data;
             // console.log(coach);
             setdataCoach(coach);
@@ -308,27 +308,11 @@ function editPage(){
     const handleCoach=(status)=>{
         switch(status){
             case true:
-                switch(type){
-                    case "tennis":
-                        CoachList(type,bookdata.time,bookdata.coachId);
+                CoachList(type,bookdata.date,bookdata.time,bookdata.coachId);
                         //update data context booking
-                        setbookdata((previousState)=>{ 
-                            return {...previousState,iscoach:status}
-                        });
-                        break;
-                    case "badminton":
-                        CoachList(type,bookdata.time,bookdata.coachId);
-                        setbookdata((previousState)=>{ 
-                            return {...previousState,iscoach:status}
-                        });
-                        break;
-                    case "yoga":
-                        CoachList(type,bookdata.time,bookdata.coachId);
-                        setbookdata((previousState)=>{ 
-                            return {...previousState,iscoach:status}
-                        });
-                        break;
-                }
+                setbookdata((previousState)=>{ 
+                    return {...previousState,iscoach:status}
+                });
                 break;
             case false:
                 setdataCoach([]);
@@ -570,9 +554,9 @@ function editPage(){
         <form onSubmit={handleNext}>
             <div className="mb-10 flex justify-between">
                     <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleBack()}>Back</button>
-                    <button type="submit" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform">Submin</button>
+                    <button type="submit" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform">Save Edit</button>
             </div>
-        </form>
+        </form> 
         </div>
         </Layout>
     );
