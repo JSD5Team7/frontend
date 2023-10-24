@@ -2,7 +2,7 @@ import { useContext,useState,useEffect} from 'react'
 import courtTennislogo from './img/tennis-court.png'
 import courtBad from './img/badminton-court.png'
 import roomYoga from './img/yoga_room.png'
-import table from './img/Ping_pong.png'
+import table from './img/ping_pong.png'
 import location from './img/location.png'
 import {CustomContext} from './Booking'
 
