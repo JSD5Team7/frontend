@@ -45,7 +45,7 @@ function ContentS4({changeHowtoS1,changeContentS1,changeHowtoS3,changeContentS3}
             //summit commplete
             toast.success('Booking is complete.', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -58,7 +58,7 @@ function ContentS4({changeHowtoS1,changeContentS1,changeHowtoS3,changeContentS3}
             console.log(error.response.data);
             toast.error('Sorry! failed Booking, I will check for you.', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,

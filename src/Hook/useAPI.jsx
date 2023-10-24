@@ -50,13 +50,9 @@ const useAPI = () => {
         })
      }
 
-     const editTxActivity = async()=>{
-        
-     }
-
      
 
-  return { trainers, user, register, login, currentUser };
+  return { trainers, user, register, login, currentUser};
 }
 
 export default useAPI
