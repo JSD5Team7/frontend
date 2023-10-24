@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from '../../Layout/Layout';
 import useAPI from '../../Hook/useAPI.jsx';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const btn_def = "flex items-center justify-left w-45 h-25 inline-flex bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
 const btn_select = "flex items-center justify-left w-45 h-25 inline-flex bg-green-500  text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none transform active:scale-75 transition-transform"
@@ -129,7 +130,7 @@ const statusInit = true;
         ];
 
 function editPage(){
-    const { tx_activity } = useAPI();
+    const { editTxActivity } = useAPI();
     const navigate = useNavigate();
     const userid = localStorage.userId
     const { tx_id } = useParams();
@@ -137,6 +138,7 @@ function editPage(){
     const baseApi = "http://localhost:3000";
     // https://sportclubbackend.onrender.com
     const [bookdata,setbookdata] = useState({
+                tx_id:tx_id,
                 user:userid,
                 sport:type,
                 location:"",
@@ -194,12 +196,16 @@ function editPage(){
         }
     };
 
-    const getTxAct = async (tx_id)=>{
+    const getTxAct = async (tx_id,type,userid)=>{
         try {
             const res =  await axios.get(`${baseApi}/activity/${tx_id}`);
+            console.log(tx_id);
             const data = res.data;
             console.log(data);
             setbookdata(data);
+            setbookdata((previousState)=>{
+                return {...previousState,tx_id:tx_id,user:userid,sport:type}
+            });
             return;
         } catch (error) {
             console.log({measage:error.measage});
@@ -235,7 +241,7 @@ function editPage(){
         const res = await axios.get(`${baseApi}/${path}/${court}/${date}`);
         if(res.status ===200 && res.data){
             const time = res.data;
-            // console.log(time);
+            console.log(time);
             setshowTime(time);
             return true;
         }else{
@@ -272,7 +278,10 @@ function editPage(){
         }
     }
     const ISODate = (fdate)=>{
-        return fdate.split('T')[0];
+        // console.log("fdate:"+ fdate);
+        // console.log(bookdata);
+        const date_format = fdate.split('T')[0]
+        return date_format;
     }
     const handleTime=(eachTime)=>{
         // console.log(`select:${time.id} and ${time.time}`)
@@ -336,9 +345,60 @@ function editPage(){
         });
     }
     function handleNext(){
-        console.log("you data edit ");
         event.preventDefault();
-        console.log(bookdata);
+        const data = 
+        {
+            "tx_id":bookdata.tx_id,
+            "type":bookdata.sport,
+            "location":bookdata.location,
+            "date":bookdata.date,
+            "day":bookdata.day,
+            "time":bookdata.time,
+            "iscoach":bookdata.iscoach,
+            "coachId":bookdata.coachId,
+            "coachName":bookdata.coachName,
+            "activity":bookdata.activity,
+            "information":{
+                "user_id":bookdata.information.user_id,
+                "fname":bookdata.information.fname,
+                "lname":bookdata.information.lname,
+                "phone":bookdata.information.phone,
+                "desc":bookdata.information.desc
+            }
+        }
+        try {
+            console.log(data);
+            editTxActivity(data).then((res)=>{
+                console.log(res.data);
+                if(res.data.success == true){
+                    toast.success('Edit Success', {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        });
+                }else{
+                    toast.error('Sorry Edit error,please', {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        });
+                }
+            })
+            
+            
+        } catch (error) {
+            console.log(error);
+        }
         
     }
 
@@ -369,7 +429,7 @@ function editPage(){
         }
 
         try {
-            getTxAct(tx_id);
+            getTxAct(tx_id,type,userid);
         } catch (error) {
             console.log("tx_data: " + error)
         }
@@ -388,7 +448,7 @@ function editPage(){
     return(
         <Layout>
         <div>
-        <form onSubmit={handleNext}>
+            <ToastContainer />
             <div className='flex flex-row justify-around'>
                 <div>
                     <div>
@@ -407,10 +467,10 @@ function editPage(){
                     <div>
                         <div className='my-4' >
                             <div className="inline-flex">
-                                <button id='btn_day' className={bookdata.location!=""?((ISODate(bookdata.date) == getDate("btn_day"))? btn_day:btn_defDayL):btn_NotAva} onClick={(e)=>handleDay(e,"btn_day")}>
+                                <button id='btn_day' className={bookdata.location!=""?((bookdata.date == getDate("btn_day"))? btn_day:btn_defDayL):btn_NotAva} onClick={(e)=>handleDay(e,"btn_day")}>
                                     {getDate("btn_day")}
                                 </button>
-                                <button id='btn_tow' className={bookdata.location!=""?((ISODate(bookdata.date)==getDate("btn_tow"))? btn_day:btn_defDayR):btn_NotAva} onClick={(e)=>handleDay(e,"btn_tow")}>
+                                <button id='btn_tow' className={bookdata.location!=""?((bookdata.date == getDate("btn_tow"))? btn_day:btn_defDayR):btn_NotAva} onClick={(e)=>handleDay(e,"btn_tow")}>
                                     {getDate("btn_tow")}
                                 </button>
                             </div>
@@ -505,9 +565,9 @@ function editPage(){
                             })}
                             />
                     </div>
-                    
             </div>
         </div>
+        <form onSubmit={handleNext}>
             <div className="mb-10 flex justify-between">
                     <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleBack()}>Back</button>
                     <button type="submit" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform">Submin</button>
