@@ -1,12 +1,18 @@
 import React from 'react';
+import Navbar from '../Components/Navbar';
+import Footer from '../Components/Footer';
+import NavbarMobile from '../Components/NavbarMobile';
 
 
 const BackgroundLayout = ({ children }) => {
   return (
-    <div className='bg-slate-100 max-h-fit min-h-screen'>
-      <div className="container mx-auto px-4 ">
+    <div className='container-full  max-w-[1980px] h-full bg-slate-100 mx-auto'>
+      <Navbar>
+        {/* <NavbarMobile> */}
         {children}
-      </div>
+        {/* </NavbarMobile> */}
+        <Footer/>
+      </Navbar>
     </div>
   );
 }
