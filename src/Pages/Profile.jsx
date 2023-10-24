@@ -1,96 +1,193 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import Layout from "../Layout/Layout";
+import Sky from "../assets/images/sky.jpg";
 
 
-function Profile(){
 
-    const [userList,setusers] = useState([
-        {
-            id: 1,
-            name:"jonh son",
-            description: 'Play tennis with Friends',
-            date: '1/01/2023',
-            time: '10:00 AM',
-            location: 'Courts 1',
-        },
-        {
-            id: 2,
-            name:"Mare son",
-            description: 'Play tennis with Friends',
-            date: '1/01/2023',
-            time: '10:00 AM',
-            location: 'Courts 5',
-        },
-        {
-            id: 3,
-            name:"janny son",
-            description: 'Play tennis with Friends',
-            date: '1/01/2023',
-            time: '10:00 AM',
-            location: 'Courts 2',
-        },
-        {
-            id: 4,
-            name:"janny son",
-            description: 'Play tennis with Friends',
-            date: '1/01/2023',
-            time: '10:00 AM',
-            location: 'Courts 2',
-        },
-    ])
+const UserProfile = () => {
+  const [isEditing, setIsEditing] = useState(true);
+  const [profileData, setProfileData] = useState({
+    firstName: "Tom ",
+    lastName: "Cruise",
+    email: "cruise@example.com",
+    address: "123 Syracuse, New York, USA",
+    gender: "Male",
+    weight: "70",
+    height: "175",
+    Birtdate: "30/01/1998"
+  });
+  
+  console.log(isEditing);
+  console.log(profileData);
 
-    const handleEdit=(id)=>{
-        console.log(`Edit:${id}`);
+  return (
+    <Layout>
+      <div className="">
+        {/* Image */}
+        <div className="">
+          <div>
+            <img src={Sky} alt="CoverImage" className="w-full h-60 p-3" />
+          </div>
 
-        const newdata = userList.map((user)=>{
-            if(user.id == id){
-                return {...user,name:"pp",description:"rama2",time:"99:99 AM"}
-            }
-            return user;
-        });
-
-        console.log(newdata);
-
-        setusers(newdata);
-    }
-
-    const handleDelete=(id)=>{
-        console.log(id);
-        var filtered = userList.filter(function(user) { return user.id != id }); 
-                                                                                
-        setusers(filtered);
-    }
-
-    return(
-        <div>
-            <div className='flex flex-col'>
-                <img className="flex flex-col h-40 w-40 rounded-full" src="https://www.setforset.com/cdn/shop/articles/full_body_workout_on_machines_2000x.jpg?v=1660263618" alt="" />
-                <h1>PROFILE</h1>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas exercitationem libero asperiores. Hic optio eius porro exercitationem sunt rem excepturi possimus quia? Quae omnis corrupti deleniti accusantium dicta, molestias error.</p>
-            </div>
-
-            <div>
-                {userList.map((user)=>(
-                    <div className='m-5 w-1/2 border-4 border-indigo-500/100 rounded-lg'>
-                        <div className='m-3'>
-                            <h1>Name: {user.name}</h1>
-                            <h1>Description: {user.description}</h1>
-                            <h1>Date: {user.date}</h1>
-                            <h1>Time: {user.time}</h1>
-                            <h1>Location: {user.location}</h1>
-                        </div>
-
-                        <div>
-                            <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full' onClick={()=>handleEdit(user.id)}>Edit</button>
-                            <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full' onClick={()=>handleDelete(user.id)}>Delete</button>
-                        </div>
-
-                    </div>
-                ))}
-            </div>
-
-            
+          <div className="flex items-center   ">
+            <img
+              className="border-slate-400 drop-shadow-lg h-40 w-40 rounded-full ml-10  "
+              src="https://www.setforset.com/cdn/shop/articles/full_body_workout_on_machines_2000x.jpg?v=1660263618"
+              alt="ProfileImage"
+            />
+            <p className="ml-5 text-slate-700 font-semibold text-4xl ">
+              {" "}
+              {profileData.firstName}
+              {profileData.lastName}
+            </p>
+          </div>
         </div>
-    );
-}
 
-export default Profile
+       
+        <div className="p-5 w-full mt-6 mx-auto text-center bg-slate-700 border-indigo-200 rounded-md drop-shadow">
+            <p className="text-2xl text-white font-semibold" >My Profle</p>
+          <p className="text-left text-xl font-semibold text-white ">Email :  <span className="text-lg text-white font-medium">{profileData.email}</span></p>
+          <p className="text-left text-xl font-semibold text-white ">Adress :  <span className="text-lg text-white font-medium">{profileData.address}</span></p>
+          <p className="text-left text-xl font-semibold text-white">Gender :  <span className="text-lg text-white font-medium">{profileData.gender}</span></p>
+          <p className="text-left text-xl font-semibold text-white">Weight (kg) :  <span className="text-lg text-white font-medium">{profileData.weight}</span></p>
+          <p className="text-left text-xl font-semibold text-white">Height (cm) :  <span className="text-lg text-white font-medium">{profileData.height}</span></p>
+          <button className="font-bold text-slate-800 border-solid border-2 border-lime-200 rounded-full p-1  drop-shadow-md w-20 bg-lime-300 hover:bg-lime-400" 
+                  onClick={() => setIsEditing(!isEditing)}>Edit </button>
+
+{!isEditing ? (
+          <form action="" className=" w-full my-3 flex justify-around ">
+
+            <div className="space-y-3 my-3 ">
+                <div className="grid gap-6 mb-6 md:grid-cols-2">
+                    <div >
+                    <label htmlFor="" className="font-bold flex rounded-lg leading-10 text-white">
+                      FirstName : 
+                    </label>
+                      <input
+                        className="border-3 rounded-lg border-slate-500 bg-slate-200 "
+                        type="text"
+                        placeholder="Tom"
+                        onChange={(e) =>
+
+                          setProfileData({ ...profileData, firstName: e.target.value })
+                        }
+                      />
+                      </div>
+
+                      <div>
+                        <label htmlFor="" className="font-bold flex rounded-lg leading-10 text-white">
+                          LastName :
+                        </label>
+                          <input
+                          placeholder="Cruise"
+                          className="border-3 rounded-lg border-slate-500 bg-slate-200 "
+                            type="text"
+                            onChange={(e) =>
+                              setProfileData({ ...profileData, lastName: e.target.value })
+                            }
+                          />
+                      </div>
+                  </div>
+                
+                  <div className="grid gap-6 mb-6 md:grid-cols-2">
+                    <div>
+                      <label htmlFor="" className="font-bold flex rounded-lg leading-10 text-white">
+                        Email Adress:
+                      </label>
+                      <input 
+                        placeholder="Tom@example.com"
+                        id="helper-text"
+                        type="email"
+                        onChange={(e) =>
+                          setProfileData({ ...profileData, email: e.target.value })
+                        }
+                      />
+                  </div>
+                  <div>
+                  <label htmlFor="" className="font-semibold flex rounded-lg leading-10 text-white">
+                    Address :
+                  </label>
+                  <input
+                  placeholder="123 Syracuse, New York, USA"
+                  
+                    type="text"
+                    onChange={(e) =>
+                      setProfileData({ ...profileData, address: e.target.value })
+                    }
+                  />
+                  </div>
+                  </div>
+
+                  <div className="grid gap-6 mb-6 md:grid-cols-2">
+                    <div>
+                      <label className="text-white font-semibold leading-10">
+                        Gender :
+                        <select className="bg-slate-800"
+                        name="selectedGender">
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                          <option value="Other">Other</option>
+                          onChange={(e) =>
+                          setProfileData({ ...profileData, gender: e.target.value })
+                        }
+                        </select>
+                      </label>
+                      {/* <input
+                        type="text"
+                        onChange={(e) =>
+                          setProfileData({ ...profileData, gender: e.target.value })
+                        }
+                      /> */}
+                    </div>
+                    <div>
+                    <label htmlFor="" className="font-semibold flex rounded-lg leading-10 text-white">
+                      Birthdate :
+                    </label>
+                    <input
+                      type="number"
+                      onChange={(e) =>
+                        setProfileData({ ...profileData, Birthdate: e.target.value })
+                      }
+                    />
+                  </div>
+                  
+                  </div>
+                  <div className="grid gap-6 mb-6 md:grid-cols-2" >
+                  <div>
+                    <label htmlFor="" className="font-semibold flex rounded-lg leading-10 text-white">
+                      Height :
+                    </label>
+                    <input
+                      type="number"
+                      onChange={(e) =>
+                        setProfileData({ ...profileData, height: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div>
+                  <label htmlFor="" className="font-semibold flex rounded-lg leading-10 text-white">
+                    Weight :
+                  </label>
+                  <input
+                    type="number"
+                    onChange={(e) =>
+                      setProfileData({ ...profileData, weight: e.target.value })
+                    }
+                  />
+                  </div>
+                  </div>
+
+                  <br></br>
+                  <button className="font-bold text-slate-800 border-solid border-2 border-lime-200 rounded-full p-1  drop-shadow-md w-20 bg-lime-300 hover:bg-lime-400">Update</button>
+            </div>
+          </form>
+        ) : null}
+        </div>
+
+        
+      </div>
+    </Layout>
+  );
+};
+
+export default UserProfile;

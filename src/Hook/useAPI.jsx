@@ -1,80 +1,128 @@
-import React from 'react'
+import React from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+const baseURL = import.meta.env.VITE_BACKEND_URL;
+const cloudinaryName = import.meta.env.VITE_CLOUDINARY_NAME;
 
 const useAPI = () => {
-    const trainers = [
-        {
-            id: 1,
-            name: "John",
-            activity: "Tennis",
-            information: "Professional tennis player with multiple championships.",
-            img: "https://example.com/john.jpg"
-        },
-        {
-            id: 2,
-            name: "Alice",
-            activity: "Badminton",
-            information: "Enjoys playing badminton in the local club.",
-            img: "https://example.com/alice.jpg"
-        },
-        {
-            id: 3,
-            name: "Bob",
-            activity: "Table Tennis",
-            information: "Loves table tennis and participates in table tennis competitions.",
-            img: "https://example.com/bob.jpg"
-        },
-        {
-            id: 4,
-            name: "Eva",
-            activity: "Yoga",
-            information: "Dedicated yogi with a daily practice.",
-            img: "https://example.com/eva.jpg"
-        },
-        {
-            id: 5,
-            name: "Grace",
-            activity: "Aerobic Dance",
-            information: "Teaches aerobic dance classes at the gym.",
-            img: "https://example.com/grace.jpg"
-        },
-        {
-            id: 6,
-            name: "Michael",
-            activity: "Tennis",
-            information: "Competitive tennis player in regional tournaments.",
-            img: "https://example.com/michael.jpg"
-        },
-        {
-            id: 7,
-            name: "Sophia",
-            activity: "Table Tennis",
-            information: "Table tennis enthusiast and lifeguard.",
-            img: "https://example.com/sophia.jpg"
-        },
-        {
-            id: 8,
-            name: "David",
-            activity: "Badminton",
-            information: "Badminton player who enjoys friendly matches.",
-            img: "https://example.com/david.jpg"
-        },
-        {
-            id: 9,
-            name: "Olivia",
-            activity: "Yoga",
-            information: "Certified yoga instructor and mindfulness advocate.",
-            img: "https://example.com/olivia.jpg"
-        },
-        {
-            id: 10,
-            name: "William",
-            activity: "Tennis",
-            information: "Tennis coach and former professional player.",
-            img: "https://example.com/william.jpg"
+  const [user, setUser] = useState({});
+  const [usersData, setUsersData] = useState([]);
+  const [trainers, setTrainers] = useState([]);
+
+  //--------------------------------------------------------ข้อมูล Coach--------------------------------------------------------//
+  useEffect(() => {
+    const getDataTrainer = async () => {
+      const response = await axios.get(`${baseURL}/coachList/all`);
+      setTrainers(response.data);
+    };
+    getDataTrainer();
+  }, []);
+
+  //--------------------------------------------------------ข้อมูล User ที่ล็อคอินเข้ามา--------------------------------------------------------//
+  useEffect(() => {
+    const getUser = async (authtoken, value) => {
+      const userId = value;
+      if (userId) {
+        const response = await axios.get(`${baseURL}/users/${userId}`, {
+          headers: {
+            authtoken,
+          },
+        });
+        if (response.status === 200) {
+          setUser(response.data);
         }
-      ];
+      }
+    };
+    const localUserId = window.localStorage.userId;
+    const idtoken = window.localStorage.token;
+    getUser(idtoken, localUserId);
+  }, []);
 
-  return { trainers };
-}
+  //--------------------------------------------------------ข้อมูล User ทั้งหมด--------------------------------------------------------//
+  useEffect(() => {
+    const getUsers = async () => {
+      const response = await axios.get(`${baseURL}/users/`);
+      if (response.status === 200) {
+        setUsersData(response.data);
+      }
+    };
+    getUsers();
+  }, []);
 
-export default useAPI
+  //--------------------------------------------------------Register--------------------------------------------------------//
+  const register = async (value) => {
+    return await axios.post(`${baseURL}/users/register`, value);
+  };
+
+  //--------------------------------------------------------Login--------------------------------------------------------//
+  const login = async (value) => {
+    return await axios.post(`${baseURL}/users/login`, value);
+  };
+
+  //--------------------------------------------------------     --------------------------------------------------------//
+  const currentUser = async (authtoken) => {
+    await axios.post(
+      `${baseURL}/users/current-user`,
+      {},
+      {
+        headers: {
+          authtoken,
+        },
+      }
+    );
+  };
+
+  //--------------------------------------------------------Update user--------------------------------------------------------//
+  const updateUser = async (authtoken, value) => {
+    const userId = value._id;
+    return await axios.put(`${baseURL}/users/updateuser/${userId}`, value, {
+      headers: {
+        authtoken,
+      },
+    });
+  };
+
+  //   const handleSave = async(e) => {
+  //     const userId = window.localStorage.userId;
+  //     const idtoken = window.localStorage.token
+  //     e.preventDefault();
+  //     if (userId && idtoken) {
+  //       try {
+  //           const userDataupdate = {
+  //             _id: userId,
+  //             fname: 'ใส่ firstname ที่รับเข้ามา',
+  //             lname: 'ใส่ lastname ที่รับเข้ามา',
+  //             gender: 'ใส่ gender ที่รับเข้ามา',
+  //             birthday: 'ใส่ birthday ที่รับเข้ามา',
+  //             age: 'ใส่ age ที่รับเข้ามา',
+  //             email: 'ใส่ email ที่รับเข้ามา',
+  //             phone: 'ใส่ phone number ที่รับเข้ามา'
+  //           }
+  //           const response = await updateUser(idtoken, userDataupdate)
+
+  //       } catch(err) {
+  //         console.log(err)
+  //       }
+  //     } else {
+  //       console.log('Token not found!')
+  //     }
+  //   }
+
+  const uploadImg = async (value) => {
+    return await axios.post(`https://api.cloudinary.com/v1_1/dkjfuys7y/image/upload`, value)
+  }
+
+  return {
+    trainers,
+    user,
+    usersData,
+    register,
+    login,
+    currentUser,
+    updateUser,
+    uploadImg
+  };
+};
+
+export default useAPI;

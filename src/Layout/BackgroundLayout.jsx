@@ -1,11 +1,18 @@
 import React from 'react';
+import Navbar from '../Components/Navbar';
+import Footer from '../Components/Footer';
+import NavbarMobile from '../Components/NavbarMobile';
+
 
 const BackgroundLayout = ({ children }) => {
   return (
-    <div className='bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-pink-300 via-purple-300 to-indigo-400 h-fit'>
-      <div className="container mx-auto px-4 ">
+    <div className='container-full  max-w-[1980px] h-full bg-slate-100 mx-auto'>
+      <Navbar>
+        {/* <NavbarMobile> */}
         {children}
-      </div>
+        {/* </NavbarMobile> */}
+        <Footer/>
+      </Navbar>
     </div>
   );
 }

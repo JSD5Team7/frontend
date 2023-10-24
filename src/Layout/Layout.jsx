@@ -1,20 +1,12 @@
-import React from 'react'
-import BackgroundLayout from './BackgroundLayout'
-import Navbar from '../Components/Navbar'
-import Footer from '../Pages/Footer'
+import React from "react";
+import BackgroundLayout from "./BackgroundLayout";
+import Navbar from "../Components/Navbar";
 
+import Footer from "../Components/Footer";
+import NavbarMobile from "../Components/NavbarMobile";
 
+const Layout = ({ children }) => {
+  return <BackgroundLayout>{children}</BackgroundLayout>;
+};
 
-const Layout = ({children}) => {
-    return (
-        <BackgroundLayout>
-            <Navbar/>
-                {children}
-            <Footer/>
-        </BackgroundLayout>
-        
-
-    )
-}
-
-export default Layout
+export default Layout;
