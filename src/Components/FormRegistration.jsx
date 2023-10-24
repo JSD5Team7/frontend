@@ -11,38 +11,46 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const inpStyle =
-  "w-full border-b-2 p-2 bg-transparent text-white focus:outline-none focus:border-blue-400 caret-blue-400 placeholder:italic placeholder:text-slate-500";
+  "w-full border-b-2 p-2 bg-transparent focus:outline-none focus:border-blue-400 caret-blue-400 placeholder:italic placeholder:text-slate-500";
 
 const FormRegistration = () => {
-  const { register } = useAPI();
+  const { register , usersData } = useAPI();
   const navigete = useNavigate();
 
+  //เซ็ตตัวแปลที่จะรับข้อมูลส่งไปที่ Database
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [gender, setGender] = useState("");
-  const [birthday, setBirtday] = useState("");
+  const [birthday, setBirtday] = useState("1995-10-14");
   const [ageUser, setAgeUser] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
+  //สร้างตัวแปลไว้แจ้งเตือนเงื่อนไขในการกรอก username และ password
   const [usernameValidation, setUsernameValidation] = useState("");
+  const [styleUsernameValidation, setStyleUsernameValidation] = useState(true);
   const [passwordValidation, setPasswordValidation] = useState("");
+  const [stylePasswordValidation, setStylePasswordValidation] = useState(true);
+  const [emailValidation, setEmailValidation] = useState("");
+  const [styleEmailValidation, setStyleEmailValidation] = useState(true);
 
+
+  //สร้างตัวแปลสำหรับเปลี่ยน type ของ password และ confirm password
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [styleValidation, setStyleValidation] = useState(true);
   
+  //ฟังก์ชั่นสำหรับเปลี่ยน type ของ password
   const PasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
   const ConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+  //ฟังก์ชั่นสำหรับรับ birthday มาคำนวนอายุของผู้กรอก
   const calculateAge = (birthday) => {
     const birthDate = new Date(birthday);
     const currentDate = new Date();
@@ -55,38 +63,74 @@ const FormRegistration = () => {
     // ข้อสรุปคือการใช้ Math.abs(ageDate.getUTCFullYear() - 1970) คือวิธีในการคำนวณอายุจากวันเกิดและทำให้ค่าอายุเป็นค่าบวกเสมอ ไม่คำนึงถึงว่าผู้ใช้เกิดก่อนหรือหลัง 1970 ปี (Unix Epoch). การใช้ Math.abs ทำให้ค่าที่คำนวณได้มีความบวกเสมอหลังจากคำนวณจาก UTC และ 1970 ปี.
   };
 
+  //สร้าง useEffect เพื่อเช็ตค่าของ input ว่ากรอกตามเงื่อนไขไหม
   useEffect(() => {
+
+    const validitomCharacterUsername = /[^a-zA-Z0-9]/;
+
     if (username === "") {
       setUsernameValidation("");
-    } else if (/[^a-zA-Z0-9]/.test(username)) {
+    } else if (validitomCharacterUsername.test(username)) {
       setUsernameValidation(
-        "Username contains special characters. Special characters are not allowed."
+        "Special characters are not allowed."
       );
-      setStyleValidation(false);
+      setStyleUsernameValidation(false);
     } else if (username.length < 8) {
       setUsernameValidation("Please enter more than 8 characters.");
-      setStyleValidation(false);
+      setStyleUsernameValidation(false);
     } else {
-      setUsernameValidation("Username successful");
-      setStyleValidation(true);
+      setUsernameValidation("Username ready to use");
+      setStyleUsernameValidation(true);
     }
+
+    const duplicateUser = usersData.find(user => user.username === username);
+    if (duplicateUser) {
+      setUsernameValidation("Username is already used");
+      setStyleUsernameValidation(false);
+    }
+
+    const validationCharacterPassword = /[a-zA-Z]/g;
+
     if (password === "") {
       setPasswordValidation("");
     } else if (password.length < 8) {
       setPasswordValidation("Password more than 8 characters");
-      setStyleValidation(false);
+      setStylePasswordValidation(false);
+    } else if (!password.match(validationCharacterPassword) || password.match(validationCharacterPassword).length < 3) {
+      setPasswordValidation("Must have at least 3 characters");
+      setStylePasswordValidation(false);
     } else {
       setPasswordValidation("Password successful");
-      setStyleValidation(true);
+      setStylePasswordValidation(true);
     }
     if (birthday) {
       const age = calculateAge(birthday);
       setAgeUser(age);
     }
-  }, [username, password, birthday]);
+
+    const validationEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
+    if (email === '') {
+      setEmailValidation('')
+    } else if (validationEmail.test(email)) {
+      setEmailValidation('Email is available')
+      setStyleEmailValidation(true)
+    } else if (!validationEmail.test(email)) {
+      setEmailValidation('Invalid email format')
+      setStyleEmailValidation(false)
+    }
+
+    const duplicateEmail = usersData.find(user => user.email === email);
+    if (duplicateEmail) {
+      setEmailValidation('Email is already used')
+      setStyleEmailValidation(false)
+    }
+
+  }, [username, password, birthday , email]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       toast.error('Password not match"', {
         position: "top-center",
@@ -123,13 +167,17 @@ const FormRegistration = () => {
         progress: undefined,
         theme: "light",
       });
-      const token = response.data.token;
-      window.location.reload();
-      localStorage.setItem('token', token);
-      history.push('/protected-route');
-      navigete('/')
-    } catch (error) {
-      toast.error('User already exists"', {
+
+      setTimeout(() => {
+        // const token = response.data.token;
+        // window.location.reload();
+        // localStorage.setItem('token', token);
+        // history.push('/protected-route');
+        navigete('/login')
+      },3000)
+
+    } catch (err) {
+      toast.error(err.response.data, {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -142,15 +190,28 @@ const FormRegistration = () => {
     }
   };
 
+  const handleReset = () => {
+    setUsername('');
+    setPassword('');
+    setConfirmPassword('');
+    setFname('');
+    setLname('');
+    setGender('');
+    setBirtday('');
+    setAgeUser('');
+    setEmail('');
+    setPhoneNumber('');
+  };
+
   return (
     <div className="w-2/4 p-5">
-      <h2 className="text-3xl text-white text-center tracking-widest">
+      <h2 className="text-3xl  text-center tracking-widest">
         Registration
       </h2>
       
       <form className="m-6" onSubmit={handleSubmit}>
         <div className="username mt-4 mb-4">
-          <label htmlFor="username" className="mr-3 text-white">
+          <label htmlFor="username" className="mr-3">
             Username <span className="text-red-500">*</span>
           </label>
           <input
@@ -163,12 +224,12 @@ const FormRegistration = () => {
             className={inpStyle}
             required
           />
-          <span className={styleValidation ? "text-lime-500" : "text-red-500"}>
+          <span className={styleUsernameValidation ? "text-lime-500" : "text-red-500"}>
             {usernameValidation}
           </span>
         </div>
         <div className="password mt-4 mb-4">
-          <label htmlFor="password" className="mr-3 text-white">
+          <label htmlFor="password" className="mr-3">
             Password <span className="text-red-500">*</span>
           </label>
           <div className="inp-toggle flex items-center">
@@ -197,12 +258,12 @@ const FormRegistration = () => {
               />
             )}
           </div>
-          <span className={styleValidation ? "text-lime-500" : "text-red-500"}>
+          <span className={stylePasswordValidation ? "text-lime-500" : "text-red-500"}>
             {passwordValidation}
           </span>
         </div>
         <div className="confirmPassword mt-4 mb-4">
-          <label htmlFor="confirmPassword" className="mr-3 text-white">
+          <label htmlFor="confirmPassword" className="mr-3">
             Confirm Password <span className="text-red-500">*</span>
           </label>
           <div className="inp-toggle flex items-center">
@@ -233,7 +294,7 @@ const FormRegistration = () => {
           </div>
         </div>
         <div className="fname mt-4 mb-4">
-          <label htmlFor="fname" className="mr-3 text-white">
+          <label htmlFor="fname" className="mr-3">
             First Name <span className="text-red-500">*</span>
           </label>
           <input
@@ -248,7 +309,7 @@ const FormRegistration = () => {
           />
         </div>
         <div className="lname mt-4 mb-4">
-          <label htmlFor="lname " className="mr-3 text-white">
+          <label htmlFor="lname " className="mr-3">
             Last Name <span className="text-red-500">*</span>
           </label>
           <input
@@ -263,7 +324,7 @@ const FormRegistration = () => {
           />
         </div>
         <div className="gender mt-4 mb-4">
-          <label htmlFor="gender" className="mr-3 text-white">
+          <label htmlFor="gender" className="mr-3">
             Gender
           </label>
           <select
@@ -281,7 +342,7 @@ const FormRegistration = () => {
           </select>
         </div>
         <div className="birthday mt-4 mb-4">
-          <label htmlFor="birthday" className="mr-3 text-white">
+          <label htmlFor="birthday" className="mr-3">
             Birth Day <span className="text-red-500">*</span>
           </label>
           <input
@@ -295,7 +356,7 @@ const FormRegistration = () => {
           />
         </div>
         <div className="age mt-4 mb-4">
-          <label htmlFor="age " className="mr-3 text-white">
+          <label htmlFor="age " className="mr-3">
             Age <span className="text-red-500">*</span>
           </label>
           <input
@@ -311,7 +372,7 @@ const FormRegistration = () => {
           />
         </div>
         <div className="email mt-4 mb-4">
-          <label htmlFor="email" className="mr-3 text-white">
+          <label htmlFor="email" className="mr-3">
             Email <span className="text-red-500">*</span>
           </label>
           <input
@@ -325,8 +386,11 @@ const FormRegistration = () => {
             required
           />
         </div>
+        <span className={styleEmailValidation ? "text-lime-500" : "text-red-500"}>
+            {emailValidation}
+          </span>
         <div className="phonenumber mt-4 mb-4">
-          <label htmlFor="phonenumber" className="mr-3 text-white">
+          <label htmlFor="phonenumber" className="mr-3">
             Contact Number <span className="text-red-500">*</span>
           </label>
           <input
@@ -343,15 +407,9 @@ const FormRegistration = () => {
         <div className="btn mt-10 mb-10 flex justify-center">
           <button
             type="submit"
-            className="w-40 border border-emerald-600 rounded-full bg-emerald-600 p-2 text-lg text-white shadow-md  hover:bg-emerald-500 hover:border-emerald-500 hover:font-bold"
+            className="w-40 p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-400 hover:bg-lime-500 hover:text-slate-900"
           >
             Submit
-          </button>
-          <button
-            type="reset"
-            className="w-40 ml-2 border border-red-500 rounded-full bg-red-500 p-2 text-lg text-white shadow-md  hover:bg-red-700 hover:border-red-700 hover:font-bold"
-          >
-            Clear
           </button>
           <ToastContainer
             position="top-center"
@@ -365,6 +423,14 @@ const FormRegistration = () => {
             pauseOnHover
             theme="light"
           />
+          <button
+            type="reset"
+            className="w-40 text-white p-1 drop-shadow-md border-solid border-2 rounded-full bg-red-500 hover:bg-red-700 hover:text-slate-900"
+            onClick={handleReset}
+          >
+            Clear
+          </button>
+
         </div>
       </form>
     </div>

@@ -19,6 +19,7 @@ function SildeTrainer() {
           <SwiperSlide className='w-80 h-[32rem] mb-5 my-5 '>
             <TrainerCard 
             key={trainer.id} 
+            img={trainer.image}
             name={trainer.name}
             activity={trainer.type}
             information={trainer.des}

@@ -4,7 +4,7 @@ import '../Pages/style.css'
 
 const Footer = () => {
     return (
-       <footer className="fixed bottom-0 left-0 right-0 mb-0 flex w-full justify-between items-center p-5 text-white">
+       <footer className="bottom-0 left-0 right-0 mb-0 flex justify-between items-center p-5 ">
             <p>&copy; 2023 All right reserved | Sportclub.com </p>
             <div className="footer-link flex justify-center items-center gap-10">
                 <NavLink to={'/terms-of-service'} activeClassName='active' className='hover:text-blue-900 '>Terms of Service</NavLink>

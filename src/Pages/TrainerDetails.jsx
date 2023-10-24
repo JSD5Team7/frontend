@@ -31,17 +31,17 @@ const TrainerDetails = () => {
 
             <div className='activity-list flex flex-wrap gap-3 justify-center py-5 min-w-full'>
     
-                <button className='activity-tennis p-3 bg-emerald-400 rounded-xl w-40' onClick={() => setFilterActivity('tennis')}>Tennis</button>
+                <button className='activity-tennis p-3 rounded-xl w-40 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900' onClick={() => setFilterActivity('tennis')}>Tennis</button>
 
-                <button className='activity-badminton p-3 bg-emerald-400 rounded-xl w-40' onClick={() => setFilterActivity('badminton')}>Badminton</button>
+                <button className='activity-badminton p-3 rounded-xl w-40 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900' onClick={() => setFilterActivity('badminton')}>Badminton</button>
 
-                <button className='activity-tabletennis p-3 bg-emerald-400 rounded-xl w-40' onClick={() => setFilterActivity('table_tennis')}>Table Tennis</button>
+                <button className='activity-tabletennis p-3 rounded-xl w-40 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900' onClick={() => setFilterActivity('table_tennis')}>Table Tennis</button>
 
-                <button className='activity-yoga p-3 bg-emerald-400 rounded-xl w-40' onClick={() => setFilterActivity('yoga')}>Yoga</button>
+                <button className='activity-yoga p-3 rounded-xl w-40 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900' onClick={() => setFilterActivity('yoga')}>Yoga</button>
 
-                <button className='activity-aerobicdance p-3 bg-emerald-400 rounded-xl w-40' onClick={() => setFilterActivity('aerobic_dance')}>Aerobic Dance</button>
+                <button className='activity-aerobicdance p-3 rounded-xl w-40 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900' onClick={() => setFilterActivity('aerobic_dance')}>Aerobic Dance</button>
             
-                <button className='activity-all p-3 bg-emerald-400 rounded-xl w-40' onClick={() => setFilterActivity('')}>All</button>
+                <button className='activity-all p-3 rounded-xl w-40 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900' onClick={() => setFilterActivity('')}>All</button>
                 
             </div>
 

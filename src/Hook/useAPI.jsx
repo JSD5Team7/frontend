@@ -6,8 +6,8 @@ const useAPI = () => {
     const baseURL = 'http://localhost:3000'
 
     const [trainers, setTrainers] = useState([]);
-
     const [user, setUser] = useState(null)
+    const [usersData, setUsersData] = useState([])
 
     useEffect(() => {
         const getDataTrainer = async() => {
@@ -31,6 +31,16 @@ const useAPI = () => {
         getUser(localUserId);
     },[])
 
+    useEffect(() => {
+        const getUsers = async() => {
+            const response = await axios.get(`${baseURL}/users/`)
+            if (response.status === 200) {
+
+                setUsersData(response.data)
+            }
+        }
+        getUsers();
+    },[])
     
     const register = async(value) => {
         console.log(value)
@@ -52,7 +62,7 @@ const useAPI = () => {
 
      
 
-  return { trainers, user, register, login, currentUser};
+  return { trainers, user, usersData, register, login, currentUser };
 }
 
 export default useAPI

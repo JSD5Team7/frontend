@@ -21,28 +21,12 @@ import Privacy from './Pages/Privacy.jsx'
 import Registration from './Pages/Registration.jsx'
 import DashBoard from './Pages/DashboardPage/Dashboard.jsx'
 import EditDashboard from './Pages/DashboardPage/editPage.jsx'
+import AuthRoute from './Hook/Route.jsx/AuthRoute.jsx';
+
 import './index.css'
 
 
-
-const AuthProtectedRoute = ({ children }) => {
-  const idtoken = window.localStorage.token;
-  if (!idtoken) {
-    return <Navigate to= '/login' replace/>
-  } else {
-    return children
-  }
-}
-
-const AuthProtectedLoginRoute = ({ children }) => {
-  const idtoken = window.localStorage.token;
-  if (idtoken) {
-    return <Navigate to= '/' replace/>
-  } else {
-    return children
-  }
-}
-
+const { AuthProtectedRoute, AuthProtectedLoginRoute } = AuthRoute()
 
 const router = createBrowserRouter([
   {
