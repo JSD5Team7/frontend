@@ -1,20 +1,24 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import useAPI from '../Hook/useAPI';
 
 import Layout from '../Layout/Layout';
 import Trainerlist from '../Components/Trainerlist';
 
-
-
+import LoadingGif from "../assets/gif/Ripple-2.6s-204px.gif";
 
 const TrainerDetails = () => {
-
     const { trainers } = useAPI();
 
-        const [filterActivity, setFilterActivity] = useState('')
-        const [sortName, setSortName] = useState('')
-     
+    const [filterActivity, setFilterActivity] = useState('')
+    const [sortName, setSortName] = useState('')
+    
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      const loadingTimeout = setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      return () => clearTimeout(loadingTimeout);
+    }, []);
 
   return (
 
@@ -51,20 +55,17 @@ const TrainerDetails = () => {
                         <option value="nameZA">Z-A</option>
                 </select>
             </div>
-            
-            <Trainerlist trainers={trainers} filterActivity={filterActivity} sortName={sortName}/>
 
-            {/* <div className='trainer-card max-w-xs h-[32rem] overflow-hidden shadow-lg'>
-                <h2 className='font-bold text-xl mb-2 text-center'>name</h2>
-                <img className='w-full h-[24rem]' src="https://www.perfectpedigreethailand.com/uploads/5/2/5/4/52548193/samoyed-p_1_orig.jpg" alt="samoyed"/>
-                <div className='px-6 pt-4 flex justify-between'>
-                    <h2 className='font-bold text-l'>activity</h2>
-                    <button>see more</button>
-                </div>
-                <div className='px-6'>
-                    <p className='text-start'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi pariatur officia vero tenetur quas sequi nisi aut nulla asperiores. Beatae nesciunt hic dolorem quae sint quas dolores libero, voluptatibus aperiam?</p>
-                </div>
-            </div> */}
+            {loading ? ( // Display the loading spinner when loading is true
+                <img
+                src={LoadingGif}
+                alt="Loading"
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                />
+            ) : (
+                <Trainerlist trainers={trainers} filterActivity={filterActivity} sortName={sortName}/>
+            )}
+            
 
         </div>
     </Layout>

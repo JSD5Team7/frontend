@@ -7,6 +7,7 @@ import useAPI from "../Hook/useAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
 
 const inpStyle =
@@ -33,7 +34,7 @@ const FormRegistration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [styleValidation, setStyleValidation] = useState(true);
-
+  
   const PasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -62,7 +63,7 @@ const FormRegistration = () => {
         "Username contains special characters. Special characters are not allowed."
       );
       setStyleValidation(false);
-    } else if (username.length <= 8) {
+    } else if (username.length < 8) {
       setUsernameValidation("Please enter more than 8 characters.");
       setStyleValidation(false);
     } else {
@@ -71,7 +72,7 @@ const FormRegistration = () => {
     }
     if (password === "") {
       setPasswordValidation("");
-    } else if (password.length <= 8) {
+    } else if (password.length < 8) {
       setPasswordValidation("Password more than 8 characters");
       setStyleValidation(false);
     } else {
@@ -111,7 +112,7 @@ const FormRegistration = () => {
         email: email,
         phone: phoneNumber,
       };
-      await register(userData);
+      const response = await register(userData);
       toast.success("Register Success!", {
         position: "top-center",
         autoClose: 3000,
@@ -122,7 +123,11 @@ const FormRegistration = () => {
         progress: undefined,
         theme: "light",
       });
-      
+      const token = response.data.token;
+      window.location.reload();
+      localStorage.setItem('token', token);
+      history.push('/protected-route');
+      navigete('/')
     } catch (error) {
       toast.error('User already exists"', {
         position: "top-center",
@@ -142,6 +147,7 @@ const FormRegistration = () => {
       <h2 className="text-3xl text-white text-center tracking-widest">
         Registration
       </h2>
+      
       <form className="m-6" onSubmit={handleSubmit}>
         <div className="username mt-4 mb-4">
           <label htmlFor="username" className="mr-3 text-white">
@@ -270,7 +276,7 @@ const FormRegistration = () => {
           >
             <option value="">Gender</option>
             <option value="men">Men</option>
-            <option value="girl">Girl</option>
+            <option value="women">Women</option>
             <option value="prefernottosay">Prefer not to say</option>
           </select>
         </div>

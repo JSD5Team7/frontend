@@ -5,8 +5,10 @@ import useAPI from '../Hook/useAPI'
 import TrainerCard from './TrainerCard'
 import { Link } from 'react-router-dom'
 
+
 function SildeTrainer() {
     const { trainers } = useAPI();
+
   return (
     <>
       <div className='my-10 p-10 bg-slate-700 rounded-lg shadow-black shadow-md'>
