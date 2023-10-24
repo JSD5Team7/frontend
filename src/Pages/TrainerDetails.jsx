@@ -3,8 +3,13 @@ import useAPI from "../Hook/useAPI";
 
 import Layout from "../Layout/Layout";
 import Trainerlist from "../Components/Trainerlist";
-
 import LoadingScreen from "../Components/LoadingScreen";
+
+import TennisIcon from "../assets/icons/icons8-tennis-100 (1).png";
+import BadmintonIcon from "../assets/icons/icons8-badminton-100.png";
+import TableTennisIcone from "../assets/icons/icons8-table-tennis-64.png";
+import YogaIcon from "../assets/icons/icons8-yoga-100.png";
+import AerobicIcon from "../assets/icons/icons8-dancing-100.png";
 
 const TrainerDetails = () => {
   const { trainers } = useAPI();
@@ -23,51 +28,73 @@ const TrainerDetails = () => {
   return (
     <Layout>
       {loading ? (
-        
-          <LoadingScreen />
-
+        <LoadingScreen />
       ) : (
         <div className="trainers-container text-center flex-col pb-20 justify-center">
           <h1 className="text-6xl font-bold my-5 pt-10">Coach</h1>
 
           <div className="activity-list flex flex-wrap gap-3 justify-center py-5 min-w-full">
             <button
-              className="activity-tennis font-bold p-3 rounded-xl w-40 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900"
+              className="activity-tennis w-[250px] h-[100px] font-bold p-5 rounded-xl drop-shadow-md border-solid border-2 bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
               onClick={() => setFilterActivity("tennis")}
             >
-              Tennis
+              <div className="flex justify-center items-center gap-3">
+                <img src={TennisIcon} alt="TennisIcon" className="w-[50px]" />
+                <p>Tennis</p>
+              </div>
             </button>
 
             <button
-              className="activity-badminton font-bold p-3 rounded-xl w-40 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900"
+              className="activity-badminton w-[250px] h-[100px] font-bold p-5 rounded-xl drop-shadow-md border-solid border-2 bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
               onClick={() => setFilterActivity("badminton")}
             >
-              Badminton
+              <div className="flex justify-center items-center gap-3">
+                <img
+                  src={BadmintonIcon}
+                  alt="BadmintonIcon"
+                  className="w-[50px]"
+                />
+                <p>Badminton</p>
+              </div>
             </button>
 
             <button
-              className="activity-tabletennis font-bold p-3 rounded-xl w-40 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900"
+              className="activity-tabletennis w-[250px] h-[100px] font-bold p-5 rounded-xl drop-shadow-md border-solid border-2 bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
               onClick={() => setFilterActivity("table_tennis")}
             >
-              Table Tennis
+              <div className="flex justify-center items-center gap-3">
+                <img
+                  src={TableTennisIcone}
+                  alt="TableTennisIcone"
+                  className="w-[50px]"
+                />
+                <p>Table Tennis</p>
+              </div>
             </button>
 
             <button
-              className="activity-yoga font-bold p-3 rounded-xl w-40 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900"
+              className="activity-yoga w-[250px] h-[100px] font-bold p-5 rounded-xl drop-shadow-md border-solid border-2 bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
               onClick={() => setFilterActivity("yoga")}
             >
-              Yoga
+              <div className="flex justify-center items-center gap-3">
+                <img src={YogaIcon} alt="YogaIcon" className="w-[50px]" />
+                <p>Yoga</p>
+              </div>
             </button>
 
             <button
-              className="activity-aerobicdance font-bold p-3 rounded-xl w-40 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900"
+              className="activity-aerobicdance w-[250px] h-[100px] font-bold p-5 rounded-xl drop-shadow-md border-solid border-2 bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
               onClick={() => setFilterActivity("aerobic_dance")}
             >
-              Aerobic Dance
+              {" "}
+              <div className="flex justify-center items-center gap-3">
+                <img src={AerobicIcon} alt="AerobicIcon" className="w-[50px]" />
+                <p>Aerobic Dance</p>
+              </div>
             </button>
 
             <button
-              className="activity-all font-bold p-3 rounded-xl w-40 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900"
+              className="activity-all w-[250px] h-[100px] font-bold p-5 rounded-xl drop-shadow-md border-solid border-2 bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
               onClick={() => setFilterActivity("")}
             >
               All

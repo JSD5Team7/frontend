@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 import useAPI from "../Hook/useAPI";
 
@@ -14,7 +14,7 @@ const inpStyle =
   "w-full border-b-2 p-2 bg-transparent focus:outline-none focus:border-blue-400 caret-blue-400 placeholder:italic placeholder:text-slate-500";
 
 const FormRegistration = () => {
-  const { register , usersData } = useAPI();
+  const { register, usersData } = useAPI();
   const navigete = useNavigate();
 
   //เซ็ตตัวแปลที่จะรับข้อมูลส่งไปที่ Database
@@ -37,11 +37,10 @@ const FormRegistration = () => {
   const [emailValidation, setEmailValidation] = useState("");
   const [styleEmailValidation, setStyleEmailValidation] = useState(true);
 
-
   //สร้างตัวแปลสำหรับเปลี่ยน type ของ password และ confirm password
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
+
   //ฟังก์ชั่นสำหรับเปลี่ยน type ของ password
   const PasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -65,15 +64,12 @@ const FormRegistration = () => {
 
   //สร้าง useEffect เพื่อเช็ตค่าของ input ว่ากรอกตามเงื่อนไขไหม
   useEffect(() => {
-
-    const validitomCharacterUsername = /[^a-zA-Z0-9]/;
+    const validitonCharacterUsername = /[^a-zA-Z0-9]/;
 
     if (username === "") {
       setUsernameValidation("");
-    } else if (validitomCharacterUsername.test(username)) {
-      setUsernameValidation(
-        "Special characters are not allowed"
-      );
+    } else if (validitonCharacterUsername.test(username)) {
+      setUsernameValidation("Special characters are not allowed");
       setStyleUsernameValidation(false);
     } else if (username.length < 8) {
       setUsernameValidation("Please enter more than 8 characters.");
@@ -83,7 +79,7 @@ const FormRegistration = () => {
       setStyleUsernameValidation(true);
     }
 
-    const duplicateUser = usersData.find(user => user.username === username);
+    const duplicateUser = usersData.find((user) => user.username === username);
     if (duplicateUser) {
       setUsernameValidation("Username is already used");
       setStyleUsernameValidation(false);
@@ -96,14 +92,17 @@ const FormRegistration = () => {
     } else if (password.length < 8) {
       setPasswordValidation("Password more than 8 characters");
       setStylePasswordValidation(false);
-    } else if (!password.match(validationCharacterPassword) || password.match(validationCharacterPassword).length < 3) {
+    } else if (
+      !password.match(validationCharacterPassword) ||
+      password.match(validationCharacterPassword).length < 3
+    ) {
       setPasswordValidation("Must have at least 3 characters");
       setStylePasswordValidation(false);
     } else {
       setPasswordValidation("Password successful");
       setStylePasswordValidation(true);
     }
-    
+
     if (birthday) {
       const age = calculateAge(birthday);
       setAgeUser(age);
@@ -111,23 +110,22 @@ const FormRegistration = () => {
 
     const validationEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
-    if (email === '') {
-      setEmailValidation('')
+    if (email === "") {
+      setEmailValidation("");
     } else if (validationEmail.test(email)) {
-      setEmailValidation('Email is available')
-      setStyleEmailValidation(true)
+      setEmailValidation("Email is available");
+      setStyleEmailValidation(true);
     } else if (!validationEmail.test(email)) {
-      setEmailValidation('Invalid email format')
-      setStyleEmailValidation(false)
+      setEmailValidation("Invalid email format");
+      setStyleEmailValidation(false);
     }
 
-    const duplicateEmail = usersData.find(user => user.email === email);
+    const duplicateEmail = usersData.find((user) => user.email === email);
     if (duplicateEmail) {
-      setEmailValidation('Email is already used')
-      setStyleEmailValidation(false)
+      setEmailValidation("Email is already used");
+      setStyleEmailValidation(false);
     }
-
-  }, [username, password, birthday , email]);
+  }, [username, password, birthday, email]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -143,7 +141,7 @@ const FormRegistration = () => {
         progress: undefined,
         theme: "light",
       });
-      return
+      return;
     }
     try {
       const userData = {
@@ -174,9 +172,8 @@ const FormRegistration = () => {
         // window.location.reload();
         // localStorage.setItem('token', token);
         // history.push('/protected-route');
-        navigete('/login')
-      },3000)
-
+        navigete("/login");
+      }, 3000);
     } catch (err) {
       toast.error(err.response.data, {
         position: "top-center",
@@ -192,16 +189,16 @@ const FormRegistration = () => {
   };
 
   const handleReset = () => {
-    setUsername('');
-    setPassword('');
-    setConfirmPassword('');
-    setFname('');
-    setLname('');
-    setGender('');
-    setBirtday('');
-    setAgeUser('');
-    setEmail('');
-    setPhoneNumber('');
+    setUsername("");
+    setPassword("");
+    setConfirmPassword("");
+    setFname("");
+    setLname("");
+    setGender("");
+    setBirtday("");
+    setAgeUser("");
+    setEmail("");
+    setPhoneNumber("");
   };
 
   return (
@@ -209,11 +206,11 @@ const FormRegistration = () => {
       <h2 className="text-4xl font-bold text-center tracking-widest">
         Registration
       </h2>
-      
+
       <form className="m-6" onSubmit={handleSubmit}>
         <div className="username mt-4 mb-4">
           <label htmlFor="username" className="mr-3 font-semibold">
-            Username <span className="text-red-500">*</span>
+            Username <span className="text-red-400">*</span>
           </label>
           <input
             type="text"
@@ -225,13 +222,17 @@ const FormRegistration = () => {
             className={inpStyle}
             required
           />
-          <span className={styleUsernameValidation ? "text-lime-500" : "text-red-500"}>
+          <span
+            className={
+              styleUsernameValidation ? "text-lime-400" : "text-red-400"
+            }
+          >
             {usernameValidation}
           </span>
         </div>
         <div className="password mt-4 mb-4">
           <label htmlFor="password" className="mr-3 font-semibold">
-            Password <span className="text-red-500">*</span>
+            Password <span className="text-red-400">*</span>
           </label>
           <div className="inp-toggle flex items-center">
             <input
@@ -246,11 +247,10 @@ const FormRegistration = () => {
             />
             {showPassword ? (
               <FontAwesomeIcon
-              icon={faEye}
-              className="text-gray-600"
-              onClick={PasswordVisibility}
-            />
-              
+                icon={faEye}
+                className="text-gray-600"
+                onClick={PasswordVisibility}
+              />
             ) : (
               <FontAwesomeIcon
                 icon={faEyeSlash}
@@ -259,13 +259,17 @@ const FormRegistration = () => {
               />
             )}
           </div>
-          <span className={stylePasswordValidation ? "text-lime-500" : "text-red-500"}>
+          <span
+            className={
+              stylePasswordValidation ? "text-lime-400" : "text-red-400"
+            }
+          >
             {passwordValidation}
           </span>
         </div>
         <div className="confirmPassword mt-4 mb-4">
           <label htmlFor="confirmPassword" className="mr-3 font-semibold">
-            Confirm Password <span className="text-red-500">*</span>
+            Confirm Password <span className="text-red-400">*</span>
           </label>
           <div className="inp-toggle flex items-center">
             <input
@@ -279,24 +283,23 @@ const FormRegistration = () => {
               required
             />
             {showConfirmPassword ? (
-               <FontAwesomeIcon
-               icon={faEye}
-               className="text-gray-600"
-               onClick={ConfirmPasswordVisibility}
-             />
+              <FontAwesomeIcon
+                icon={faEye}
+                className="text-gray-600"
+                onClick={ConfirmPasswordVisibility}
+              />
             ) : (
               <FontAwesomeIcon
                 icon={faEyeSlash}
                 className="text-gray-600"
                 onClick={ConfirmPasswordVisibility}
               />
-             
             )}
           </div>
         </div>
         <div className="fname mt-4 mb-4">
           <label htmlFor="fname" className="mr-3 font-semibold">
-            First Name <span className="text-red-500">*</span>
+            First Name <span className="text-red-400">*</span>
           </label>
           <input
             type="text"
@@ -311,7 +314,7 @@ const FormRegistration = () => {
         </div>
         <div className="lname mt-4 mb-4">
           <label htmlFor="lname " className="mr-3 font-semibold">
-            Last Name <span className="text-red-500">*</span>
+            Last Name <span className="text-red-400">*</span>
           </label>
           <input
             type="text"
@@ -326,7 +329,7 @@ const FormRegistration = () => {
         </div>
         <div className="gender mt-4 mb-4">
           <label htmlFor="gender" className="mr-3 font-semibold">
-            Gender
+            Gender <span className="text-red-500">*</span>
           </label>
           <select
             className="p-1"
@@ -344,7 +347,7 @@ const FormRegistration = () => {
         </div>
         <div className="birthday mt-4 mb-4">
           <label htmlFor="birthday" className="mr-3 font-semibold">
-            Birth Day <span className="text-red-500">*</span>
+            Birth Day <span className="text-red-400">*</span>
           </label>
           <input
             type="date"
@@ -358,7 +361,7 @@ const FormRegistration = () => {
         </div>
         <div className="age mt-4 mb-4">
           <label htmlFor="age " className="mr-3 font-semibold">
-            Age <span className="text-red-500">*</span>
+            Age <span className="text-red-400">*</span>
           </label>
           <input
             type="text"
@@ -387,12 +390,14 @@ const FormRegistration = () => {
             required
           />
         </div>
-        <span className={styleEmailValidation ? "text-lime-500" : "text-red-500"}>
-            {emailValidation}
-          </span>
+        <span
+          className={styleEmailValidation ? "text-lime-400" : "text-red-400"}
+        >
+          {emailValidation}
+        </span>
         <div className="phonenumber mt-4 mb-4">
           <label htmlFor="phonenumber" className="mr-3 font-semibold">
-            Contact Number <span className="text-red-500">*</span>
+            Contact Number <span className="text-red-400">*</span>
           </label>
           <input
             type="number"
@@ -408,7 +413,7 @@ const FormRegistration = () => {
         <div className="btn mt-10 mb-10 flex justify-center">
           <button
             type="submit"
-            className="w-40 font-bold p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-400 hover:bg-lime-500 hover:text-slate-900"
+            className="w-40 font-bold p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
           >
             Submit
           </button>
@@ -426,12 +431,11 @@ const FormRegistration = () => {
           />
           <button
             type="reset"
-            className="w-40 font-bold text-white p-1 drop-shadow-md border-solid border-2 rounded-full bg-red-500 hover:bg-red-700 hover:text-slate-900"
+            className="w-40 font-bold p-1 drop-shadow-md border-solid border-2 rounded-full bg-red-400 hover:bg-red-500 hover:text-slate-900"
             onClick={handleReset}
           >
             Clear
           </button>
-
         </div>
       </form>
     </div>

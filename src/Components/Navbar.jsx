@@ -22,6 +22,7 @@ const Navbar = ({ children }) => {
   const dispatch = useDispatch();
   const navigete = useNavigate();
   const idtoken = window.localStorage.token;
+  const userId = window.localStorage.userId;
 
   const logout = () => {
     dispatch({
@@ -30,6 +31,23 @@ const Navbar = ({ children }) => {
     });
     navigete("/");
   };
+  const { currentUser } = useAPI();
+    
+  if (idtoken) {
+    currentUser(idtoken);
+    try {
+      dispatch({
+        type: "LOGIN",
+        payload: {
+          token: idtoken,
+          userId: userId,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <>
     <div className="flex min-w-[620px] bg-slate-100 justify-between items-center px-4 md:h-20">
@@ -40,7 +58,7 @@ const Navbar = ({ children }) => {
       </div>
 
       <ul className="flex min-w-[100px] justify-center gap-1 md:min-w-[550px]">
-        <li className="flex-col w-[40px h-8 justify-center items-center md:flex md:w-[100px] md:border-x-4 md:border-lime-400">
+        <li className="flex-col w-[40px h-8 justify-center items-center md:flex md:w-[100px] md:border-x-4 md:border-lime-300">
           <NavLink to={"/"} activeClassName="active" className="">
             <FontAwesomeIcon
               icon={faHouse}
@@ -50,7 +68,7 @@ const Navbar = ({ children }) => {
             <h3 className="invisible font-bold hover:text-xl hover:font-extrabold md:visible">Home</h3>
           </NavLink>
         </li>
-        <li className="flex-col w-[40px] h-8 justify-center items-center md:flex md:w-[100px] md:border-r-4 md:border-lime-400">
+        <li className="flex-col w-[40px] h-8 justify-center items-center md:flex md:w-[100px] md:border-r-4 md:border-lime-300">
           <NavLink to={"/booking"} activeClassName="active" className="">
             <FontAwesomeIcon
               icon={faCalendarDays}
@@ -60,7 +78,7 @@ const Navbar = ({ children }) => {
             <h3 className="invisible font-bold hover:text-xl hover:font-extrabold md:visible">Booking</h3>
           </NavLink>
         </li>
-        <li className="flex-col w-[40px h-8 justify-center items-center md:flex md:w-[100px] md:border-r-4 md:border-lime-400">
+        <li className="flex-col w-[40px h-8 justify-center items-center md:flex md:w-[100px] md:border-r-4 md:border-lime-300">
           <NavLink to={"/coach"} activeClassName="active" className="">
           <FontAwesomeIcon
               icon={faPeopleGroup}
@@ -70,7 +88,7 @@ const Navbar = ({ children }) => {
             <h3 className="invisible font-bold hover:text-xl hover:font-extrabold md:visible">Coach</h3>
           </NavLink>
         </li>
-        <li className="flex-col w-[40px] h-8 justify-center items-center md:flex md:w-[100px] md:border-r-4 md:border-lime-400">
+        <li className="flex-col w-[40px] h-8 justify-center items-center md:flex md:w-[100px] md:border-r-4 md:border-lime-300">
           <NavLink to={"/about-us"} activeClassName="active" className="">
           <FontAwesomeIcon
               icon={faBuilding}
@@ -80,7 +98,7 @@ const Navbar = ({ children }) => {
             <h3 className="invisible font-bold hover:text-xl hover:font-extrabold md:visible">About Us</h3>
           </NavLink>
         </li>
-        <li className="flex-col w-[40px] h-8 justify-center items-center md:flex md:w-[100px] md:border-r-4 md:border-lime-400">
+        <li className="flex-col w-[40px] h-8 justify-center items-center md:flex md:w-[100px] md:border-r-4 md:border-lime-300">
           <NavLink to={"/contact-us"} activeClassName="active" className="">
           <FontAwesomeIcon
               icon={faEnvelope}
@@ -96,14 +114,14 @@ const Navbar = ({ children }) => {
         <ul className="flex w-[150px] justify-end items-center gap-3 md:min-w-[300px]">
           <li>
             <NavLink to={"/login"} activeClassName="active" className="">
-              <button className="w-20 font-bold p-1 hover:w-25  drop-shadow-md border-solid border-2 rounded-full bg-lime-400 hover:bg-lime-500 hover:text-slate-900">
+              <button className="w-20 font-bold p-1 hover:w-25  drop-shadow-md border-solid border-2 rounded-full bg-lime-300 hover:bg-lime-400 hover:text-slate-900">
                 Log in
               </button>
             </NavLink>
           </li>
           <li>
             <NavLink to={"/register"} activeClassName="active" className="">
-              <button className="w-20 font-bold p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-400 hover:bg-lime-500 hover:text-slate-900">
+              <button className="w-20 font-bold p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-300 hover:bg-lime-400 hover:text-slate-900">
                 Sign up
               </button>
             </NavLink>
@@ -131,7 +149,7 @@ const Navbar = ({ children }) => {
           <li>
             <button
               onClick={logout}
-              className="w-20 p-1 font-bold drop-shadow-md border-solid border-2 rounded-full bg-lime-400 hover:bg-lime-500 hover:text-slate-900"
+              className="w-20 p-1 font-bold drop-shadow-md border-solid border-2 rounded-full bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
             >
               Log out
             </button>

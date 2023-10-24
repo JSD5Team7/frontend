@@ -134,18 +134,17 @@ const Login = () => {
                 )}
               </div>
 
-              {/* <div className="flex justify-between">
-                <p className="px-3">Remember me</p>
+              <div className="flex justify-end">
                 <p className="px-3">Forget password?</p>
-              </div> */}
-              <button className="rounded-full font-bold py-2 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900">
+              </div>
+              <button className="rounded-full font-bold py-2 drop-shadow-md border-solid border-2 bg-lime-300 hover:bg-lime-400 hover:text-slate-900">
                 Login
               </button>
              
             </form>
             <div className="w-[300px]">
               <NavLink to={"/register"} activeClassName="active">
-                <button className="w-full font-bold rounded-full py-2 drop-shadow-md border-solid border-2 bg-lime-400 hover:bg-lime-500 hover:text-slate-900">
+                <button className="w-full font-bold rounded-full py-2 drop-shadow-md border-solid border-2 bg-lime-300 hover:bg-lime-400 hover:text-slate-900">
                   Sign Up
                 </button>
               </NavLink>

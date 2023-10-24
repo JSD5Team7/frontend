@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import LoadingGif from "../assets/gif/Ripple-3s-204px.gif";
-// import { Spinner } from "@material-tailwind/react";
 
 const LoadingScreen = ({ children }) => {
   const [loading, setLoading] = useState(true);
