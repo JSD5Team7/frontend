@@ -4,37 +4,37 @@ import { faCircleArrowLeft, faCircleArrowRight, faCircle } from '@fortawesome/fr
 
 const images = [
     {
-        url: 'https://images.unsplash.com/flagged/photo-1576972405668-2d020a01cbfa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDd8fHRlbm5pcyUyMGNvdXJ0fGVufDB8fDB8fHww&auto=format&fit=crop&w=700&q=60'
+        url: 'https://images.unsplash.com/flagged/photo-1576972405668-2d020a01cbfa?auto=format&fit=crop&q=60&w=900&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHRlbm5pc3xlbnwwfHwwfHx8MA%3D%3D'
     },
     {
-        url: 'https://images.unsplash.com/photo-1567220720374-a67f33b2a6b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dGVubmlzJTIwY291cnR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=700&q=60'
+        url: 'https://images.unsplash.com/photo-1634840542403-1a9b1067aaa0?auto=format&fit=crop&q=60&w=900&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTF8fHRlbm5pc3xlbnwwfHwwfHx8MA%3D%3D'
     },
     {
-        url: 'https://plus.unsplash.com/premium_photo-1664298217898-c62231a2e47b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dGFibGUlMjB0ZW5uaXN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=700&q=60'
+        url: 'https://images.unsplash.com/photo-1508954528226-0b941060b8bf?auto=format&fit=crop&q=60&w=900&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fHRhYmxlJTIwdGVubmlzfGVufDB8fDB8fHww'
     },
     {
-        url: 'https://images.unsplash.com/photo-1511067007398-7e4b90cfa4bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2338&q=80'
+        url: 'https://images.unsplash.com/photo-1511067007398-7e4b90cfa4bc?auto=format&fit=crop&q=60&w=900&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dGFibGUlMjB0ZW5uaXN8ZW58MHx8MHx8fDA%3D'
     },
     {
-        url: 'https://images.unsplash.com/photo-1664013258777-869e3de822ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTMwfHxiYWRtaW50b258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=700&q=60'
+        url: 'https://images.unsplash.com/photo-1599474924187-334a4ae5bd3c?auto=format&fit=crop&q=60&w=900&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGJhZG1pbnRvbnxlbnwwfHwwfHx8MA%3D%3D'
     },
     {
-        url: 'https://i.pinimg.com/564x/b3/41/a5/b341a545e231a57615a1eeff2ac055d2.jpg'
+        url: 'https://images.unsplash.com/flagged/photo-1572987337946-de0a00159d91?auto=format&fit=crop&q=60&w=900&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjB8fGJhZG1pbnRvbnxlbnwwfHwwfHx8MA%3D%3D'
     },
     {
-        url: 'https://images.unsplash.com/photo-1558658862-77693bcc4e97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2253&q=80'
+        url: 'https://images.unsplash.com/photo-1588286840104-8957b019727f?auto=format&fit=crop&q=60&w=900&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8eW9nYXxlbnwwfHwwfHx8MA%3D%3D'
     },
     {
-        url: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=700&q=60'
+        url: 'https://images.unsplash.com/photo-1549576490-b0b4831ef60a?auto=format&fit=crop&q=60&w=900&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fHlvZ2F8ZW58MHx8MHx8fDA%3D'
     },
     {
-        url: 'https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8eW9nYXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=700&q=60'
+        url: 'https://media.istockphoto.com/id/670724074/photo/exercising-at-the-gym.webp?b=1&s=170667a&w=0&k=20&c=toNOAVgLzQfhA7jVQRsOg3B1oiOXQLZakpG4YwrPToQ='
     },
     {
         url: 'https://media.istockphoto.com/id/650371904/th/%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%96%E0%B9%88%E0%B8%B2%E0%B8%A2/%E0%B8%81%E0%B8%A5%E0%B8%B8%E0%B9%88%E0%B8%A1%E0%B8%AA%E0%B8%95%E0%B8%A3%E0%B8%B5%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%97%E0%B9%8D%E0%B8%B2%E0%B9%81%E0%B8%AD%E0%B9%82%E0%B8%A3%E0%B8%9A%E0%B8%B4%E0%B8%81.jpg?s=612x612&w=0&k=20&c=VXU8_q9_vmYdyyIgkFVQJO5Nmq-T-UOjrXEMWCjL06Y='
     },
     {
-        url: 'https://i.pinimg.com/474x/9e/ff/59/9eff59344ce942f96598948c9b0fde64.jpg'
+        url: 'https://media.istockphoto.com/id/485457702/photo/kickboxing-class.webp?b=1&s=170667a&w=0&k=20&c=WNY5eqc5-232UmEE3EiniSh5mCrGBy7MqWUagQKE9o4='
     }
 ]
 
@@ -65,7 +65,7 @@ const SlideImage = () => {
       }, [currentIdex, images.length]);
 
     return(
-        <div className='max-w-[1000px] h-[780px] w-full m-auto mb-20 py-16 px-4 relative group'>
+        <div className='max-w-[1000px] h-[500px] w-full mb-20 py-16 px-4 relative group '>
             <div style={{backgroundImage: `url(${images[currentIdex].url})`}} className='w-full h-full rounded-2xl bg-center bg-cover duration-500 shadow-lg shadow-black contrast-175'></div>
             {/* left arrow */}
             <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/50 text-white/50 cursor-pointer hover:text-white' >
@@ -75,9 +75,9 @@ const SlideImage = () => {
             <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/50 text-white/50 cursor-pointer hover:text-white'>
                 <FontAwesomeIcon onClick={nextSlide} icon={faCircleArrowRight} size='xl'/>
             </div>
-            <div  className='mt-8 flex justify-center py-2'>
+            <div  className='mt-8 flex justify-center py-2 '>
                 {images.map((image, imageIndex) => (
-                    <div key={imageIndex} onClick={() => goToSlide(imageIndex) } className='text-[8px] text-white/30 pl-1 cursor-pointer hover:text-gray-500 '><FontAwesomeIcon icon={faCircle} /></div>
+                    <div key={imageIndex} onClick={() => goToSlide(imageIndex) } className='text-[8px] text-slate-400  pl-1 cursor-pointer hover:text-gray-500 '><FontAwesomeIcon icon={faCircle} /></div>
                 ))}
             </div>
         </div>
