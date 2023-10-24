@@ -8,7 +8,7 @@ function history({user_id}){
     const [txList, setUsers] = useState([]);
     const navigate = useNavigate();
     const { deleteTxActivity } = useAPI_2();
-    const baseApi = "http://localhost:3000";
+    const baseApi = import.meta.env.VITE_BACKEND_URL;
     // https://sportclubbackend.onrender.com
     useEffect(()=>{
         //get history with user_id find to tx_activity
