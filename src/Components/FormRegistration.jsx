@@ -72,7 +72,7 @@ const FormRegistration = () => {
       setUsernameValidation("");
     } else if (validitomCharacterUsername.test(username)) {
       setUsernameValidation(
-        "Special characters are not allowed."
+        "Special characters are not allowed"
       );
       setStyleUsernameValidation(false);
     } else if (username.length < 8) {
@@ -103,6 +103,7 @@ const FormRegistration = () => {
       setPasswordValidation("Password successful");
       setStylePasswordValidation(true);
     }
+    
     if (birthday) {
       const age = calculateAge(birthday);
       setAgeUser(age);
@@ -205,13 +206,13 @@ const FormRegistration = () => {
 
   return (
     <div className="w-2/4 p-5">
-      <h2 className="text-3xl  text-center tracking-widest">
+      <h2 className="text-4xl font-bold text-center tracking-widest">
         Registration
       </h2>
       
       <form className="m-6" onSubmit={handleSubmit}>
         <div className="username mt-4 mb-4">
-          <label htmlFor="username" className="mr-3">
+          <label htmlFor="username" className="mr-3 font-semibold">
             Username <span className="text-red-500">*</span>
           </label>
           <input
@@ -229,7 +230,7 @@ const FormRegistration = () => {
           </span>
         </div>
         <div className="password mt-4 mb-4">
-          <label htmlFor="password" className="mr-3">
+          <label htmlFor="password" className="mr-3 font-semibold">
             Password <span className="text-red-500">*</span>
           </label>
           <div className="inp-toggle flex items-center">
@@ -263,7 +264,7 @@ const FormRegistration = () => {
           </span>
         </div>
         <div className="confirmPassword mt-4 mb-4">
-          <label htmlFor="confirmPassword" className="mr-3">
+          <label htmlFor="confirmPassword" className="mr-3 font-semibold">
             Confirm Password <span className="text-red-500">*</span>
           </label>
           <div className="inp-toggle flex items-center">
@@ -294,7 +295,7 @@ const FormRegistration = () => {
           </div>
         </div>
         <div className="fname mt-4 mb-4">
-          <label htmlFor="fname" className="mr-3">
+          <label htmlFor="fname" className="mr-3 font-semibold">
             First Name <span className="text-red-500">*</span>
           </label>
           <input
@@ -309,7 +310,7 @@ const FormRegistration = () => {
           />
         </div>
         <div className="lname mt-4 mb-4">
-          <label htmlFor="lname " className="mr-3">
+          <label htmlFor="lname " className="mr-3 font-semibold">
             Last Name <span className="text-red-500">*</span>
           </label>
           <input
@@ -324,7 +325,7 @@ const FormRegistration = () => {
           />
         </div>
         <div className="gender mt-4 mb-4">
-          <label htmlFor="gender" className="mr-3">
+          <label htmlFor="gender" className="mr-3 font-semibold">
             Gender
           </label>
           <select
@@ -342,7 +343,7 @@ const FormRegistration = () => {
           </select>
         </div>
         <div className="birthday mt-4 mb-4">
-          <label htmlFor="birthday" className="mr-3">
+          <label htmlFor="birthday" className="mr-3 font-semibold">
             Birth Day <span className="text-red-500">*</span>
           </label>
           <input
@@ -356,7 +357,7 @@ const FormRegistration = () => {
           />
         </div>
         <div className="age mt-4 mb-4">
-          <label htmlFor="age " className="mr-3">
+          <label htmlFor="age " className="mr-3 font-semibold">
             Age <span className="text-red-500">*</span>
           </label>
           <input
@@ -372,7 +373,7 @@ const FormRegistration = () => {
           />
         </div>
         <div className="email mt-4 mb-4">
-          <label htmlFor="email" className="mr-3">
+          <label htmlFor="email" className="mr-3 font-semibold">
             Email <span className="text-red-500">*</span>
           </label>
           <input
@@ -390,7 +391,7 @@ const FormRegistration = () => {
             {emailValidation}
           </span>
         <div className="phonenumber mt-4 mb-4">
-          <label htmlFor="phonenumber" className="mr-3">
+          <label htmlFor="phonenumber" className="mr-3 font-semibold">
             Contact Number <span className="text-red-500">*</span>
           </label>
           <input
@@ -407,7 +408,7 @@ const FormRegistration = () => {
         <div className="btn mt-10 mb-10 flex justify-center">
           <button
             type="submit"
-            className="w-40 p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-400 hover:bg-lime-500 hover:text-slate-900"
+            className="w-40 font-bold p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-400 hover:bg-lime-500 hover:text-slate-900"
           >
             Submit
           </button>
@@ -425,7 +426,7 @@ const FormRegistration = () => {
           />
           <button
             type="reset"
-            className="w-40 text-white p-1 drop-shadow-md border-solid border-2 rounded-full bg-red-500 hover:bg-red-700 hover:text-slate-900"
+            className="w-40 font-bold text-white p-1 drop-shadow-md border-solid border-2 rounded-full bg-red-500 hover:bg-red-700 hover:text-slate-900"
             onClick={handleReset}
           >
             Clear

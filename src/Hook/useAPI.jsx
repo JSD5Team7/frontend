@@ -2,33 +2,41 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from "axios";
 
+
+const backendURL = process.env.VITE_BACKEND_URL;
+
 const useAPI = () => {
-    const baseURL = 'http://localhost:3000'
+    
 
     const [trainers, setTrainers] = useState([]);
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState({})
     const [usersData, setUsersData] = useState([])
 
     useEffect(() => {
         const getDataTrainer = async() => {
-            const response = await axios.get(`${baseURL}/coachList/all`);
+            const response = await axios.get(`${backendURL}/coachList/all`);
             setTrainers(response.data)
         } 
         getDataTrainer();
     },[])
 
     useEffect(() => {
-        const getUser = async(value) => {
+        const getUser = async(authtoken,value) => {
             const userId = value;
             if (userId) {
-                const response = await axios.get(`${baseURL}/users/${userId}`)
+                const response = await axios.get(`${baseURL}/users/${userId}`,{
+                    headers: {
+                        authtoken
+                    }
+                })
                 if (response.status === 200) {
                     setUser(response.data)
                 }
             }
         }
         const localUserId = window.localStorage.userId
-        getUser(localUserId);
+        const idtoken = window.localStorage.token
+        getUser(idtoken,localUserId);
     },[])
 
     useEffect(() => {

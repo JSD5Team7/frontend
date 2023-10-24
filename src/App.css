@@ -1,18 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
-#root {
+
+/* #root {
+  margin: 0 auto;
+  width: auto;
+  box-sizing: border-box;
+  background-color: rgb(241 245 249);
+  font-family: 'Quicksand', sans-serif;
+} */
+
+html {
   margin: 0 auto;
   max-width: 1440px;
   box-sizing: border-box;
   background-color: rgb(241 245 249);
+}
+
+#root {
   font-family: 'Quicksand', sans-serif;
 }
 
-/* body {
-  margin: 0 auto;
-  width: max-content;
-  box-sizing: border-box;
-  background-color: black;
-} */
 
 
 /* body {
@@ -21,7 +27,5 @@
   box-sizing: border-box;
   background-color: black;
 } */
-
-
 
 

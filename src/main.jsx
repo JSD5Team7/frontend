@@ -24,6 +24,7 @@ import EditDashboard from './Pages/DashboardPage/editPage.jsx'
 import AuthRoute from './Hook/Route.jsx/AuthRoute.jsx';
 
 import './index.css'
+import Resetpassword from './Pages/Resetpassword.jsx';
 
 
 const { AuthProtectedRoute, AuthProtectedLoginRoute } = AuthRoute()
@@ -73,6 +74,12 @@ const router = createBrowserRouter([
         <Login/>
       </AuthProtectedLoginRoute>
       
+    )
+  },
+  {
+    path:'/repassword', 
+    element: (
+        <Resetpassword/>    
     )
   },
   {
