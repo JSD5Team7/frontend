@@ -40,14 +40,11 @@ function App() {
   
   return (
     <Layout>
-      
       <OpenTime/>
       <BookingTable/>
       <SlideImage/>
       <SildeTrainer/>
       <Rules/>
-
-      
     </Layout>
     
   )
