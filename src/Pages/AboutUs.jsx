@@ -9,7 +9,7 @@ const AboutUs = () => {
             <div className="hero-img mt-6 p-10 w-full h-auto grid place-items-center  "> 
             {/* relative top-1 z-0 */}
                 <img src="/src/assets/images/hero-image.jpeg" alt="sport club" className='rounded-2xl shadow-black shadow-md contrast-125'/>
-                <h2 className='absolute text-brown-700 text-7xl italic font-extrabold opacity-70'>Good vibes, Good health</h2>
+                <h2 className='absolute text-brown-700 text-8xl italic font-extrabold opacity-70'>Good vibes, Good health</h2>
             </div>
             <div className="about-us w-full mt-6 mb-10 p-10 text-lg text-white bg-slate-700 rounded-lg shadow-black shadow-md">
                 <h2 className='text-5xl text-center font-bold drop-shadow-md text-lime-300  mb-6'>Who are We?</h2>
@@ -46,7 +46,7 @@ const AboutUs = () => {
                     <li className='indent-10'>&#127992;&nbsp;&nbsp;&nbsp;<em className='text-lime-300'>New Connections</em> : Expect to meet incredible people who share your passion. The friendships and connections you make here often extend beyond our facilities, creating a network of motivated individuals.</li>
                 </ol>
                 <div className="img-first-section w-1/2 p-6 ">
-                    <img src="/src/assets/images/Tennis-Court-About-Us.jpeg" alt="tennis courts" className='w-full rounded-lg shadow-lg contrast-125' />
+                    <img src="/src/assets/images/Tennis-Court-About-Us.jpeg" alt="tennis courts" className='w-full h-[400px] rounded-lg shadow-lg contrast-125' />
                 </div>
                 </div>
                 <div className="summary mt-6">
@@ -54,7 +54,6 @@ const AboutUs = () => {
                 </div>
             </div>
                 <SlideImage/>
-               
             </>
         </Layout>
 
