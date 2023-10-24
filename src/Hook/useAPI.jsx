@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const baseURL = import.meta.env.VITE_BACKEND_URL;
+const cloudinaryName = import.meta.env.VITE_CLOUDINARY_NAME;
 
 const useAPI = () => {
   const [user, setUser] = useState({});

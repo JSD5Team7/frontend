@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useAPI from "../Hook/useAPI";
+const cloudinaryName = import.meta.env.VITE_CLOUDINARY_NAME;
+const cloudinaryPreset = import.meta.env.VITE_CLOUDINARY_PRESET;
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -14,13 +16,15 @@ const inpStyle =
   "w-full border-b-2 p-2 bg-transparent focus:outline-none focus:border-blue-400 caret-blue-400 placeholder:italic placeholder:text-slate-500";
 
 const FormRegistration = () => {
-  const { register, usersData } = useAPI();
+  const { register, usersData , uploadImg } = useAPI();
+
   const navigete = useNavigate();
 
   //เซ็ตตัวแปลที่จะรับข้อมูลส่งไปที่ Database
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [profileImage, setProfileImage] = useState('')
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [gender, setGender] = useState("");
@@ -28,6 +32,47 @@ const FormRegistration = () => {
   const [ageUser, setAgeUser] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+
+  
+  const [imagePreview, setImagePreview] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleImageChange = (e) => {
+    setProfileImage(e.target.files[0])
+    setImagePreview(URL.createObjectURL(e.target.files[0]))
+  }
+
+  const uploadImage = async (e) => {
+    console.log(e)
+    e.preventDefault()
+    setIsLoading(true)
+    try {
+        let imageURL;
+        if (
+          profileImage && (
+            profileImage.type === 'image/png' ||
+            profileImage.type === 'image/jpg' ||
+            profileImage.type === 'image/jpeg'
+          )
+        ) {
+
+          const image = new FormData()
+          image.append('file', profileImage)
+          image.append('cloud_name', 'dkjfuys7y')
+          image.append('upload_preset', 'cjn6f20v')
+
+          const response = await uploadImg(image)
+          const imgData = await response.json()
+          imageURL = imgData.url.toString()
+          setImagePreview(null)
+          console.log(imageURL)
+
+        }
+
+            }catch(err) {
+              setIsLoading(false)
+            }
+          }
 
   //สร้างตัวแปลไว้แจ้งเตือนเงื่อนไขในการกรอก username และ password
   const [usernameValidation, setUsernameValidation] = useState("");
@@ -208,6 +253,34 @@ const FormRegistration = () => {
       </h2>
 
       <form className="m-6" onSubmit={handleSubmit}>
+
+<div>
+  <h3 className="mr-3 font-semibold">Upload Image</h3>
+  <div>
+    <form onSubmit={uploadImage}>
+      <label>Photo:</label>
+      <input type="file" 
+      accept="image/png, image/jpg, image/jpeg" 
+      name="image"
+      onChange={handleImageChange} />
+      <p>
+        {isLoading ? ('Uploading...') : (
+          <button type="submit">
+            uploadImg
+          </button>
+        )}
+      </p>
+    </form>
+    <div>
+      <div>
+        {imagePreview && (
+          <img src={imagePreview && imagePreview} atl='profile'/>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
         <div className="username mt-4 mb-4">
           <label htmlFor="username" className="mr-3 font-semibold">
             Username <span className="text-red-400">*</span>
