@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function ContentS4({changeHowtoS1,changeContentS1,changeHowtoS3,changeContentS3}){
     const contextValue = useContext(CustomContext);
-    const baseApi = "http://localhost:3000";
+    const baseApi = import.meta.env.VITE_BACKEND_URL;
     // https://sportclubbackend.onrender.com
     function handleBack(){
         changeHowtoS3();

@@ -10,7 +10,7 @@ import axios from 'axios';
 
 function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeContentS1}) {
     const contextValue = useContext(CustomContext);
-    const baseApi = "http://localhost:3000";
+    const baseApi = import.meta.env.VITE_BACKEND_URL;
     // https://sportclubbackend.onrender.com
     const [data,setdata] = useState([]);
     const [logo,setlogo] = useState();

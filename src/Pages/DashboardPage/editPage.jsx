@@ -135,7 +135,7 @@ function editPage(){
     const userid = localStorage.userId
     const { tx_id } = useParams();
     const { type } = useParams();
-    const baseApi = "http://localhost:3000";
+    const baseApi = import.meta.env.VITE_BACKEND_URL;
     // https://sportclubbackend.onrender.com
     const [bookdata,setbookdata] = useState({
                 tx_id:tx_id,
