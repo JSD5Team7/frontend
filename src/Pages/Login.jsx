@@ -137,9 +137,9 @@ const Login = () => {
                 )}
               </div>
 
-              <div className="flex justify-end">
+              {/* <div className="flex justify-end">
                 <p className="px-3">Forget password?</p>
-              </div>
+              </div> */}
               <button
                 className="rounded-full font-bold py-2 drop-shadow-md border-solid border-2 bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
                 disabled={disabledButton}
