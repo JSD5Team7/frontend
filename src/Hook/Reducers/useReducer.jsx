@@ -3,7 +3,7 @@ export function useReducer(state = null, action) {
     case "LOGIN":
       setTimeout(() => {
         window.localStorage.clear();
-      }, 60 * 60);
+      }, 3600000);
       return action.payload;
     case "LOGOUT":
       window.localStorage.clear();

@@ -42,6 +42,7 @@ import useAPI from "../Hook/useAPI";
     e.preventDefault();
     if (userId && idtoken) {
       try {
+        console.log(image)
         const userDataupdate = {
           _id: userId,
           fname: fname || user.fname,
@@ -53,9 +54,11 @@ import useAPI from "../Hook/useAPI";
           email: email || user.email,
           phone: phoneNumber || user.phoneNumber,
         };
+        console.log(userDataupdate)
         const response = await updateUser(idtoken, userDataupdate);
+        console.log(response)
 
-        window.location.reload();
+        // window.location.reload();
       } catch (err) {
         console.log(response.data);
         console.log(err);
@@ -74,10 +77,10 @@ import useAPI from "../Hook/useAPI";
             <img src={Sky} alt="CoverImage" className="w-full h-60 p-3" />
           </div>
 
-          <div className="flex items-center   ">
+          <div className="flex items-center">
             <img
               className="border-slate-400 drop-shadow-lg h-40 w-40 rounded-full ml-10  "
-              src="https://www.setforset.com/cdn/shop/articles/full_body_workout_on_machines_2000x.jpg?v=1660263618"
+              src={user.img}
               alt="ProfileImage"
             />
             <p className="ml-5 text-slate-700 font-semibold text-4xl ">
