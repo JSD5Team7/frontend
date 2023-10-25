@@ -266,7 +266,7 @@ const FormRegistration = () => {
   };
 
   return (
-    <div className="w-2/4 p-5">
+    <div className="w-[600px] p-5">
       <h2 className="text-4xl font-bold text-center tracking-widest">
         Registration
       </h2>
@@ -439,8 +439,9 @@ const FormRegistration = () => {
             required
           />
         </div>
-        <div>
-          <img className="w-[100px] h-[100px]" src={image} />
+        <div className="flex flex-col justify-center items-center">
+          <img className="w-[100px] h-[100px] border-slate-400 drop-shadow-lg rounded-full" src={image} />
+          <div className="flex justify-center items-center">
           <input
             type="file"
             onChange={(e) => setImagePreview(e.target.files[0])}
@@ -451,6 +452,8 @@ const FormRegistration = () => {
           >
             Upload
           </button>
+          </div>
+         
         </div>
         <div className="email mt-4 mb-4">
           <label htmlFor="email" className="mr-3 font-semibold">
@@ -487,7 +490,7 @@ const FormRegistration = () => {
             required
           />
         </div>
-        <div className="btn mt-10 mb-10 flex justify-center">
+        <div className="btn mt-10 mb-10 flex justify-center gap-2">
           <button
             type="submit"
             className="w-40 font-bold p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
