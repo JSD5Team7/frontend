@@ -40,6 +40,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setDisabledButton(true);
     try {
       const response = await login(valueLogin);
 
@@ -66,13 +67,14 @@ const Login = () => {
         progress: undefined,
         theme: "light",
       });
-      setDisabledButton(true);
+      
       setTimeout(() => {
         if (idtoken) {
           navigete("/");
         }
       }, 3000);
     } catch (err) {
+      setDisabledButton(false);
       toast.error(err.response.data, {
         position: "top-center",
         autoClose: 3000,
