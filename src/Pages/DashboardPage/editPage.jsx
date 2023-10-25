@@ -1,6 +1,6 @@
 import { useState,useEffect} from 'react'
 import axios from 'axios';
-import { useParams, useNavigate  } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Layout from '../../Layout/Layout';
 import useAPI_2 from '../../Hook/useAPI_2.jsx';
 import { ToastContainer, toast } from 'react-toastify';
@@ -372,6 +372,9 @@ function editPage(){
                         progress: undefined,
                         theme: "light",
                         });
+                    setTimeout(() => {
+                        navigate("/dashboard");
+                        }, 2500);
                        
                 }else{
                     toast.error('Sorry Edit error,please', {
@@ -451,7 +454,6 @@ function editPage(){
     }
     function handleSave(){
         console.log("save")
-
     }
 
     return(
