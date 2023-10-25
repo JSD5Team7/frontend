@@ -1,15 +1,13 @@
 import { useContext,useState,useEffect} from 'react'
 import {CustomContext} from './Booking'
 
+
 const inputStyle = "mb-2 shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 const inputStyleDis = "mb-2 shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 bg-gray-300 leading-tight focus:outline-none focus:shadow-outline";
 const label = "flex text-sm font-medium mb-2 text-gray-900";
 const inputDesc = "resize-none h-full mb-2 shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 function ContentS3({changeTostep2,changeContentS2,changeTostep4,changeContentS4}){
     const contextValue = useContext(CustomContext);
-
-    // useEffect(()=>{        
-    // },[]);
 
     function handleNext(){
         //summary page
