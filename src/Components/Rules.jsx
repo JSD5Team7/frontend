@@ -2,7 +2,7 @@ import React from "react";
 
 export const Rules = () => {
     return(
-        <div className="rules-container w-full bg-slate-700 h-fit p-3 mb-20 rounded-xl shadow-black shadow-md ">
+        <section className="rules-container w-full bg-slate-700 h-fit p-3 mb-20 rounded-xl shadow-black shadow-md ">
             <h2 className="text-center text-lime-300 text-3xl font-bold">Service Rules</h2>
             <div className="rule-item w-full p-5 flex gap-10">
                 <div className="leftside w-2/4">
@@ -38,6 +38,6 @@ export const Rules = () => {
                     <p className="indent-10 text-white">Keep doing what you want and be enjoy and happy.</p>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
