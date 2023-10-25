@@ -73,16 +73,18 @@ const FormRegistration = () => {
   };
 
   //สร้าง useEffect เพื่อเช็ตค่าของ input ว่ากรอกตามเงื่อนไขไหม
-  useEffect(() => {
-    const validitonCharacterUsername = /[^a-zA-Z0-9]/;
+  const validitonCharacterUsername = /[^a-zA-Z0-9]/;
+  const validationCharacterPassword = /[a-zA-Z]/g;
+  const validationEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
+  useEffect(() => {
     if (username === "") {
       setUsernameValidation("");
     } else if (validitonCharacterUsername.test(username)) {
       setUsernameValidation("Special characters are not allowed");
       setStyleUsernameValidation(false);
     } else if (username.length < 8) {
-      setUsernameValidation("Please enter more than 8 characters.");
+      setUsernameValidation("Please enter more than 8 characters");
       setStyleUsernameValidation(false);
     } else {
       setUsernameValidation("Username ready to use");
@@ -94,8 +96,6 @@ const FormRegistration = () => {
       setUsernameValidation("Username is already used");
       setStyleUsernameValidation(false);
     }
-
-    const validationCharacterPassword = /[a-zA-Z]/g;
 
     if (password === "") {
       setPasswordValidation("");
@@ -117,8 +117,6 @@ const FormRegistration = () => {
       const age = calculateAge(birthday);
       setAgeUser(age);
     }
-
-    const validationEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
     if (email === "") {
       setEmailValidation("");
@@ -189,54 +187,9 @@ const FormRegistration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      toast.error('Password not match"', {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return;
-    }
-    try {
-      const userData = {
-        username: username,
-        password: password,
-        img: image,
-        fname: fname,
-        lname: lname,
-        gender: gender,
-        birthday: birthday,
-        age: ageUser,
-        email: email,
-        phone: phoneNumber,
-      };
-      const response = await register(userData);
-      toast.success("Register Success!", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      setDisabledButton(true);
 
-      setTimeout(() => {
-        // const token = response.data.token;
-        // window.location.reload();
-        // localStorage.setItem('token', token);
-        // history.push('/protected-route');
-        navigete("/login");
-      }, 3000);
-    } catch (err) {
-      toast.error(err.response.data, {
+    if (validitonCharacterUsername.test(username)) {
+      toast.error("Special characters are not allowed", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -246,6 +199,110 @@ const FormRegistration = () => {
         progress: undefined,
         theme: "light",
       });
+    } else if (username.length < 8) {
+      toast.error("Please enter more than 8 characters", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+     } else if (password !== confirmPassword) {
+      toast.error('Password not match', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else if (password.length < 8) {
+      toast.error('Password more than 8 characters"', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else if (
+      !password.match(validationCharacterPassword) ||
+      password.match(validationCharacterPassword).length < 3
+    ) {
+      toast.error("Must have at least 3 characters", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else if (!validationEmail.test(email)) {
+      toast.error("Invalid email format", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      try {
+        const userData = {
+          username: username,
+          password: password,
+          img: image,
+          fname: fname,
+          lname: lname,
+          gender: gender,
+          birthday: birthday,
+          age: ageUser,
+          email: email,
+          phone: phoneNumber,
+        };
+        const response = await register(userData);
+        toast.success("Register Success!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setDisabledButton(true);
+
+        setTimeout(() => {
+          // const token = response.data.token;
+          // window.location.reload();
+          // localStorage.setItem('token', token);
+          // history.push('/protected-route');
+          navigete("/login");
+        }, 3000);
+      } catch (err) {
+        toast.error(err.response.data, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     }
   };
 
@@ -440,20 +497,22 @@ const FormRegistration = () => {
           />
         </div>
         <div className="flex flex-col justify-center items-center">
-          <img className="w-[100px] h-[100px] border-slate-400 drop-shadow-lg rounded-full" src={image} />
-          <div className="flex justify-center items-center">
-          <input
-            type="file"
-            onChange={(e) => setImagePreview(e.target.files[0])}
+          <img
+            className="w-[100px] h-[100px] border-slate-400 drop-shadow-lg rounded-full"
+            src={image}
           />
-          <button
-            className="w-20 mt-3 font-bold p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
-            onClick={uploadImage}
-          >
-            Upload
-          </button>
+          <div className="flex justify-center items-center">
+            <input
+              type="file"
+              onChange={(e) => setImagePreview(e.target.files[0])}
+            />
+            <button
+              className="w-20 mt-3 font-bold p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
+              onClick={uploadImage}
+            >
+              Upload
+            </button>
           </div>
-         
         </div>
         <div className="email mt-4 mb-4">
           <label htmlFor="email" className="mr-3 font-semibold">
