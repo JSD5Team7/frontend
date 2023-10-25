@@ -18,6 +18,7 @@ const Navbar = ({ children }) => {
   const { user } = useAPI();
   const userFname = user.fname;
   const userLname = user.lname;
+  const userImg = user.img
 
   const dispatch = useDispatch();
   const navigete = useNavigate();
@@ -131,11 +132,14 @@ const Navbar = ({ children }) => {
         <ul className="flex w-[150px] justify-end items-center gap-3 xl:min-w-[300px]">
           <li className="flex-col w-[40px] h-8 justify-center items-center">
             <NavLink to={"/profile"}>
-              <FontAwesomeIcon
+              <img 
+              src={userImg}
+              className="drop-shadow-lg bg-slate-100 h-[40px] w-[40px] rounded-full"/>
+              {/* <FontAwesomeIcon
                 icon={faCircleUser}
                 size="xl"
                 className="w-10 py-2"
-              />
+              /> */}
             </NavLink>
           </li>
           <li className="flex items-center xl:items-start xl:min-w-[125px] xl:max-h-20 xl:flex-col">
