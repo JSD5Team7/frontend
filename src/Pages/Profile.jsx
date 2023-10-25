@@ -73,7 +73,7 @@ const UserProfile = () => {
 
         const validationEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
-        if (!validationEmail.test(email)) {
+        if (!validationEmail.test(userDataupdate.email)) {
           toast.error("Invalid email format", {
             position: "top-center",
             autoClose: 3000,
