@@ -1,6 +1,6 @@
 import { useState,useEffect} from 'react'
 import axios from 'axios';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate  } from "react-router-dom";
 import Layout from '../../Layout/Layout';
 import useAPI_2 from '../../Hook/useAPI_2.jsx';
 import { ToastContainer, toast } from 'react-toastify';
@@ -328,6 +328,7 @@ function editPage(){
             return {...previousState,coachId:coach.id,coachName:coach.name}
         });
     }
+   
     function handleNext(){
         event.preventDefault();
         const data = 
@@ -365,6 +366,7 @@ function editPage(){
                         progress: undefined,
                         theme: "light",
                         });
+                       
                 }else{
                     toast.error('Sorry Edit error,please', {
                         position: "top-center",
@@ -378,7 +380,6 @@ function editPage(){
                         });
                 }
             })
-            
             
         } catch (error) {
             console.log(error);
