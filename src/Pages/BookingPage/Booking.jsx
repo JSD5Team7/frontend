@@ -217,13 +217,13 @@ function Booking({user_id}){
                 date_init_time:date_init
             }}
                 >
-            <div className='mt-20'>
+            <div className='h-fit overflow-y-auto'>
                 <div className='page_title'>
                     {/* <h1>Booking</h1> */}
                 </div>
 
-                <div className='page_body h-[90vh]'>
-                    <div className='text-xl font-bold mx-10'>
+                <div className='page_body h-fit min-h-[90vh]'>
+                    <div className='text-xl font-bold my-20 mx-10'>
                         <h1>How to booking</h1>
                         {Howto}
                     </div>
