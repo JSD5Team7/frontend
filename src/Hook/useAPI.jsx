@@ -83,36 +83,6 @@ const useAPI = () => {
     });
   };
 
-  //   const handleSave = async(e) => {
-  //     const userId = window.localStorage.userId;
-  //     const idtoken = window.localStorage.token
-  //     e.preventDefault();
-  //     if (userId && idtoken) {
-  //       try {
-  //           const userDataupdate = {
-  //             _id: userId,
-  //             fname: 'ใส่ firstname ที่รับเข้ามา',
-  //             lname: 'ใส่ lastname ที่รับเข้ามา',
-  //             gender: 'ใส่ gender ที่รับเข้ามา',
-  //             birthday: 'ใส่ birthday ที่รับเข้ามา',
-  //             age: 'ใส่ age ที่รับเข้ามา',
-  //             email: 'ใส่ email ที่รับเข้ามา',
-  //             phone: 'ใส่ phone number ที่รับเข้ามา'
-  //           }
-  //           const response = await updateUser(idtoken, userDataupdate)
-
-  //       } catch(err) {
-  //         console.log(err)
-  //       }
-  //     } else {
-  //       console.log('Token not found!')
-  //     }
-  //   }
-
-  const uploadImg = async (value) => {
-    return await axios.post(`https://api.cloudinary.com/v1_1/dkjfuys7y/image/upload`, value)
-  }
-
   return {
     trainers,
     user,
@@ -120,8 +90,7 @@ const useAPI = () => {
     register,
     login,
     currentUser,
-    updateUser,
-    uploadImg
+    updateUser
   };
 };
 

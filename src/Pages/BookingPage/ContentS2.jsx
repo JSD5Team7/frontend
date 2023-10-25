@@ -110,17 +110,28 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
         console.log(contextValue.bookdata.time)
         if(contextValue.bookdata.time !== ""){
             TimeWithCourt(sport,contextValue.bookdata.location,contextValue.bookdata.date);
+
         }else{
             setshowTime(contextValue.date_init_time);
         }
     },[]);
 
+    useEffect(()=>{
+
+        if(contextValue.bookdata.location == ""){
+            setshowTime(contextValue.date_init_time);
+        }else{
+            handleDay("btn_day");
+        }
+        
+    },[contextValue.bookdata.location]);
+
     //State Stytle
     const btn_def = "flex items-center justify-left w-45 h-25 inline-flex bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
-    const btn_select = "flex items-center justify-left w-45 h-25 inline-flex bg-purple-300  text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none transform active:scale-75 transition-transform hover:bg-purple-100"
+    const btn_select = "flex items-center justify-left w-45 h-25 inline-flex bg-purple-300  text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none transform active:scale-75 transition-transform hover:bg-purple-400"
     const btn_defDayL = "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
     const btn_defDayR = "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
-    const btn_day = "bg-green-300 text-gray-800 font-bold py-2 px-4 rounded"
+    const btn_day = "bg-purple-300 text-gray-800 font-bold py-2 px-4 rounded"
     const btn_dateAva = "w-30 bg-green-300 hover:bg-green-500 text-back font-bold py-2 px-4 border border-green-700 rounded"
     const btn_dateNotAva = "w-30 bg-gray-500 text-white font-bold py-2 px-4 rounded opacity-50 pointer-events-none"
     const btn_dateSelect = "w-30 bg-purple-300 hover:bg-purple-100 text-back font-bold py-2 px-4 border border-green-700 rounded"
@@ -158,13 +169,13 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
 
     const handelcourt=(id,sport)=>{
         setselectCourt({court:id,});
-
         //update data context booking
         contextValue.setbookdata((previousState)=>{ 
             return {...previousState,sport:sport,location:id}
         });
+
     }
-    const handleDay=(e,day)=>{
+    const handleDay=(day)=>{
         setselectday({day:day});
         contextValue.setbookdata((previousState)=>{ 
             return {...previousState,day:day}
@@ -174,6 +185,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             case "btn_day":
                 const date_today = getDate("btn_day");
                 //show time button
+                console.log(sport,contextValue.bookdata.location,date_today);
                 TimeWithCourt(sport,contextValue.bookdata.location,date_today);
 
                 //update date
@@ -184,6 +196,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             case "btn_tow":
                 const date_tomr = getDate("btn_tow");
                 //show time button
+                console.log(sport,contextValue.bookdata.location,date_tomr);
                 TimeWithCourt(sport,contextValue.bookdata.location,date_tomr);
                 
                 //update date
@@ -276,9 +289,9 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     return(
         <div>
             <div>
-                <h1>SPORT: {sport}</h1>
+                <h1 className='text-2xl font-bold'>Activity: {sport}</h1>
             </div>
-            <div className='m-2 grid grid-cols-3 gap-3'>
+            <div className='m-5 grid grid-cols-3 gap-3'>
                 {data.map((eachcourt)=>( 
                     <div>
                         <button className={contextValue.bookdata.location==eachcourt.courtNumber? btn_select:btn_def} onClick={()=>handelcourt(eachcourt.courtNumber,sport)}>
@@ -292,10 +305,10 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             <div >
                 <div >
                     <div className="inline-flex">
-                        <button id='btn_day' className={contextValue.bookdata.location!=""?((contextValue.bookdata.day=="btn_day")? btn_day:btn_defDayL):btn_NotAva} onClick={(e)=>handleDay(e,"btn_day")}>
+                        <button id='btn_day' className={contextValue.bookdata.location!=""?((contextValue.bookdata.day=="btn_day")? btn_day:btn_defDayL):btn_NotAva} onClick={(e)=>handleDay("btn_day")}>
                             To day
                         </button>
-                        <button id='btn_tow' className={contextValue.bookdata.location!=""?((contextValue.bookdata.day=="btn_tow")? btn_day:btn_defDayR):btn_NotAva} onClick={(e)=>handleDay(e,"btn_tow")}>
+                        <button id='btn_tow' className={contextValue.bookdata.location!=""?((contextValue.bookdata.day=="btn_tow")? btn_day:btn_defDayR):btn_NotAva} onClick={(e)=>handleDay("btn_tow")}>
                             Tomorrow
                         </button>
                     </div>
@@ -335,7 +348,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                                     <img src={eachcoach.image} alt="" className='h-14 w-14 rounded-full'/>
                                     <div className='flex flex-col justify-center '>
                                         <h2 className="mb-2 text-2xl font-bold tracking-tight :text-black"><span>{eachcoach.name}</span></h2>
-                                        <p className="font-normal text-gray-700 dark:text-gray-400"><span>{eachcoach.des}</span></p>
+                                        <p className="font-normal text-gray-600"><span>{eachcoach.des}</span></p>
                                     </div>
                                 </a>
                             ))}

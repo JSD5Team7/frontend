@@ -8,8 +8,8 @@ const AboutUs = () => {
             <>
             <div className="hero-img mt-6 p-10 w-full h-auto grid place-items-center  "> 
             {/* relative top-1 z-0 */}
-                <img src="/src/assets/images/hero-image.jpeg" alt="sport club" className='rounded-2xl shadow-black shadow-md contrast-125'/>
-                <h2 className='absolute text-brown-700 text-7xl italic font-extrabold opacity-70'>Good vibes, Good health</h2>
+                <img src="/src/assets/images/heroimage.jpeg" alt="sport club" className='rounded-2xl shadow-black shadow-md contrast-125'/>
+                <h2 className='absolute text-brown-700 text-8xl italic font-extrabold opacity-70'>Good vibes, Good health</h2>
             </div>
             <div className="about-us w-full mt-6 mb-10 p-10 text-lg text-white bg-slate-700 rounded-lg shadow-black shadow-md">
                 <h2 className='text-5xl text-center font-bold drop-shadow-md text-lime-300  mb-6'>Who are We?</h2>
@@ -23,7 +23,7 @@ const AboutUs = () => {
                     <li className='indent-10'>&#127934;&nbsp;&nbsp;&nbsp;<em className='text-lime-300'>Community Building</em> : Beyond the physical aspect, we believe in the power of community. We foster a welcoming and supportive environment where you can meet like-minded individuals, make friends, and grow together on your fitness journey.</li>
                 </ol>
                 <div className="img-first-section w-3/4 pl-6">
-                    <img src="/src/assets/images/Yoga-Room-About-Us.jpeg" alt="tennis courts" style={{height:'350px'}}  className='w-full rounded-lg shadow-lg contrast-125 ' />
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8eW9nYXxlbnwwfHwwfHx8MA%3D%3D" alt="tennis courts" style={{height:'400px'}}  className='w-full rounded-lg shadow-lg contrast-125 ' />
                 </div>
                 </div>
                 <div className="serveice-section w-full mt-10 flex gap-3 items-center justify-center">
@@ -34,7 +34,7 @@ const AboutUs = () => {
                     <li className='indent-10'>&#127955;&nbsp;&nbsp;&nbsp;<em className='text-lime-300'>Health and Wellness</em> : At Our Sport Club, we prioritize your well-being. Our on-site amenities include health-focused services like nutrition consultations, physiotherapy, and relaxation areas to help you unwind after a rigorous workout.</li>
                 </ol>
                 <div className="img-first-section w-1/2 pr-6">
-                    <img src="/src/assets/images/Table-Tennis-About-Us.jpeg" alt="tennis courts" style={{height:'350px'}} className='w-full rounded-lg shadow-lg contrast-125' />
+                    <img src="https://images.unsplash.com/photo-1617962529235-262e8e777e48?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzJ8fGJhZG1pbnRvbnxlbnwwfHwwfHx8MA%3D%3D" alt="tennis courts" style={{height:'400px'}} className='w-full rounded-lg shadow-lg contrast-125' />
                 </div>
                 </div>
                 <div className="advantage-section w-full mt-10 flex gap-3 items-center justify-center">
@@ -46,7 +46,7 @@ const AboutUs = () => {
                     <li className='indent-10'>&#127992;&nbsp;&nbsp;&nbsp;<em className='text-lime-300'>New Connections</em> : Expect to meet incredible people who share your passion. The friendships and connections you make here often extend beyond our facilities, creating a network of motivated individuals.</li>
                 </ol>
                 <div className="img-first-section w-1/2 p-6 ">
-                    <img src="/src/assets/images/Tennis-Court-About-Us.jpeg" alt="tennis courts" className='w-full rounded-lg shadow-lg contrast-125' />
+                    <img src="https://images.unsplash.com/photo-1618548723848-1b339b8a7999?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzR8fHRlbm5pcyUyMGNvdXJ0fGVufDB8fDB8fHww" alt="tennis courts" className='w-full h-[400px] rounded-lg shadow-lg contrast-125' />
                 </div>
                 </div>
                 <div className="summary mt-6">
@@ -54,7 +54,6 @@ const AboutUs = () => {
                 </div>
             </div>
                 <SlideImage/>
-               
             </>
         </Layout>
 

@@ -65,7 +65,8 @@ const SlideImage = () => {
       }, [currentIdex, images.length]);
 
     return(
-        <div className='max-w-[1000px] h-[500px] w-full mb-20 py-16 px-4 relative group '>
+        <div className='flex items-center justify-center'>
+        <div className=' h-[800px] w-full mb-20 py-16 px-4 relative group '>
             <div style={{backgroundImage: `url(${images[currentIdex].url})`}} className='w-full h-full rounded-2xl bg-center bg-cover duration-500 shadow-lg shadow-black contrast-175'></div>
             {/* left arrow */}
             <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/50 text-white/50 cursor-pointer hover:text-white' >
@@ -80,6 +81,7 @@ const SlideImage = () => {
                     <div key={imageIndex} onClick={() => goToSlide(imageIndex) } className='text-[8px] text-slate-400  pl-1 cursor-pointer hover:text-gray-500 '><FontAwesomeIcon icon={faCircle} /></div>
                 ))}
             </div>
+        </div>
         </div>
   )
 };

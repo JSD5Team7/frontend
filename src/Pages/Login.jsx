@@ -20,6 +20,8 @@ const Login = () => {
     password: "",
   });
 
+  const [disabledButton, setDisabledButton] = useState(false);
+
   const dispatch = useDispatch();
 
   const navigete = useNavigate();
@@ -64,6 +66,7 @@ const Login = () => {
         progress: undefined,
         theme: "light",
       });
+      setDisabledButton(true);
       setTimeout(() => {
         if (idtoken) {
           navigete("/");
@@ -91,9 +94,9 @@ const Login = () => {
             <img src={Banner} alt="banner" className="w-full h-full" />
           </div>
           <div className="login-container p-20 flex-col flex items-center justify-center">
-          <h3 className="text-center text-2xl font-bold pb-5">
-          Welcome to Groot Club!
-        </h3>
+            <h3 className="text-center text-2xl font-bold pb-5">
+              Welcome to Groot Club!
+            </h3>
             <h1 className="text-6xl font-bold mb-12">LOG IN</h1>
 
             <img src="" alt="" />
@@ -137,10 +140,12 @@ const Login = () => {
               <div className="flex justify-end">
                 <p className="px-3">Forget password?</p>
               </div>
-              <button className="rounded-full font-bold py-2 drop-shadow-md border-solid border-2 bg-lime-300 hover:bg-lime-400 hover:text-slate-900">
+              <button
+                className="rounded-full font-bold py-2 drop-shadow-md border-solid border-2 bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
+                disabled={disabledButton}
+              >
                 Login
               </button>
-             
             </form>
             <div className="w-[300px]">
               <NavLink to={"/register"} activeClassName="active">
@@ -153,17 +158,17 @@ const Login = () => {
         </div>
       </div>
       <ToastContainer
-                position="top-center"
-                autoClose={1000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-              />
+        position="top-center"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Layout>
   );
 };
