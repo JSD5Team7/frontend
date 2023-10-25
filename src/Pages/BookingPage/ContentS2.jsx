@@ -116,6 +116,16 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
         }
     },[]);
 
+    useEffect(()=>{
+
+        if(contextValue.bookdata.location == ""){
+            setshowTime(contextValue.date_init_time);
+        }else{
+            handleDay("btn_day");
+        }
+        
+    },[contextValue.bookdata.location]);
+
     //State Stytle
     const btn_def = "flex items-center justify-left w-45 h-25 inline-flex bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
     const btn_select = "flex items-center justify-left w-45 h-25 inline-flex bg-purple-300  text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none transform active:scale-75 transition-transform hover:bg-purple-400"
@@ -159,12 +169,11 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
 
     const handelcourt=(id,sport)=>{
         setselectCourt({court:id,});
-
         //update data context booking
         contextValue.setbookdata((previousState)=>{ 
             return {...previousState,sport:sport,location:id}
         });
-        handleDay("btn_day");
+
     }
     const handleDay=(day)=>{
         setselectday({day:day});
@@ -187,7 +196,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             case "btn_tow":
                 const date_tomr = getDate("btn_tow");
                 //show time button
-                console.log(sport,contextValue.bookdata.location,date_today);
+                console.log(sport,contextValue.bookdata.location,date_tomr);
                 TimeWithCourt(sport,contextValue.bookdata.location,date_tomr);
                 
                 //update date
