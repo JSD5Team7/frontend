@@ -61,10 +61,6 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/contact-us",
-    element: <ContactUs />,
-  },
-  {
     path: "/coach",
     element: <TrainerDetails />,
   },

@@ -155,12 +155,12 @@ const Navbar = ({ children }) => {
             </li>
             <li className="flex items-center xl:items-start xl:min-w-[125px] xl:max-h-20 xl:flex-col">
               <NavLink to={"/profile"}>
-                <h1 className="invisible w-0 xl:w-[150px] xl:max-h-8 xl:overflow-hidden xl:mb-1 xl:visible">
+                <h1 className="invisible w-0 font-bold xl:w-[150px] xl:max-h-8 xl:overflow-hidden xl:mb-1 xl:visible">
                   {userFname} {userLname}
                 </h1>
               </NavLink>
               <NavLink to={"/dashboard"} activeClassName="active">
-                <h1 className="">Dashboard</h1>
+                <h1 className="font-bold ">Dashboard</h1>
               </NavLink>
             </li>
             <li>
