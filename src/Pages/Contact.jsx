@@ -12,7 +12,7 @@ import { FormContact } from "../Components/FormContact";
 const ContactUs = () => {
   return (
     <Layout>
-      <div className="contact-container mt-16 p-10 w-full flex justify-center items-stretch">
+      <div className="contact-container mt-16 p-10 w-full mb-40 flex justify-center items-stretch">
         <div className="contact-content flex bg-blue-100 bg-opacity-20 backdrop-blur-md m-0 p-0 rounded-md shadow-xl">
           <div
             className="get-intouch w-3/4 rounded-md text-gray-900 m-0 p-10 flex flex-col justify-center items-start bg-center bg-no-repeat bg-cover "

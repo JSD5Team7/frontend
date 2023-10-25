@@ -1,28 +1,29 @@
 import { useRef } from 'react';
 import emailjs from '@emailjs/browser';
-const inputStyle = 'text-white border-b-2 border-white p-2 bg-transparent focus:outline-none focus:border-emerald-400 caret-emerald-400 placeholder:italic placeholder:text-slate-500 ';
+
+const inputStyle = 'border-b-2 border-white p-2 bg-transparent focus:outline-none focus:border-lime-300 caret-lime-300 placeholder:italic placeholder:text-slate-500 ';
 
 export const FormContact = () => {
    
     const form = useRef();
 
     const sendEmail = (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    emailjs.sendForm('service_kr47zrv', 'template_c1etpq3', form.current, 'SaZ-Z93sbl8o83lLC')
-      .then((result) => {
-          console.log(result.text);
-          console.log("message sent")
-          alert('message sent')
-          e.target.reset();
-      }, (error) => {
-          console.log(error.text);
-      });
+        emailjs.sendForm('service_kr47zrv', 'template_c1etpq3', form.current, 'SaZ-Z93sbl8o83lLC')
+        .then((result) => {
+            console.log(result.text);
+            console.log("message sent")
+            alert('message sent')
+            e.target.reset();
+        }, (error) => {
+            console.log(error.text);
+        });
   };
 
     return (
         <div className="form-contact w-2/4 text-slate-800 mt-0 ml-8 pt-8 pr-6 text-lg grid place-items-center border-solid border-4 border-lime-400 rounded-xl " >
-                <form onSubmit={sendEmail} className='flex flex-col gap-6 pb-24' >
+                <form ref={form} onSubmit={sendEmail} className='flex flex-col gap-6 pb-24' >
                     <h2 className='font-bold text-4xl text-slate-800 text-center pb-6 drop-shadow-md'>Contact Us</h2>
                     <div className="first-name flex flex-col">
                         <label htmlFor="firstname" className='font-semibold text-slate-800'>First name</label>

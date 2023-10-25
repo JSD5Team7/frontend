@@ -59,61 +59,64 @@ function history({user_id}){
               )
             }
           })
-        
+          
       };
-    return (
-        <div>
-            <div className="justify-center">
-          {txList.map((txListEach) => (
-            <div className='flex flex-col'>
-                <div className="drop-shadow-lg m-10 border-2 border-indigo-500/100 rounded-lg">
-                <div className="m-5">
-                        <div className ="flex justify-start">
-                        <div className=' gap-3'><p1 className="font-bold">Name:</p1><span> {txListEach.information.fname}  {txListEach.information.lname}</span></div> 
-                        </div>
-                        <div>
-                            <div className='gap-3'><p1 className="font-bold ">Type: </p1><span>{txListEach.type}</span></div> 
-                            
-                        </div>
-                        <div>
-                            <div className='gap-3'><p1 className="font-bold">Location:</p1><span>{txListEach.location}</span></div> 
-                        </div>
-                        <div className ="flex justify-start">
-                            <div className='font-bold gap-3'><p1>Date: </p1></div> 
-                            <span>{txListEach.date}</span>
-                        </div>
-                        <div className ="flex justify-start">
-                            <div className='font-bold gap-3'><p1 >Time: </p1></div>
-                            <span>{txListEach.time}</span>
-                        </div>
-                        <div className ="flex justify-start">
-                            <div className='font-bold gap-3'><p1 >Coach: </p1></div>
-                            <span>{txListEach.coachName}</span>
-                        </div>
-                        <div className ="flex justify-start">
-                            <div className='font-bold gap-3'><p1>Description: </p1></div> 
-                            <span>{txListEach.information.desc}</span>
-                        </div>
-                        </div>
 
-                <div className="flex gap-5 p-3">
-                    <button
-                    className="drop-shadow-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-6 rounded-full"
-                    onClick={() => BTNhandleEdit(txListEach._id,txListEach.type)}
-                    >
-                    Edit
-                    </button>
-                    <button
-                    className="drop-shadow-lg bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded-full"
-                    onClick={() => handleDelete(txListEach._id)}
-                    >
-                    Delete
-                    </button>
-                </div>
-                </div> 
-            </div>
-          ))}
-        </div>
+      const sportTypeImages = {
+        tennis: '/src/assets/icons/icons8-tennis-100 (1).png',
+        tabletennis: '/src/assets/icons/icons8-table-tennis-64.png',
+        badminton: '/src/assets/icons/icons8-badminton-100.png',
+        yoga: '/src/assets/icons/icons8-yoga-100.png',
+        aerobic: '/src/assets/icons/icons8-dancing-100.png',
+        // Add more sport types as needed
+      };
+
+     
+
+    return (
+        <div className='container py-10 px-16 flex flex-wrap gap-x-5 gap-y-5 justify-items-start '>
+            
+                {txList.map((txListEach) => (
+                    <div className='card w-[350px] h-[400px] bg-slate-400 rounded-md shadow-black shadow-md'>
+                        <div className='bg-lime-300 h-[50px] pl-3 rounded-t-md flex items-center justify-center gap-5'>
+                            <h3 className='font-bold text-xl '>Activity Details</h3>
+                            <img
+                            src={sportTypeImages[txListEach.type.toLowerCase()]}
+                            alt={`Image for ${txListEach.type}`}
+                            className='h-8 w-8 '
+                            />
+                        </div>
+                        
+                            <div className="px-5 pt-3 h-[280px] text-lg ">
+                                <p className="font-semibold">Name : <span className='font-thin'> {txListEach.information.fname}  {txListEach.information.lname}</span></p>
+                                <p className="font-semibold">Type : <span className='font-thin'>{txListEach.type}</span></p>
+                                <p className="font-semibold">{txListEach.type === 'yoga' || txListEach.type === 'aerobic' ? 'Room :' : 'Court :'} <span className='font-thin text-lime-300'>{txListEach.location}</span></p>
+                                <p className='font-semibold'>Date : <span className='font-thin text-lime-300'>{txListEach.date}</span></p>
+                                <p className='font-semibold'>Time : <span className='font-thin text-lime-300'>{txListEach.time}</span> </p>
+                                <p className='font-semibold'>Duration : <span className='font-thin t'> 60 minutes </span> </p>
+                                <p className='font-semibold'>Coach : <span className='font-thin'>{txListEach.coachName ? txListEach.coachName : 'No Coach' }</span></p>
+                                <p className='font-semibold'>Description : <span className='font-thin'>{txListEach.information.desc}</span></p>
+                            </div>
+                            
+
+                            <div className="flex gap-3 justify-end m-5">
+                                <button
+                                className="w-[100px] drop-shadow-lg bg-lime-300 hover:bg-lime-400 text-slate-700 font-bold py-1 px-6 rounded-full"
+                                onClick={() => BTNhandleEdit(txListEach._id,txListEach.type)}
+                                >
+                                Edit
+                                </button>
+                                <button
+                                className="w-[100px] drop-shadow-lg border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-bold py-1 px-4 rounded-full"
+                                onClick={() => handleDelete(txListEach._id)}
+                                >
+                                Delete
+                                </button>
+                            </div>
+                        
+                    </div>
+                ))}
+            
         </div>
     );
 }
