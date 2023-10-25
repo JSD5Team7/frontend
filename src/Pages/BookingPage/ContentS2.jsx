@@ -117,14 +117,26 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     },[]);
 
     useEffect(()=>{
-
         if(contextValue.bookdata.location == ""){
             setshowTime(contextValue.date_init_time);
         }else{
-            handleDay("btn_day");
+            if(contextValue.bookdata.day == ""){
+                handleDay("btn_day");
+            }else{
+                handleDay(contextValue.bookdata.day);
+            }
         }
-        
     },[contextValue.bookdata.location]);
+
+    useEffect(()=>{
+        if(contextValue.bookdata.time !== ""){
+            if(contextValue.bookdata.coach == ""){
+                handleCoach(true);
+            }else{
+                handleCoach(contextValue.bookdata.coach);
+            }
+        }
+    },[contextValue.bookdata.time]);
 
     //State Stytle
     const btn_def = "flex items-center justify-left w-45 h-25 inline-flex bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
@@ -233,7 +245,8 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                         });
                         break;
                     case "tabletennis":
-                        CoachList(sport,contextValue.bookdata.date,contextValue.bookdata.time);
+                        const textSportTb = "table_tennis"
+                        CoachList(textSportTb,contextValue.bookdata.date,contextValue.bookdata.time);
                         contextValue.setbookdata((previousState)=>{ 
                             return {...previousState,coach:status}
                         });
@@ -245,7 +258,8 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                         });
                         break;
                     case "aerobic":
-                        CoachList(sport,contextValue.bookdata.date,contextValue.bookdata.time);
+                        const textSportAr = "aerobic_dance"
+                        CoachList(textSportAr,contextValue.bookdata.date,contextValue.bookdata.time);
                         contextValue.setbookdata((previousState)=>{ 
                             return {...previousState,coach:status}
                         });

@@ -10,13 +10,10 @@ import ContentS3 from './ContentS3';
 import Layout from '../../Layout/Layout';
 import HowtoS4 from './HowtoS4';
 import ContentS4 from './ContentS4';
-
-
 const CustomContext = createContext({});
 
 
 function Booking({user_id}){
-
     const [Howto,setHowto] = useState(<HowtoS1 />);
     const [Content,setContent] = useState(<ContentS1 
                                             changeTostep2={changeHowtoS2}
@@ -243,11 +240,10 @@ function Booking({user_id}){
                 </div>
 
                 <div >
-                    <div className='page_footer flex justify-between'>
+                    {/* <div className='page_footer flex justify-between'>
                         <button className='bg-transparent hover:bg-blue-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform' onClick={handleNext}>Booking</button>
-                        {/* <button className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform' onClick={handleNext}>Next Step</button> */}
-                        
-                    </div>
+                        <button className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform' onClick={handleNext}>Next Step</button>
+                    </div> */}
                 </div>
             </div>
         </CustomContext.Provider>

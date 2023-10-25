@@ -22,7 +22,7 @@ const card_selected = "flex flex-row block max-w-sm p-6 bg-green-300 border bord
 
 const inputStyle = "mb-2 shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 const inputStyleDis = "mb-2 shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 bg-gray-300 leading-tight focus:outline-none focus:shadow-outline";
-const label = "flex text-sm font-medium mb-2 text-gray-900";
+const label = "flex text-sm font-medium mb-2 text-gray-900 text-1xl";
 const inputDesc = "resize-none h-full mb-2 shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 const statusInit = true;
         const date_init = [
@@ -201,7 +201,7 @@ function editPage(){
             const res =  await axios.get(`${baseApi}/activity/${tx_id}`);
             console.log(tx_id);
             const data = res.data;
-            console.log(data);
+            // console.log(data);
             setbookdata(data);
             setbookdata((previousState)=>{
                 return {...previousState,tx_id:tx_id,user:userid,sport:type}
@@ -241,7 +241,7 @@ function editPage(){
         const res = await axios.get(`${baseApi}/${path}/${court}/${date}`);
         if(res.status ===200 && res.data){
             const time = res.data;
-            console.log(time);
+            // console.log(time);
             setshowTime(time);
             return true;
         }else{
@@ -294,8 +294,14 @@ function editPage(){
         //get coach is avalible only,then isBooking = false.
         try {
             console.log(type,date,Stime,whoid);
+            let _sport = type;
+            if(type == "tabletennis"){
+                _sport = "table_tennis"
+            }else if(type == "aerobic"){
+                _sport = "aerobic_dance"
+            }
             //for api find who avaible and old who booked
-            const res = await axios.get(`${baseApi}/coachList/${type}/${date}/${Stime}/${whoid}`);
+            const res = await axios.get(`${baseApi}/coachList/${_sport}/${date}/${Stime}/${whoid}`);
             const coach = res.data;
             // console.log(coach);
             setdataCoach(coach);
@@ -317,7 +323,7 @@ function editPage(){
             case false:
                 setdataCoach([]);
                 setbookdata((previousState)=>{ 
-                    return {...previousState,iscoach:status}
+                    return {...previousState,iscoach:status,coachName:""}
                 });
                 break;
         }
@@ -386,10 +392,7 @@ function editPage(){
         }
         
     }
-
-    useEffect(()=>{
-        console.log(tx_id);
-        console.log(type);
+    const GetDisplayCourt = (type)=>{
         switch(type){
             case "tennis":
                 getCourt("tennisCourt")
@@ -412,15 +415,36 @@ function editPage(){
                 // setlogo(location);
                 break;
         }
+    }
 
+    useEffect(()=>{
+        // console.log(tx_id);
+        // console.log(type);
+        console.log(bookdata);
         try {
+            //1.get court
+            GetDisplayCourt(type);
+            //2.get tz activity data
             getTxAct(tx_id,type,userid);
+            //3.get time avalible
+            // TimeWithCourt(type,bookdata.location,bookdata.date);
         } catch (error) {
             console.log("tx_data: " + error)
         }
-        
-
     },[]);
+
+    useEffect(()=>{
+        TimeWithCourt(type,bookdata.location,bookdata.date);
+    },[bookdata.location]);
+    useEffect(()=>{
+        if(bookdata.iscoach === true){
+            handleCoach(true)
+        }
+    },[bookdata.time]);
+
+    useEffect(()=>{
+        console.log(bookdata);
+    },[bookdata]);
 
     function handleBack(){
         navigate("/dashboard");
@@ -432,14 +456,15 @@ function editPage(){
 
     return(
         <Layout>
-        <div>
+        <div className='my-10'>
             <ToastContainer />
             <div className='flex flex-row justify-around'>
-                <div>
+                <div className='w-1/2'>
                     <div>
-                        <h1>Type:{type} #_id: {tx_id} :{bookdata.coachId}</h1>
+                        {/* <h1>Type:{type} #_id: {tx_id} :{bookdata.coachId}</h1> */}
+                        <h1 className='text-2xl font-bold'>Location:</h1>
                     </div>
-                    <div className='flex'>
+                    <div className='flex text-1xl'>
                         {datacourt.map((eachcourt)=>( 
                             <div>
                                 <button className={bookdata.location==eachcourt.courtNumber? btn_select:btn_def} onClick={()=>handelcourt(eachcourt.courtNumber)}>
@@ -451,6 +476,9 @@ function editPage(){
                     </div>
                     <div>
                         <div className='my-4' >
+                            <div>
+                                <label className='text-2xl font-bold'>Date:</label>
+                            </div>
                             <div className="inline-flex">
                                 <button id='btn_day' className={bookdata.location!=""?((bookdata.date == getDate("btn_day"))? btn_day:btn_defDayL):btn_NotAva} onClick={(e)=>handleDay(e,"btn_day")}>
                                     {getDate("btn_day")}
@@ -462,6 +490,9 @@ function editPage(){
                         </div>
 
                         <div>
+                            <div>
+                                <label className='text-2xl font-bold'>Time:</label>
+                            </div>
                             <div className='grid grid-cols-4 gap-4'>
                                 {showTime.map((eachTime)=>(
                                 <div >
@@ -474,6 +505,9 @@ function editPage(){
                         </div>
                 </div>
                 <div>
+                    <div>
+                        <label className='text-2xl font-bold'>Coach:</label>
+                    </div>
                     <div className="inline-flex my-5">
                         <button className={bookdata.time!=""?((bookdata.iscoach===true)? btn_day:btn_defDayL):btn_NotAva} 
                         onClick={()=>handleCoach(true)}> 
@@ -490,7 +524,7 @@ function editPage(){
                             {/* overflow-auto border-solid border-2 border-gray-500 rounded-md */}
                                 {dataCoach.map((eachcoach)=>(
                                     <a className={bookdata.coachId==eachcoach.id?card_selected:card_Ava} onClick={()=>handleWho(eachcoach)}>
-                                        {/* <img src={eachcoach.image} alt="" className='h-14 w-14 rounded-full'/> */}
+                                        <img src={eachcoach.image} alt="" className='h-14 w-14 rounded-full'/>
                                         <div className='flex flex-col justify-center bg-green'>
                                             <h2 className="mb-2 text-2xl font-bold tracking-tight :text-black"><span>{eachcoach.name}</span></h2>
                                             <p className="font-normal text-gray-700 dark:text-gray-400"><span>{eachcoach.des}</span></p>
@@ -503,8 +537,8 @@ function editPage(){
                 </div>
                 </div>
 
-                <div >
-                    <h1>Information</h1>
+                <div className='w-1/2'>
+                    <h1 className='text-2xl font-bold'>Information</h1>
                     <div>
                         <label class={label}>Activity name</label>
                         <input type="text" id="activity" className={inputStyle} placeholder="Activity" value={bookdata.activity} onChange={
