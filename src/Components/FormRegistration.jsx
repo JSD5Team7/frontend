@@ -49,6 +49,8 @@ const FormRegistration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const [disabledButton, setDisabledButton] = useState(false);
+
   //ฟังก์ชั่นสำหรับเปลี่ยน type ของ password
   const PasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -224,6 +226,7 @@ const FormRegistration = () => {
         progress: undefined,
         theme: "light",
       });
+      setDisabledButton(true);
 
       setTimeout(() => {
         // const token = response.data.token;
@@ -488,6 +491,7 @@ const FormRegistration = () => {
           <button
             type="submit"
             className="w-40 font-bold p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
+            disabled={disabledButton}
           >
             Submit
           </button>
