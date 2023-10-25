@@ -54,11 +54,10 @@ import useAPI from "../Hook/useAPI";
           email: email || user.email,
           phone: phoneNumber || user.phoneNumber,
         };
-        console.log(userDataupdate)
-        const response = await updateUser(idtoken, userDataupdate);
-        console.log(response)
 
-        // window.location.reload();
+        const response = await updateUser(idtoken, userDataupdate);
+
+        window.location.reload();
       } catch (err) {
         console.log(response.data);
         console.log(err);

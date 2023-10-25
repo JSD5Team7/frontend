@@ -90,7 +90,7 @@ const Login = () => {
     <Layout>
       <div className="h-screen my-7 flex justify-center items-center m-auto">
         <div className="flex mix-w-[300px] max-w-[1080px] h-[720px] drop-shadow-2xl rounded-3xl bg-slate-100 justify-between items-center">
-          <div className="rounded-l-3xl h-[720px] overflow-hidden">
+          <div className="rounded-l-3xl h-[720px] overflow-hidden w-0 invisible xl:w-[600px] xl:visible">
             <img src={Banner} alt="banner" className="w-full h-full" />
           </div>
           <div className="login-container p-20 flex-col flex items-center justify-center">
@@ -98,8 +98,6 @@ const Login = () => {
               Welcome to Groot Club!
             </h3>
             <h1 className="text-6xl font-bold mb-12">LOG IN</h1>
-
-            <img src="" alt="" />
 
             <form
               className="login flex flex-col w-[300px] gap-3"
