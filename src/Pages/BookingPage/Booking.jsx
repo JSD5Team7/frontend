@@ -222,22 +222,22 @@ function Booking({user_id}){
                 >
             <div className='mt-20'>
                 <div className='page_title'>
-                    <h1>Booking</h1>
+                    {/* <h1>Booking</h1> */}
                 </div>
 
                 <div className='page_body h-[90vh]'>
-                    <div className='bodyHowTo'>
-                        <h1>how to book</h1>
+                    <div className='text-xl font-bold mx-10'>
+                        <h1>How to booking</h1>
                         {Howto}
                     </div>
 
                     <div className='bodyContent'>
-                        <h1>Content</h1>
+                        {/* <h1>Content</h1> */}
                         {Content}
                     </div>
 
-                    <div className='bodySummary'>
-                        <h1>Summary</h1>
+                    <div className='bodySummary w-1/5'>
+                        {/* <h1>Summary</h1> */}
                         {Summary}
                     </div>
                 </div>
