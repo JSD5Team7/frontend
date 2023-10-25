@@ -3,7 +3,6 @@ import Layout from "../Layout/Layout";
 import Sky from "../assets/images/sky.jpg";
 import useAPI from "../Hook/useAPI";
 
-
 const UserProfile = () => {
   const { user, updateUser } = useAPI();
   console.log(user);
@@ -25,7 +24,7 @@ const UserProfile = () => {
       try {
         const userDataupdate = {
           _id: userId,
-          fname: fname  || user.fname,
+          fname: fname || user.fname,
           lname: lname || user.lname,
           gender: gender || user.gender,
           birthday: birthday || user.birthday,
@@ -34,10 +33,10 @@ const UserProfile = () => {
           phone: phoneNumber || user.phoneNumber,
         };
         const response = await updateUser(idtoken, userDataupdate);
-        
+
         window.location.reload();
       } catch (err) {
-        console.log(response.data)
+        console.log(response.data);
         console.log(err);
       }
     } else {
@@ -47,7 +46,7 @@ const UserProfile = () => {
 
   return (
     <Layout>
-      <div className="">
+      
         {/* Image */}
         <div className="">
           <div>
@@ -68,112 +67,115 @@ const UserProfile = () => {
           </div>
         </div>
 
-        <div className="p-5 w-full mt-6 mx-auto text-center bg-slate-800 border-indigo-200 rounded-md drop-shadow">
-          <div className="bg-blue-100 bg-opacity-20">
-          <p className="text-2xl text-white font-semibold">My Profle</p>
-          <p className="text-left text-xl font-semibold text-white ">
-            Email :{" "}
-            <span className="text-lg text-white font-medium">{user.email}</span>
-          </p>
-          <p className="text-left text-xl font-semibold text-white ">
-            Birthday :{" "}
-            <span className="text-lg text-white font-medium">
-              {user.birthday}
-            </span>
-          </p>
-          <p className="text-left text-xl font-semibold text-white">
-            Gender :{" "}
-            <span className="text-lg text-white font-medium">
-              {user.gender}
-            </span>
-          </p>
-          <p className="text-left text-xl font-semibold text-white">
-            Age :{" "}
-            <span className="text-lg text-white font-medium">{user.age}</span>
-          </p>
-          <p className="text-left text-xl font-semibold text-white">
-            Phonenumber :{" "}
-            <span className="text-lg text-white font-medium">{user.phone}</span>
-          </p>
-          <button
-            className="font-bold text-slate-800 border-solid border-2 border-lime-200 rounded-full p-1  drop-shadow-md w-20 bg-lime-300 hover:bg-lime-400"
-            onClick={() => setIsEditing(!isEditing)}
-          >
-            Edit{" "}
-          </button>
+        <div className="p-5 pl-20  pr-20 ">
+          <div className="p-7  mt-6 text-center bg-slate-800 border-indigo-200 rounded-md drop-shadow-2xl ">
+            <p className="text-4xl text-white font-semibold">My Profle</p>
+              <div className="w-72 bg-white rounded-lg shadow-lg p-4 mx-auto mt-8">
+              <p className="text-lg text-white">
+                <span className="text-lime-600 font-bold">Email:</span>{" "}
+                <span className="text-gray-800">{user.email}</span>
+              </p>
+              <p className="text-lg text-white">
+                <span className="text-lime-600 font-bold">Birthday:</span>{" "}
+                <span className="text-gray-800 ">{user.birthday}</span>
+              </p>
+              <p className="text-lg text-white">
+                <span className="text-lime-600 font-bold">Gender:</span>{" "}
+                <span className="text-gray-800">{user.gender}</span>
+              </p>
+              <p className="text-lg text-white">
+                <span className="text-lime-600 font-bold">Age:</span>{" "}
+                <span className="text-gray-800">{user.age}</span>
+              </p>
+              <p className="text-lg text-white">
+                <span className="text-lime-600 font-bold">
+                  Phone number:
+                </span>{" "}
+                <span className="text-gray-800">{user.phone}</span>
+              </p>
+              <button
+                className="mt-4 py-2 px-4 font-bold text-white bg-lime-500 hover:bg-lime-600 rounded-full shadow-md"
+                onClick={() => setIsEditing(!isEditing)}
+              >
+                Edit
+              </button>
+            </div>
 
-          {!isEditing ? (
-            <form action="" className=" w-full my-3 flex justify-around ">
-              <div className="space-y-3 my-3 ">
-                <div className="grid gap-6 mb-6 md:grid-cols-2">
-                  <div>
-                    <label
-                      htmlFor=""
-                      className="font-bold flex rounded-lg leading-10 text-white"
-                    >
-                      FirstName :
-                    </label>
-                    <input
-                      className="border-3 rounded-lg border-slate-500 bg-slate-200 "
-                      type="text"
-                      placeholder="Tom"
-                      onChange={(e) => setFname(e.target.value)}
-                      
-                    />
+            {!isEditing ? (
+              <form action="" className="w-full my-3 flex justify-around">
+                <div className="my-3 bg-white rounded-lg p-6">
+                  {/* Box1 */}
+                  <div className="grid gap-6 grid-cols-2">
+                    <div>
+                      <label
+                        htmlFor="fname"
+                        className="font-bold text-gray-800"
+                      >
+                        First Name:
+                      </label>
+                      <input
+                        id="fname"
+                        className="border border-gray-300 rounded p-2"
+                        type="text"
+                        placeholder="Tom"
+                        onChange={(e) => setFname(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="lname"
+                        className="font-bold text-gray-800"
+                      >
+                        Last Name:
+                      </label>
+                      <input
+                        id="lname"
+                        placeholder="Cruise"
+                        className="border border-gray-300 rounded p-2"
+                        type="text"
+                        onChange={(e) => setLname(e.target.value)}
+                      />
+                    </div>
                   </div>
 
-                  <div>
-                    <label
-                      htmlFor=""
-                      className="font-bold flex rounded-lg leading-10 text-white"
-                    >
-                      LastName :
-                    </label>
-                    <input
-                      placeholder="Cruise"
-                      className="border-3 rounded-lg border-slate-500 bg-slate-200 "
-                      type="text"
-                      onChange={(e) => setLname(e.target.value)}
-                    />
+                  {/* Box2 */}
+                  <div className="grid gap-6 grid-cols-2">
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="font-bold text-gray-800"
+                      >
+                        Email Address:
+                      </label>
+                      <input
+                        id="email"
+                        placeholder="Tom@example.com"
+                        type="email"
+                        className="border border-gray-300 rounded p-2"
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="birthday"
+                        className="font-bold text-gray-800"
+                      >
+                        Birthday:
+                      </label>
+                      <input
+                        id="birthday"
+                        type="date"
+                        className="border border-gray-300 rounded p-2"
+                        onChange={(e) => setBirthday(e.target.value)}
+                      />
+                    </div>
                   </div>
-                </div>
 
-                <div className="grid gap-6 mb-6 md:grid-cols-2">
-                  <div>
-                    <label
-                      htmlFor=""
-                      className="font-bold flex rounded-lg leading-10 text-white"
-                    >
-                      Email Adress:
-                    </label>
-                    <input
-                      placeholder="Tom@example.com"
-                      id="helper-text"
-                      type="email"
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor=""
-                      className="font-semibold flex rounded-lg leading-10 text-white"
-                    >
-                      Birthday :
-                    </label>
-                    <input
-                      placeholder="123 Syracuse, New York, USA"
-                      type="date"
-                      onChange={(e) => setBirthday(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="grid gap-6 mb-6 md:grid-cols-2">
-                  <div>
-                    <label className="text-white font-semibold leading-10">
-                      Gender :
+                  <div className="grid gap-6 grid-cols-2">
+                    <div>
+                      <label className="font-bold text-gray-800">Gender:</label>
                       <select
-                        className="p-1"
+                        className="border border-gray-300 rounded p-2"
                         name="gender"
                         id="gender"
                         onChange={(e) => setGender(e.target.value)}
@@ -187,51 +189,35 @@ const UserProfile = () => {
                           Prefer not to say
                         </option>
                       </select>
-                    </label>
-                   
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="phoneNumber"
+                        className="font-bold text-gray-800"
+                      >
+                        Phone Number:
+                      </label>
+                      <input
+                        id="phoneNumber"
+                        type="number"
+                        className="border border-gray-300 rounded p-2"
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label
-                      htmlFor=""
-                      className="font-semibold flex rounded-lg leading-10 text-white"
-                    >
-                      Age :
-                    </label>
-                    <input
-                      type="number"
-                      onChange={(e) => setAgeUser(e.target.value)}
-                    />
-                  </div>
+                  <br />
+                  <button
+                    onClick={handleSave}
+                    className="ring-white ring-2  font-bold text-slate-700 bg-lime-300 border border-lime-400 rounded-full p-2 w-20 hover:bg-lime-400"
+                  >
+                    Update
+                  </button>
                 </div>
-                <div className="grid gap-6 mb-6 md:grid-cols-2">
-                  <div>
-                    <label
-                      htmlFor=""
-                      className="font-semibold flex rounded-lg leading-10 text-white"
-                    >
-                      PhoneNumber :
-                    </label>
-                    <input
-                      type="number"
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                    />
-                  </div>
-              
-                </div>
-
-                <br></br>
-                <button
-                  onClick={handleSave}
-                  className="font-bold text-slate-800 border-solid border-2 border-lime-200 rounded-full p-1  drop-shadow-md w-20 bg-lime-300 hover:bg-lime-400"
-                >
-                  Update
-                </button>
-              </div>
-            </form>
-          ) : null}
+              </form>
+            ) : null}
+          </div>
         </div>
-        </div>
-      </div>
+      
     </Layout>
   );
 };
