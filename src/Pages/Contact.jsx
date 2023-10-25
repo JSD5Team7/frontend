@@ -7,36 +7,37 @@ import {
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { FormContact } from "../Components/FormContact";
+import ContactBG from '../assets/images/bg-contact.jpeg'
 
 
 const ContactUs = () => {
   return (
     <Layout>
-      <div className="contact-container mt-16 p-10 w-full mb-40 flex justify-center items-stretch">
+      <div className="contact-container m-auto w-[500px] mt-16 p-10 lg:w-full mb-40 flex justify-center items-stretch">
         <div className="contact-content flex bg-blue-100 bg-opacity-20 backdrop-blur-md m-0 p-0 rounded-md shadow-xl">
           <div
-            className="get-intouch w-3/4 rounded-md text-gray-900 m-0 p-10 flex flex-col justify-center items-start bg-center bg-no-repeat bg-cover "
+            className="get-intouch rounded-md text-gray-900 m-0 lg:p-10 flex flex-col justify-center items-start bg-center bg-no-repeat bg-cover w-0 invisible h-0 lg:h-fit lg:w-3/4 lg:visible"
             style={{
-              backgroundImage: "url(/src/assets/images/bg-contact.jpeg)",
+              backgroundImage: `url(${ContactBG}`,
             }}
           >
-            <div className="content-contact w-full h-full m-0 p-10 bg-blue-200 bg-opacity-70">
+            <div className="content-contact m-0 p-10 bg-blue-200 bg-opacity-70 w-0 invisible h-0 lg:visible lg:w-full lg:h-full">
               <h2 className="title font-san font-semibold text-4xl text-gray-900 ">
                 Get in Touch with Us!
               </h2>
               <h3 className="text-lg mt-6">Hello,</h3>
-              <p className="text-light text-lg">
+              <p className="text-light text-lg text-justify">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We appreciate your interest in our
                 website and are excited to hear from you. Whether you have
                 questions, suggestions, or just want to connect, we encourage
                 you to reach out. Your input and engagement are essential to us.
               </p>
-              <p className="text-light text-lg">
+              <p className="text-light text-lg text-justify">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please feel free to send us a
                 message through this platform or reach out via email at
                 sportclub@example.com.{" "}
               </p>
-              <p className="text-light text-lg">
+              <p className="text-light text-lg text-justify">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We're looking forward to hearing
                 from you and engaging in meaningful discussions. Your
                 involvement is highly valued.

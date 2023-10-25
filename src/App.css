@@ -13,6 +13,13 @@ html {
   max-width: 1440px;
   box-sizing: border-box;
   background-color: rgb(241 245 249);
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 #root {

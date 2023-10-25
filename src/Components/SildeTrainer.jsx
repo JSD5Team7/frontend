@@ -10,7 +10,7 @@ function SildeTrainer() {
     const { trainers } = useAPI();
 
   return (
-    <>
+    <section>
       <div className='my-10 p-10 bg-slate-700 rounded-lg shadow-black shadow-md'>
         <h2 className='text-lime-300 text-3xl text-center font-bold mb-5'>Our Specialist</h2>
         <Slider >
@@ -30,7 +30,7 @@ function SildeTrainer() {
             <Link to={'/coach'}><button className='rounded-full w-[150px] text-lg font-semibold bg-lime-300 border-2 border-lime-300 hover:bg-lime-400 p-2'>See more</button></Link>
         </div>
       </div>
-  </>
+  </section>
     
   )
 }
