@@ -141,9 +141,9 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     //State Stytle
     const btn_def = "flex items-center justify-left w-45 h-25 inline-flex bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
     const btn_select = "flex items-center justify-left w-45 h-25 inline-flex bg-purple-300  text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow outline-none transform active:scale-75 transition-transform hover:bg-purple-400"
-    const btn_defDayL = "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
-    const btn_defDayR = "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
-    const btn_day = "bg-purple-300 text-gray-800 font-bold py-2 px-4 rounded"
+    const btn_defDayL = "bg-gray-300 w-[150px] h-[50px] hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
+    const btn_defDayR = "bg-gray-300 w-[150px] h-[50px] hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r shadow outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
+    const btn_day = "bg-purple-300 w-[150px] h-[50px] text-gray-800 font-bold py-2 px-4 rounded"
     const btn_dateAva = "w-30 bg-green-300 hover:bg-green-500 text-back font-bold py-2 px-4 border border-green-700 rounded"
     const btn_dateNotAva = "w-30 bg-gray-500 text-white font-bold py-2 px-4 rounded opacity-50 pointer-events-none"
     const btn_dateSelect = "w-30 bg-purple-300 hover:bg-purple-100 text-back font-bold py-2 px-4 border border-green-700 rounded"
@@ -318,7 +318,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
 
             <div >
                 <div >
-                    <div className="inline-flex">
+                    <div className="inline-flex gap-2">
                         <button id='btn_day' className={contextValue.bookdata.location!=""?((contextValue.bookdata.day=="btn_day")? btn_day:btn_defDayL):btn_NotAva} onClick={(e)=>handleDay("btn_day")}>
                             To day
                         </button>
@@ -331,7 +331,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                 <div>
                     <div className='m-2 grid grid-cols-4 gap-3'>
                         {showTime.map((eachTime)=>(
-                        <div >
+                        <div className='min-w-[100px] min-h-[50px] pt-3'>
                             <button className={eachTime.isBooked === false? (contextValue.bookdata.time==eachTime.startTime?btn_dateSelect:btn_dateAva):btn_dateNotAva} onClick={()=>handleTime(eachTime)}>
                                 <span>{eachTime.startTime}-{eachTime.endTime} </span>
                             </button>
@@ -343,7 +343,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             <div/>
 
             <div>
-                <div className="inline-flex">
+                <div className="inline-flex gap-2">
                     <button className={contextValue.bookdata.time!=""?((contextValue.bookdata.coach===true)? btn_day:btn_defDayL):btn_NotAva} 
                     onClick={()=>handleCoach(true)}> 
                         <span>Coach</span> 
@@ -354,13 +354,13 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                     </button>
                 </div>
                 <div className='h-60 overflow-auto'>
-                    <div className="flex justify-center m-3">
-                        <div className="grid grid-cols-3 gap-3">
+                    <div className="flex justify-center m-3 overflow-auto  min-w-[700px]">
+                        <div className="overflow-auto min-w-[700px] xl:h-[200px] grid grid-cols-3 gap-3">
                         {/* overflow-auto border-solid border-2 border-gray-500 rounded-md */}
                             {dataCoach.map((eachcoach)=>(
                                 <a className={contextValue.bookdata.who.id==eachcoach.id?card_selected:card_Ava} onClick={()=>handleWho(eachcoach)}>
                                     <img src={eachcoach.image} alt="" className='h-14 w-14 rounded-full'/>
-                                    <div className='flex flex-col justify-center '>
+                                    <div className='flex flex-col p-2 justify-center '>
                                         <h2 className="mb-2 text-2xl font-bold tracking-tight :text-black"><span>{eachcoach.name}</span></h2>
                                         <p className="font-normal text-gray-600"><span>{eachcoach.des}</span></p>
                                     </div>
@@ -371,7 +371,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                 </div>
             </div>
 
-            <div className="mb-10 flex justify-between">
+            <div className="m-20 mt-0 flex justify-between">
                     <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleBack()}>Back</button>
                     <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleNext()}>Next</button>
             </div>

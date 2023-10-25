@@ -3,6 +3,11 @@ import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from 'sweetalert2'
 import useAPI_2 from '../../Hook/useAPI_2.jsx';
+import TennisIcon from '../../assets/icons/icons8-tennis-100 (1).png';
+import BatmintonIcon from '../../assets/icons/icons8-badminton-100.png';
+import TebleTennisIcon from '../../assets/icons/icons8-table-tennis-64.png';
+import YogaIcon from '../../assets/icons/icons8-yoga-100.png';
+import AerobicIcone from '../../assets/icons/icons8-dancing-100.png'
 
 function history({user_id}){
     const [txList, setUsers] = useState([]);
@@ -48,7 +53,6 @@ function history({user_id}){
           }).then((result) => {
             if (result.isConfirmed) {
                 deleteTxActivity(tx_id).then((res)=>{
-                    console.log(res.data);
                 });
             
 
@@ -57,24 +61,28 @@ function history({user_id}){
                 'Your data has been deleted.',
                 'success'
               )
+              setTimeout(() => {
+                window.location.reload();
+              },2000)
+              
             }
           })
           
       };
 
       const sportTypeImages = {
-        tennis: '/src/assets/icons/icons8-tennis-100 (1).png',
-        tabletennis: '/src/assets/icons/icons8-table-tennis-64.png',
-        badminton: '/src/assets/icons/icons8-badminton-100.png',
-        yoga: '/src/assets/icons/icons8-yoga-100.png',
-        aerobic: '/src/assets/icons/icons8-dancing-100.png',
+        tennis: TennisIcon,
+        tabletennis: TebleTennisIcon,
+        badminton: BatmintonIcon,
+        yoga: YogaIcon,
+        aerobic: AerobicIcone,
         // Add more sport types as needed
       };
 
      
 
     return (
-        <div className='container py-10 px-16 flex flex-wrap gap-x-5 gap-y-5 justify-items-start '>
+        <div className='container py-10 px-16 flex flex-wrap gap-x-5 gap-y-5 justify-center '>
             
                 {txList.map((txListEach) => (
                     <div className='card w-[350px] h-[400px] bg-slate-400 rounded-md shadow-black shadow-md'>
@@ -101,13 +109,13 @@ function history({user_id}){
 
                             <div className="flex gap-3 justify-end m-5">
                                 <button
-                                className="w-[100px] drop-shadow-lg bg-lime-300 hover:bg-lime-400 text-slate-700 font-bold py-1 px-6 rounded-full"
+                                className="w-[100px] drop-shadow-lg border-2 bg-lime-300 hover:bg-lime-400 font-bold py-1 px-6 rounded-full"
                                 onClick={() => BTNhandleEdit(txListEach._id,txListEach.type)}
                                 >
                                 Edit
                                 </button>
                                 <button
-                                className="w-[100px] drop-shadow-lg border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-bold py-1 px-4 rounded-full"
+                                className="w-[100px] drop-shadow-lg border-2 bg-red-400 hover:bg-red-500 hover:text-slate-900 font-bold py-1 px-4 rounded-full"
                                 onClick={() => handleDelete(txListEach._id)}
                                 >
                                 Delete

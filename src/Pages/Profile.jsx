@@ -71,9 +71,24 @@ const UserProfile = () => {
           phone: phoneNumber || user.phone,
         };
 
-        const response = await updateUser(idtoken, userDataupdate);
-        window.location.reload();
-        setIsEditing(isEditing);
+        const validationEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
+        if (!validationEmail.test(email)) {
+          toast.error("Invalid email format", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          const response = await updateUser(idtoken, userDataupdate);
+          window.location.reload();
+          setIsEditing(isEditing);
+        }
       } catch (err) {
         toast.error(err.response.data, {
           position: "top-center",
@@ -94,11 +109,7 @@ const UserProfile = () => {
   return (
     <Layout>
       <div className="absolute w-full xl:w-[1440px] -z-5">
-        <img
-          src={Sky}
-          alt="CoverImage"
-          className="w-full h-fit opacity-70"
-        />
+        <img src={Sky} alt="CoverImage" className="w-full h-fit opacity-70" />
       </div>
       <div className="w-full h-fit pt-10 my-10">
         {/* Image */}
@@ -131,30 +142,31 @@ const UserProfile = () => {
 
                   <div>
                     <div className="flex flex-col py-10 pr-[50px] gap-2 justify-center items-start ">
-                    <p className="text-lg text-white">
-                      <span className="text-lime-600 font-bold">Email:</span>{" "}
-                      <span className="text-gray-800">{user.email}</span>
-                    </p>
-                    <p className="text-lg text-white">
-                      <span className="text-lime-600 font-bold">Gender:</span>{" "}
-                      <span className="text-gray-800">{user.gender}</span>
-                    </p>
-                    <p className="text-lg text-white">
-                      <span className="text-lime-600 font-bold">
-                        Phone number:
-                      </span>{" "}
-                      <span className="text-gray-800">{user.phone}</span>
-                    </p>
-                    <p className="text-lg text-white">
-                      <span className="text-lime-600 font-bold">Birthday:</span>{" "}
-                      <span className="text-gray-800 ">{user.birthday}</span>
-                    </p>
-                    <p className="text-lg text-white">
-                      <span className="text-lime-600 font-bold">Age:</span>{" "}
-                      <span className="text-gray-800">{user.age}</span>
-                    </p>
+                      <p className="text-lg text-white">
+                        <span className="text-lime-600 font-bold">Email:</span>{" "}
+                        <span className="text-gray-800">{user.email}</span>
+                      </p>
+                      <p className="text-lg text-white">
+                        <span className="text-lime-600 font-bold">Gender:</span>{" "}
+                        <span className="text-gray-800">{user.gender}</span>
+                      </p>
+                      <p className="text-lg text-white">
+                        <span className="text-lime-600 font-bold">
+                          Phone number:
+                        </span>{" "}
+                        <span className="text-gray-800">{user.phone}</span>
+                      </p>
+                      <p className="text-lg text-white">
+                        <span className="text-lime-600 font-bold">
+                          Birthday:
+                        </span>{" "}
+                        <span className="text-gray-800 ">{user.birthday}</span>
+                      </p>
+                      <p className="text-lg text-white">
+                        <span className="text-lime-600 font-bold">Age:</span>{" "}
+                        <span className="text-gray-800">{user.age}</span>
+                      </p>
                     </div>
-                   
                   </div>
                 </div>
                 <button

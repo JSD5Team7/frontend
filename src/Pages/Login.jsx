@@ -21,6 +21,7 @@ const Login = () => {
   });
 
   const [disabledButton, setDisabledButton] = useState(false);
+  const [inputStyleValiditomn, setInputStyleValiditomn] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -74,6 +75,7 @@ const Login = () => {
         }
       }, 3000);
     } catch (err) {
+      setInputStyleValiditomn(false)
       setDisabledButton(false);
       toast.error(err.response.data, {
         position: "top-center",
@@ -106,7 +108,7 @@ const Login = () => {
               onSubmit={handleSubmit}
             >
               <input
-                className="border-solid border-2 w-[300px] border-lime-500 rounded-xl p-2 drop-shadow-md"
+                className={inputStyleValiditomn? 'border-solid border-2 w-[300px] border-lime-500 rounded-xl p-2 drop-shadow-md':'border-solid border-2 w-[300px] border-red-500 rounded-xl p-2 drop-shadow-md'}
                 type="text"
                 name="username"
                 placeholder="Username"
@@ -114,8 +116,8 @@ const Login = () => {
               />
               <div className="flex justify-end items-center">
                 <input
-                  className="border-solid w-[300px] border-2 border-lime-500 rounded-xl p-2 drop-shadow-md"
-                  type={showPassword ? "text" : "password"}
+                className={inputStyleValiditomn? 'border-solid border-2 w-[300px] border-lime-500 rounded-xl p-2 drop-shadow-md':'border-solid border-2 w-[300px] border-red-500 rounded-xl p-2 drop-shadow-md'}
+                type={showPassword ? "text" : "password"}
                   name="password"
                   id="password"
                   placeholder="*********"
@@ -137,9 +139,9 @@ const Login = () => {
                 )}
               </div>
 
-              <div className="flex justify-end">
+              {/* <div className="flex justify-end">
                 <p className="px-3">Forget password?</p>
-              </div>
+              </div> */}
               <button
                 className="rounded-full font-bold py-2 drop-shadow-md border-solid border-2 bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
                 disabled={disabledButton}

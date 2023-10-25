@@ -44,7 +44,7 @@ function ContentS1({changeTostep2,changeContentS2}){
     },[]);
 
     return (
-        <div >
+        <div className='mt-20'>
             <div className='m-5'>
                 <button type="button" className={btn_sty} onClick={()=>handleSport("tennis")}>
                 <img className='scale-50' src={Tennis_logo} alt="" />

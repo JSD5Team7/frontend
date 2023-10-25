@@ -460,18 +460,18 @@ function editPage(){
         <Layout>
         <div className='my-10'>
             <ToastContainer />
-            <div className='flex flex-row justify-around'>
+            <div className='flex flex-col justify-center items-center lg:items-start h-fit lg:flex-row'>
                 <div className='w-1/2'>
                     <div>
                         {/* <h1>Type:{type} #_id: {tx_id} :{bookdata.coachId}</h1> */}
                         <h1 className='text-2xl font-bold'>Location:</h1>
                     </div>
-                    <div className='flex text-1xl'>
+                    <div className='flex text-1xl gap-3'>
                         {datacourt.map((eachcourt)=>( 
                             <div>
                                 <button className={bookdata.location==eachcourt.courtNumber? btn_select:btn_def} onClick={()=>handelcourt(eachcourt.courtNumber)}>
                                     {/* <img src={logo} alt="" /> */}
-                                    <span className='ms-2'>{eachcourt.courtNumber}</span>
+                                    <span className='p-1'>{eachcourt.courtNumber}</span>
                                 </button>
                             </div>
                         ))}
@@ -520,14 +520,14 @@ function editPage(){
                             <span>No Coach</span>
                         </button>
                     </div>
-                    <div className='h-60 overflow-auto'>
-                        <div className="flex justify-center m-3">
+                    <div className='h-60 w-[900px]'>
+                        <div className="flex justify-center">
                             <div className="grid grid-cols-3 gap-3">
                             {/* overflow-auto border-solid border-2 border-gray-500 rounded-md */}
                                 {dataCoach.map((eachcoach)=>(
                                     <a className={bookdata.coachId==eachcoach.id?card_selected:card_Ava} onClick={()=>handleWho(eachcoach)}>
                                         <img src={eachcoach.image} alt="" className='h-14 w-14 rounded-full'/>
-                                        <div className='flex flex-col justify-center bg-green'>
+                                        <div className='flex flex-col justify-center bg-green p-5'>
                                             <h2 className="mb-2 text-2xl font-bold tracking-tight :text-black"><span>{eachcoach.name}</span></h2>
                                             <p className="font-normal text-gray-700 dark:text-gray-400"><span>{eachcoach.des}</span></p>
                                         </div>
@@ -589,7 +589,7 @@ function editPage(){
             </div>
         </div>
         <form onSubmit={handleNext}>
-            <div className="mb-10 flex justify-between">
+            <div className="m-10 flex justify-between">
                     <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform" onClick={()=>handleBack()}>Back</button>
                     <button type="submit" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform">Save Edit</button>
             </div>
