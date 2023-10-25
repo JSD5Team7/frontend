@@ -1,20 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../Layout/Layout";
 import Sky from "../assets/images/sky.jpg";
+const cloudinaryName = import.meta.env.VITE_CLOUDINARY_NAME;
+const cloudinaryPreset = import.meta.env.VITE_CLOUDINARY_PRESET;
+import axios from "axios";
 import useAPI from "../Hook/useAPI";
 
-const UserProfile = () => {
-  const { user, updateUser } = useAPI();
-  console.log(user);
-  const [isEditing, setIsEditing] = useState(true);
-
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [gender, setGender] = useState("");
-  const [birthday, setBirthday] = useState("1995-10-14");
-  const [ageUser, setAgeUser] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const UserProfile = () => {
+    const { user, updateUser } = useAPI();
+  
+    const [isEditing, setIsEditing] = useState(true);
+  
+    const [fname, setFname] = useState("");
+    const [lname, setLname] = useState("");
+    const [gender, setGender] = useState("");
+    const [birthday, setBirthday] = useState("1995-10-14");
+    const [image, setImage] = useState('http://res.cloudinary.com/dkjfuys7y/image/upload/v1698169857/GrootClub/gudcicufoqowoi9j9edv.png');
+    const [imagePreview, setImagePreview] = useState();
+    const [ageUser, setAgeUser] = useState("");
+    const [email, setEmail] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+  
+    const uploadImage = async () => {
+      const formData = new FormData();
+      formData.append("file", imagePreview);
+      formData.append("upload_preset", cloudinaryPreset);
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudinaryName}/image/upload`,
+        formData
+      );
+      setImage(response.data.url);
+    };
+  
+    useEffect(() => {
+      uploadImage();
+    }, [imagePreview]);
 
   const handleSave = async (e) => {
     const userId = window.localStorage.userId;
@@ -28,6 +48,7 @@ const UserProfile = () => {
           lname: lname || user.lname,
           gender: gender || user.gender,
           birthday: birthday || user.birthday,
+          img: image || user.img,
           age: ageUser || user.ageUser,
           email: email || user.email,
           phone: phoneNumber || user.phoneNumber,
@@ -106,6 +127,23 @@ const UserProfile = () => {
                 <div className="my-3 bg-white rounded-lg p-6">
                   {/* Box1 */}
                   <div className="grid gap-6 grid-cols-2">
+                  <div>
+                      <img
+                        className="border-slate-400 drop-shadow-lg h-40 w-40 rounded-full ml-10"
+                        src={image}
+                        alt="ProfileImage"
+                      />
+                      <input
+                        type="file"
+                        onChange={(e) => setImagePreview(e.target.files[0])}
+                      />
+                      <button
+                        className="w-20 font-bold p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
+                        onClick={uploadImage}
+                      >
+                        Upload
+                      </button>
+                    </div>
                     <div>
                       <label
                         htmlFor="fname"
@@ -208,7 +246,7 @@ const UserProfile = () => {
                   <br />
                   <button
                     onClick={handleSave}
-                    className="ring-white ring-2  font-bold text-slate-700 bg-lime-300 border border-lime-400 rounded-full p-2 w-20 hover:bg-lime-400"
+                    className="font-bold text-slate-700 bg-lime-300 border border-lime-400 rounded-full p-2 w-20 hover:bg-lime-400"
                   >
                     Update
                   </button>

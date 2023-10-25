@@ -1,10 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-import useAPI from "../Hook/useAPI";
+import axios from "axios";
 const cloudinaryName = import.meta.env.VITE_CLOUDINARY_NAME;
 const cloudinaryPreset = import.meta.env.VITE_CLOUDINARY_PRESET;
+
+import useAPI from "../Hook/useAPI";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +17,7 @@ const inpStyle =
   "w-full border-b-2 p-2 bg-transparent focus:outline-none focus:border-blue-400 caret-blue-400 placeholder:italic placeholder:text-slate-500";
 
 const FormRegistration = () => {
-  const { register, usersData , uploadImg } = useAPI();
+  const { register, usersData } = useAPI();
 
   const navigete = useNavigate();
 
@@ -24,55 +25,17 @@ const FormRegistration = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [profileImage, setProfileImage] = useState('')
+  const [image, setImage] = useState(
+    "http://res.cloudinary.com/dkjfuys7y/image/upload/v1698169857/GrootClub/gudcicufoqowoi9j9edv.png"
+  );
+  const [imagePreview, setImagePreview] = useState();
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [gender, setGender] = useState("");
-  const [birthday, setBirtday] = useState("1995-10-14");
+  const [birthday, setBirthday] = useState("1995-10-14");
   const [ageUser, setAgeUser] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-
-  
-  const [imagePreview, setImagePreview] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleImageChange = (e) => {
-    setProfileImage(e.target.files[0])
-    setImagePreview(URL.createObjectURL(e.target.files[0]))
-  }
-
-  const uploadImage = async (e) => {
-    console.log(e)
-    e.preventDefault()
-    setIsLoading(true)
-    try {
-        let imageURL;
-        if (
-          profileImage && (
-            profileImage.type === 'image/png' ||
-            profileImage.type === 'image/jpg' ||
-            profileImage.type === 'image/jpeg'
-          )
-        ) {
-
-          const image = new FormData()
-          image.append('file', profileImage)
-          image.append('cloud_name', 'dkjfuys7y')
-          image.append('upload_preset', 'cjn6f20v')
-
-          const response = await uploadImg(image)
-          const imgData = await response.json()
-          imageURL = imgData.url.toString()
-          setImagePreview(null)
-          console.log(imageURL)
-
-        }
-
-            }catch(err) {
-              setIsLoading(false)
-            }
-          }
 
   //สร้างตัวแปลไว้แจ้งเตือนเงื่อนไขในการกรอก username และ password
   const [usernameValidation, setUsernameValidation] = useState("");
@@ -85,6 +48,8 @@ const FormRegistration = () => {
   //สร้างตัวแปลสำหรับเปลี่ยน type ของ password และ confirm password
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [disabledButton, setDisabledButton] = useState(false);
 
   //ฟังก์ชั่นสำหรับเปลี่ยน type ของ password
   const PasswordVisibility = () => {
@@ -172,6 +137,55 @@ const FormRegistration = () => {
     }
   }, [username, password, birthday, email]);
 
+  const uploadImage = async () => {
+    const formData = new FormData();
+    formData.append("file", imagePreview);
+    formData.append("upload_preset", cloudinaryPreset);
+
+    if (
+      imagePreview.type !== "image/png" &&
+      imagePreview.type !== "image/jpeg" &&
+      imagePreview.type !== "image/jpg"
+    ) {
+      toast.error("กรุณาอัปโหลดไฟล์ประเภท PNG, JPEG หรือ JPG เท่านั้น", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+
+    // if (imagePreview.size > 1000 * 1000) {
+    //   alert('ขนาดของรูปภาพต้องไม่เกิน 150 KB');
+    //   toast.error('ขนาดของรูปภาพต้องไม่เกิน 150 KB', {
+    //     position: "top-center",
+    //     autoClose: 3000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //   });
+    //   return;
+    // }
+
+    const response = await axios.post(
+      `https://api.cloudinary.com/v1_1/${cloudinaryName}/image/upload`,
+      formData
+    );
+    setImage(response.data.url);
+  };
+
+  useEffect(() => {
+    uploadImage();
+  }, [imagePreview]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -192,6 +206,7 @@ const FormRegistration = () => {
       const userData = {
         username: username,
         password: password,
+        img: image,
         fname: fname,
         lname: lname,
         gender: gender,
@@ -211,6 +226,7 @@ const FormRegistration = () => {
         progress: undefined,
         theme: "light",
       });
+      setDisabledButton(true);
 
       setTimeout(() => {
         // const token = response.data.token;
@@ -240,7 +256,10 @@ const FormRegistration = () => {
     setFname("");
     setLname("");
     setGender("");
-    setBirtday("");
+    setImage(
+      "http://res.cloudinary.com/dkjfuys7y/image/upload/v1698169857/GrootClub/gudcicufoqowoi9j9edv.png"
+    );
+    setBirthday("");
     setAgeUser("");
     setEmail("");
     setPhoneNumber("");
@@ -253,34 +272,6 @@ const FormRegistration = () => {
       </h2>
 
       <form className="m-6" onSubmit={handleSubmit}>
-
-<div>
-  <h3 className="mr-3 font-semibold">Upload Image</h3>
-  <div>
-    <form onSubmit={uploadImage}>
-      <label>Photo:</label>
-      <input type="file" 
-      accept="image/png, image/jpg, image/jpeg" 
-      name="image"
-      onChange={handleImageChange} />
-      <p>
-        {isLoading ? ('Uploading...') : (
-          <button type="submit">
-            uploadImg
-          </button>
-        )}
-      </p>
-    </form>
-    <div>
-      <div>
-        {imagePreview && (
-          <img src={imagePreview && imagePreview} atl='profile'/>
-        )}
-      </div>
-    </div>
-  </div>
-</div>
-
         <div className="username mt-4 mb-4">
           <label htmlFor="username" className="mr-3 font-semibold">
             Username <span className="text-red-400">*</span>
@@ -426,7 +417,7 @@ const FormRegistration = () => {
             type="date"
             name="birthday"
             id="birthday"
-            onChange={(e) => setBirtday(e.target.value)}
+            onChange={(e) => setBirthday(e.target.value)}
             value={birthday}
             className={inpStyle}
             required
@@ -447,6 +438,19 @@ const FormRegistration = () => {
             disabled
             required
           />
+        </div>
+        <div>
+          <img className="w-[100px] h-[100px]" src={image} />
+          <input
+            type="file"
+            onChange={(e) => setImagePreview(e.target.files[0])}
+          />
+          <button
+            className="w-20 mt-3 font-bold p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
+            onClick={uploadImage}
+          >
+            Upload
+          </button>
         </div>
         <div className="email mt-4 mb-4">
           <label htmlFor="email" className="mr-3 font-semibold">
@@ -487,6 +491,7 @@ const FormRegistration = () => {
           <button
             type="submit"
             className="w-40 font-bold p-1 drop-shadow-md border-solid border-2 rounded-full bg-lime-300 hover:bg-lime-400 hover:text-slate-900"
+            disabled={disabledButton}
           >
             Submit
           </button>
