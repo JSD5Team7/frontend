@@ -1,5 +1,6 @@
 import SlideImage from '../Components/SlideImage'
 import Layout from '../Layout/Layout'
+import ContactBanner from '../assets/images/heroimage.jpeg'
 
 
 const AboutUs = () => {
@@ -8,7 +9,7 @@ const AboutUs = () => {
             <>
             <div className="hero-img mt-6 p-10 w-full h-auto grid place-items-center  "> 
             {/* relative top-1 z-0 */}
-                <img src="/src/assets/images/heroimage.jpeg" alt="sport club" className='rounded-2xl shadow-black shadow-md contrast-125'/>
+                <img src={ContactBanner} alt="sport club" className='rounded-2xl shadow-black shadow-md contrast-125'/>
                 <h2 className='absolute text-brown-700 text-8xl italic font-extrabold opacity-70'>Good vibes, Good health</h2>
             </div>
             <div className="about-us w-full mt-6 mb-10 p-10 text-lg text-white bg-slate-700 rounded-lg shadow-black shadow-md">
