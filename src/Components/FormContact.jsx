@@ -22,7 +22,7 @@ export const FormContact = () => {
   };
 
     return (
-        <div className="form-contact w-2/4 text-slate-800 mt-0 ml-8 pt-8 pr-6 text-lg grid place-items-center border-solid border-4 border-lime-400 rounded-xl " >
+        <div className="form-contact w-[580px] lg:w-2/4 text-slate-800 mt-0 lg:ml-8 pt-8 pr-6 text-lg grid place-items-center border-solid border-4 border-lime-400 rounded-xl " >
                 <form ref={form} onSubmit={sendEmail} className='flex flex-col gap-6 pb-24' >
                     <h2 className='font-bold text-4xl text-slate-800 text-center pb-6 drop-shadow-md'>Contact Us</h2>
                     <div className="first-name flex flex-col">
