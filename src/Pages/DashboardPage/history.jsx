@@ -82,7 +82,7 @@ function history({user_id}){
      
 
     return (
-        <div className='container py-10 px-16 flex flex-wrap gap-x-5 gap-y-5 justify-center '>
+        <div className='container py-10 px-16 flex flex-wrap gap-x-5 gap-y-5 justify-items-start '>
             
                 {txList.map((txListEach) => (
                     <div className='card w-[350px] h-[400px] bg-slate-400 rounded-md shadow-black shadow-md'>
