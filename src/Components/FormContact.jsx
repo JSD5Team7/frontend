@@ -27,23 +27,23 @@ export const FormContact = () => {
                     <h2 className='font-bold text-4xl text-slate-800 text-center pb-6 drop-shadow-md'>Contact Us</h2>
                     <div className="first-name flex flex-col">
                         <label htmlFor="firstname" className='font-semibold text-slate-800'>First name</label>
-                        <input type="text" name="firstname" id="firstname" placeholder='Jonn' className={inputStyle} />
+                        <input type="text" name="firstname" id="firstname" placeholder='Jonn' className={inputStyle} required/>
                     </div>
                     <div className="last-name flex flex-col">
                         <label htmlFor="lastname" className='font-semibold text-slate-800'>Last name</label>
-                        <input type="text" name="lastname" id="lastname" placeholder='Doe' className={inputStyle} />
+                        <input type="text" name="lastname" id="lastname" placeholder='Doe' className={inputStyle} required/>
                     </div>
                     <div className="email-contact flex flex-col">
                         <label htmlFor="email" className='font-semibold text-slate-800'>Email</label>
-                        <input type="email" name="email" id="email" placeholder='JohnDoe@example.com' className={inputStyle} />
+                        <input type="email" name="email" id="email" placeholder='JohnDoe@example.com' className={inputStyle} required/>
                     </div>
                     <div className="phone-contact flex flex-col">
                         <label htmlFor="phone-number" className='font-semibold text-slate-800'>Phone number</label>
-                        <input type="text" name="phone-number" id="phone-number" placeholder='+66 8 1234 5678' className={inputStyle} />
+                        <input type="text" name="phone-number" id="phone-number" placeholder='+66 8 1234 5678' className={inputStyle} required/>
                     </div>
                     <div className="message flex flex-col">
                         <label htmlFor="message" className='font-semibold text-slate-800'>Message</label>
-                        <textarea name="message" id="message" placeholder='How can we help you?' cols="30" rows="1" className={inputStyle} ></textarea>
+                        <textarea name="message" id="message" placeholder='How can we help you?' cols="30" rows="1" className={inputStyle} required></textarea>
                     </div>
                     <div className="btn-send-message flex justify-end mt-6">
                         <button type='submit' className='font-bold w-40 rounded-full p-2 text-lg  shadow-md  drop-shadow-md  border-solid border-2 bg-lime-400 hover:bg-lime-500 text-slate-800 hover:text-slate-900 ' >Send Message</button>
