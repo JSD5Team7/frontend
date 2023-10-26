@@ -115,10 +115,12 @@ const UserProfile = () => {
         {/* Image */}
         <div>
           <div className="flex items-center ml-10">
-            <img
-              className="border-slate-400 drop-shadow-xl bg-blue-400 h-[225px] w-[225px] rounded-full ml-10"
-              src={user.img}
-            />
+            <div className="border-slate-400 drop-shadow-xl bg-blue-400 min-h-[225px] min-w-[225px] relative overflow-hidden rounded-full ml-10">
+              <img
+                className="drop-shadow-lg w-full rounded-full"
+                src={user.img}
+              />
+            </div>
             <p className="ml-5 text-slate-700 font-semibold text-4xl z-10">
               {user.fname} {user.lname}
             </p>
@@ -278,10 +280,13 @@ const UserProfile = () => {
                     </div>
 
                     <div className="flex flex-col justify-center items-center gap-5">
-                      <img
-                        className="border-slate-400 bg-black drop-shadow-lg h-40 w-40 rounded-full"
-                        src={image}
-                      />
+                      <div className="border-slate-400 bg-black h-40 w-40 relative overflow-hidden rounded-full">
+                        <img
+                          className="drop-shadow-lg w-full rounded-full"
+                          src={image}
+                        />
+                      </div>
+
                       <div className="flex justify-center items-center w-[300px]">
                         <input
                           type="file"

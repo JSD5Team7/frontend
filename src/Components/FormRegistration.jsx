@@ -497,10 +497,13 @@ const FormRegistration = () => {
           />
         </div>
         <div className="flex flex-col justify-center items-center">
+          <div className="w-[100px] h-[100px] relative overflow-hidden border-slate-400 drop-shadow-lg rounded-full">
           <img
-            className="w-[100px] h-[100px] border-slate-400 drop-shadow-lg rounded-full"
+            className="w-full border-slate-400 drop-shadow-lg rounded-full"
             src={image}
           />
+          </div>
+
           <div className="flex justify-center items-center">
             <input
               type="file"
