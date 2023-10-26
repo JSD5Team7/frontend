@@ -142,10 +142,10 @@ const Navbar = ({ children }) => {
           <ul className="flex w-[150px] justify-end items-center gap-3 xl:min-w-[300px]">
             <li className="flex-col w-[40px] h-8 justify-center items-center">
               <NavLink to={"/profile"}>
-                <div className="min-h-[40px] min-w-[40px] relative overflow-hidden rounded-full">
+                <div className="min-h-[40px] min-w-[40px] max-h-[40px] max-w-[40px] relative overflow-hidden rounded-full">
                 <img
                   src={userImg}
-                  className="drop-shadow-lg bg-slate-100 w-full rounded-full"
+                  className="drop-shadow-lg bg-slate-100 object-cover w-full h-full rounded-full "
                 />
                 </div>
                
