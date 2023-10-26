@@ -115,9 +115,9 @@ const UserProfile = () => {
         {/* Image */}
         <div>
           <div className="flex items-center ml-10">
-            <div className="border-slate-400 drop-shadow-xl bg-blue-400 min-h-[225px] min-w-[225px] relative overflow-hidden rounded-full ml-10">
+            <div className="border-slate-400 drop-shadow-xl bg-blue-400 h-[225px] w-[225px] max-h-[225px] max-w-[225px] relative overflow-hidden rounded-full ml-10">
               <img
-                className="drop-shadow-lg w-full rounded-full"
+                className="drop-shadow-lg object-cover w-full h-full rounded-full"
                 src={user.img}
               />
             </div>
@@ -282,7 +282,7 @@ const UserProfile = () => {
                     <div className="flex flex-col justify-center items-center gap-5">
                       <div className="border-slate-400 bg-black h-40 w-40 relative overflow-hidden rounded-full">
                         <img
-                          className="drop-shadow-lg w-full rounded-full"
+                          className="drop-shadow-lg object-cover w-full h-full rounded-full"
                           src={image}
                         />
                       </div>

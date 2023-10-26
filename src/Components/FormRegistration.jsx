@@ -497,9 +497,9 @@ const FormRegistration = () => {
           />
         </div>
         <div className="flex flex-col justify-center items-center">
-          <div className="w-[100px] h-[100px] relative overflow-hidden border-slate-400 drop-shadow-lg rounded-full">
+          <div className="max-w-[100px] max-h-[100px] w-[100px] h-[100px] relative overflow-hidden border-slate-400 drop-shadow-lg rounded-full">
           <img
-            className="w-full border-slate-400 drop-shadow-lg rounded-full"
+            className="object-cover w-full h-full border-slate-400 drop-shadow-lg rounded-full"
             src={image}
           />
           </div>
