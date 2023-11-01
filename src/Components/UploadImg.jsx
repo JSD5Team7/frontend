@@ -22,7 +22,7 @@ const UploadImg = () => {
   useEffect(() => {
     uploadImage();
   }, [imagePreview]);
-  console.log(image);
+  // console.log(image);
 
   return (
     <div>
