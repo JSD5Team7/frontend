@@ -40,7 +40,7 @@ const UserProfile = () => {
     const formData = new FormData();
     formData.append("file", imagePreview);
     formData.append("upload_preset", cloudinaryPreset);
-    console.log(formData);
+    // console.log(formData);
     const response = await axios.post(
       `https://api.cloudinary.com/v1_1/${cloudinaryName}/image/upload`,
       formData
@@ -102,7 +102,16 @@ const UserProfile = () => {
         });
       }
     } else {
-      console.log("Token not found!");
+      toast.error("Token not found!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 

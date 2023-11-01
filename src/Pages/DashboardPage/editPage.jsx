@@ -167,7 +167,7 @@ function editPage(){
             setDataCourt(data);
             return;
         } catch (error) {
-            console.log({measage:error.measage});
+            // console.log({measage:error.measage});
             return;
         }
     };
@@ -199,7 +199,7 @@ function editPage(){
     const getTxAct = async (tx_id,type,userid)=>{
         try {
             const res =  await axios.get(`${baseApi}/activity/${tx_id}`);
-            console.log(tx_id);
+            // console.log(tx_id);
             const data = res.data;
             // console.log(data);
             setbookdata(data);
@@ -237,7 +237,7 @@ function editPage(){
                 path = "aerobicCourt"
                 break;
         }
-        console.log(sport , path)
+        // console.log(sport , path)
         const res = await axios.get(`${baseApi}/${path}/${court}/${date}`);
         if(res.status ===200 && res.data){
             const time = res.data;
@@ -266,7 +266,7 @@ function editPage(){
                 break;
             case "btn_tow":
                 const date_tomr = getDate("btn_tow");
-                console.log(date_tomr);
+                // console.log(date_tomr);
                 //show time button
                 TimeWithCourt(type,bookdata.location,date_tomr);
                 
@@ -293,7 +293,7 @@ function editPage(){
     const CoachList = async (type,date,Stime,whoid)=>{
         //get coach is avalible only,then isBooking = false.
         try {
-            console.log(type,date,Stime,whoid);
+            // console.log(type,date,Stime,whoid);
             let _sport = type;
             if(type == "tabletennis"){
                 _sport = "table_tennis"
@@ -358,9 +358,9 @@ function editPage(){
             }
         }
         try {
-            console.log(data);
+            // console.log(data);
             editTxActivity(data).then((res)=>{
-                console.log(res.data);
+                // console.log(res.data);
                 if(res.data.success == true){
                     toast.success('Edit Success', {
                         position: "top-center",
@@ -423,7 +423,7 @@ function editPage(){
     useEffect(()=>{
         // console.log(tx_id);
         // console.log(type);
-        console.log(bookdata);
+        // console.log(bookdata);
         try {
             //1.get court
             GetDisplayCourt(type);
@@ -446,14 +446,14 @@ function editPage(){
     },[bookdata.time]);
 
     useEffect(()=>{
-        console.log(bookdata);
+        // console.log(bookdata);
     },[bookdata]);
 
     function handleBack(){
         navigate("/dashboard");
     }
     function handleSave(){
-        console.log("save")
+        // console.log("save")
     }
 
     return(

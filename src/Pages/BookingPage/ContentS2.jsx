@@ -53,7 +53,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                 path = "aerobicCourt"
                 break;
         }
-        console.log(sport , path)
+        // console.log(sport , path)
         const res = await axios.get(`${baseApi}/${path}/${court}/${date}`);
         if(res.status ===200 && res.data){
             const time = res.data;
@@ -69,7 +69,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     const CoachList = async (type,date,Stime)=>{
         //get coach is avalible only,then isBooking = false.
         try {
-            console.log(type,date,Stime);
+            // console.log(type,date,Stime);
             const res = await axios.get(`${baseApi}/coachList/coachAva/${type}/${date}/${Stime}`);
             const coach = res.data;
             // console.log(coach);
@@ -82,8 +82,8 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     }
 
     useEffect(()=>{
-        console.log(contextValue.date_init_time);
-        console.log(sport);
+        // console.log(contextValue.date_init_time);
+        // console.log(sport);
         switch(sport){
             case "tennis":
                 getCourt("tennisCourt")
@@ -107,7 +107,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
                 break;
         }
         //init display time
-        console.log(contextValue.bookdata.time)
+        // console.log(contextValue.bookdata.time)
         if(contextValue.bookdata.time !== ""){
             TimeWithCourt(sport,contextValue.bookdata.location,contextValue.bookdata.date);
 
@@ -197,7 +197,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             case "btn_day":
                 const date_today = getDate("btn_day");
                 //show time button
-                console.log(sport,contextValue.bookdata.location,date_today);
+                // console.log(sport,contextValue.bookdata.location,date_today);
                 TimeWithCourt(sport,contextValue.bookdata.location,date_today);
 
                 //update date
@@ -208,7 +208,7 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
             case "btn_tow":
                 const date_tomr = getDate("btn_tow");
                 //show time button
-                console.log(sport,contextValue.bookdata.location,date_tomr);
+                // console.log(sport,contextValue.bookdata.location,date_tomr);
                 TimeWithCourt(sport,contextValue.bookdata.location,date_tomr);
                 
                 //update date
@@ -289,13 +289,13 @@ function ContentS2({sport,changeTostep3,changeContentS3,changeHowtoS1,changeCont
     }
     const handleNext=()=>{
         //console.log(getDataPage2);
-        console.log("Next")
+        // console.log("Next")
         changeTostep3();
         changeContentS3();
     }
 
     const handleBack =()=>{
-        console.log("Back");
+        // console.log("Back");
         changeHowtoS1();
         changeContentS1();
     }
