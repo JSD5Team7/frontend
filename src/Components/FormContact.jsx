@@ -12,8 +12,8 @@ export const FormContact = () => {
 
         emailjs.sendForm('service_kr47zrv', 'template_c1etpq3', form.current, 'SaZ-Z93sbl8o83lLC')
         .then((result) => {
-            console.log(result.text);
-            console.log("message sent")
+            // console.log(result.text);
+            // console.log("message sent")
             alert('message sent')
             e.target.reset();
         }, (error) => {

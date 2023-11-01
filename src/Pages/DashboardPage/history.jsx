@@ -20,7 +20,7 @@ function history({user_id}){
         try {
             const getHistory = async ()=>{
                 const userid = localStorage.userId
-                console.log(userid)
+                // console.log(userid)
                 const res = await axios.get(`${baseApi}/user/history/${userid}`);
                 const data = res.data;
                 // console.log(data);
